@@ -112,7 +112,7 @@ foreach ($produkte_roh as $p) {
 <div class="barcode-overlay" id="barcode-scan-overlay">
   <div class="barcode-box">
     <div class="barcode-kopf">
-      <span style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); ">// BARCODE SCANNEN</span>
+      <span style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); ">Barcode scannen</span>
       <button class="barcode-close" onclick="barcodeScanAbbrechen()">✕</button>
     </div>
     <div id="barcode-scan-viewport" class="barcode-viewport"></div>
@@ -128,7 +128,7 @@ foreach ($produkte_roh as $p) {
 
 <div class="main">
   <div class="page-title">Direktverkauf erfassen</div>
-  <div class="page-sub">// ECHTER VERKAUF — KEIN TEST</div>
+  <div class="page-sub">Echter Verkauf — kein Test</div>
 
   <div class="panel">
     <form method="POST" id="dv-form">

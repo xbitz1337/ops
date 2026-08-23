@@ -121,7 +121,7 @@ $produkte = $pdo->query("SELECT id, name FROM lager_produkte WHERE aktiv = 1 ORD
 <div class="main">
   <a href="auslaendische_vorsteuer.php" class="zurueck-link">← Ausländische Vorsteuer — Übersicht</a>
   <div class="page-title">Auslandseinkauf erfassen</div>
-  <div class="page-sub">// BUCHT LAGER-ZUGANG + TRACKT DIE ZURÜCKZUHOLENDE MWST</div>
+  <div class="page-sub">Bucht Lager-Zugang + trackt die zurückzuholende MwSt</div>
 
   <form method="POST" id="form">
     <div class="panel">

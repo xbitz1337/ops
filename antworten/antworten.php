@@ -112,7 +112,7 @@ foreach ($antworten as $a) { $gruppiert[$a['kategorie']][] = $a; }
   </div>
 
   <?php if (empty($gruppiert)): ?>
-    <div class="empty">// KEINE EINTRÄGE GEFUNDEN</div>
+    <div class="empty">Keine Einträge gefunden</div>
   <?php else: ?>
     <?php foreach ($gruppiert as $kategorie => $items): ?>
     <div class="kategorie-block">
@@ -135,7 +135,7 @@ foreach ($antworten as $a) { $gruppiert[$a['kategorie']][] = $a; }
 <!-- MODAL: Neue Antwort -->
 <div class="modal-overlay" id="modal-neu">
   <div class="modal">
-    <div class="modal-titel">// NEUE STANDARDANTWORT</div>
+    <div class="modal-titel">Neue Standardantwort</div>
     <label class="field-label">Kategorie</label>
     <input class="field-input" type="text" id="neu-kategorie" placeholder="z.B. Versand, Reklamation, Produktpflege">
     <label class="field-label">Titel</label>

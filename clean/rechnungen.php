@@ -99,7 +99,7 @@ $rechnungen = $pdo->query("
 
   <?php if ($kann_bearbeiten): ?>
   <div class="panel">
-    <div class="panel-title">// NEUE RECHNUNG</div>
+    <div class="panel-title">Neue Rechnung</div>
     <label class="field-label">Objekt</label>
     <select class="field-select" id="objekt_id">
       <option value="">— wählen —</option>
@@ -118,9 +118,9 @@ $rechnungen = $pdo->query("
   <?php endif; ?>
 
   <div class="panel">
-    <div class="panel-title">// RECHNUNGSHISTORIE</div>
+    <div class="panel-title">Rechnungshistorie</div>
     <?php if (empty($rechnungen)): ?>
-      <div class="empty">// NOCH KEINE RECHNUNGEN</div>
+      <div class="empty">Noch keine Rechnungen</div>
     <?php else: ?>
       <?php foreach ($rechnungen as $r): ?>
       <div class="rg-zeile" id="rg-<?= $r['id'] ?>">

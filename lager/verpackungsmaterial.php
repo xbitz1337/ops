@@ -137,7 +137,7 @@ $einheit_labels = ['stueck' => 'Stk', 'meter' => 'm', 'gramm' => 'g'];
 
 <div class="main">
   <div class="page-title">Verpackungsmaterial</div>
-  <div class="page-sub">// FOLIE, KARTONS, FÜLLMATERIAL — RESSOURCEN NEBEN DEN PRODUKTEN</div>
+  <div class="page-sub">Folie, Kartons, Füllmaterial — Ressourcen neben den Produkten</div>
 
   <div class="tab-nav">
     <button class="tab-btn active" onclick="tabWechseln('bestand', this)">📦 Bestand</button>
@@ -147,7 +147,7 @@ $einheit_labels = ['stueck' => 'Stk', 'meter' => 'm', 'gramm' => 'g'];
   <div class="tab-content active" id="tab-bestand">
     <?php if ($kann_bearbeiten): ?>
     <div class="panel">
-      <div class="panel-title">// NEUES MATERIAL ANLEGEN</div>
+      <div class="panel-title">Neues Material anlegen</div>
       <div class="row-3">
         <div><label class="field-label">Name</label><input class="field-input" id="neu-name" placeholder="z.B. Folie"></div>
         <div><label class="field-label">Einheit</label>
@@ -165,7 +165,7 @@ $einheit_labels = ['stueck' => 'Stk', 'meter' => 'm', 'gramm' => 'g'];
     <?php endif; ?>
 
     <?php if (empty($materialien)): ?>
-      <div class="empty">// NOCH KEIN VERPACKUNGSMATERIAL ANGELEGT</div>
+      <div class="empty">Noch kein Verpackungsmaterial angelegt</div>
     <?php else: ?>
       <?php foreach ($materialien as $m): $niedrig = $m['mindestbestand'] > 0 && $m['bestand'] <= $m['mindestbestand']; ?>
       <div class="material-karte <?= $niedrig ? 'niedrig' : '' ?>" id="mat-<?= $m['id'] ?>">
@@ -189,7 +189,7 @@ $einheit_labels = ['stueck' => 'Stk', 'meter' => 'm', 'gramm' => 'g'];
 
   <div class="tab-content" id="tab-rezepte">
     <div class="panel">
-      <div class="panel-title">// WELCHES PRODUKT BRAUCHT WELCHES MATERIAL</div>
+      <div class="panel-title">Welches Produkt braucht welches Material</div>
       <div style="font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:14px;">Menge auf 0 setzen, um eine Zuordnung wieder zu entfernen. Änderungen speichern sich automatisch.</div>
     </div>
 

@@ -160,7 +160,7 @@ $prozent = $gesamt > 0 ? round($erledigt_anzahl / $gesamt * 100) : 0;
   </div>
 
   <?php if (empty($stopps)): ?>
-    <div class="empty">// NOCH KEINE STOPPS — OBEN "+ STOPP" ANTIPPEN</div>
+    <div class="empty">Noch keine Stopps — oben "+ Stopp" antippen</div>
   <?php else: ?>
     <?php foreach ($stopps as $i => $s): ?>
     <div class="stopp-karte <?= $s['erledigt'] ? 'erledigt' : '' ?>" id="stopp-<?= $s['id'] ?>">
@@ -196,7 +196,7 @@ $prozent = $gesamt > 0 ? round($erledigt_anzahl / $gesamt * 100) : 0;
 <div class="stopp-modal-overlay" id="stopp-modal-overlay" onclick="if(event.target===this) stoppFormSchliessen()">
   <div class="stopp-modal">
     <div class="stopp-modal-kopf">
-      <span class="panel-title" style="margin-bottom:0;">// NEUEN STOPP HINZUFÜGEN</span>
+      <span class="panel-title" style="margin-bottom:0;">Neuen Stopp hinzufügen</span>
       <button class="modal-close-btn" onclick="stoppFormSchliessen()">✕</button>
     </div>
     <input class="field-input" id="neu-store" placeholder="Store-Name (z.B. Clas Ohlson Göteborg)">

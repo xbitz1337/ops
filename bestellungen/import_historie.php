@@ -264,7 +264,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
 
 <div class="main">
   <div class="page-title">Alte eBay-Bestellungen importieren</div>
-  <div class="page-sub">// CSV-EXPORT AUS EUREM EBAY SELLER HUB</div>
+  <div class="page-sub">CSV-Export aus eurem eBay Seller Hub</div>
 
   <?php if (!empty($ergebnis_text)): ?>
     <div class="ergebnis-box">✓ Import abgeschlossen: <?= htmlspecialchars($ergebnis_text) ?></div>
@@ -273,7 +273,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
   <?php elseif (!empty($vorschau_zeilen)): ?>
     <!-- SCHRITT 3: VORSCHAU + PRODUKT-ZUORDNUNG -->
     <div class="panel">
-      <div class="panel-title">// VORSCHAU — <?= count($vorschau_zeilen) ?> Zeilen gefunden</div>
+      <div class="panel-title">Vorschau — <?= count($vorschau_zeilen) ?> Zeilen gefunden</div>
       <div class="hinweis-liste">Grün = automatisch per hinterlegter eBay-Artikel-ID/SKU erkannt. Orange = bitte manuell zuordnen (oder "Kein Produkt" lassen — zählt dann nur in der Historie, nicht in Umsatz/Lager).</div>
       <form method="POST" action="import_historie.php">
         <input type="hidden" name="schritt" value="3">
@@ -311,7 +311,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
   <?php elseif (isset($_SESSION['import_csv_header'])): ?>
     <!-- SCHRITT 2: SPALTEN ZUORDNEN -->
     <div class="panel">
-      <div class="panel-title">// SPALTEN ZUORDNEN</div>
+      <div class="panel-title">Spalten zuordnen</div>
       <div class="hinweis-liste">Die Felder sind schon automatisch anhand eurer Spaltennamen vorausgefüllt — bitte trotzdem kurz prüfen, ob's stimmt, dann ggf. korrigieren.</div>
       <form method="POST" action="import_historie.php">
         <input type="hidden" name="schritt" value="2">
@@ -345,7 +345,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
   <?php else: ?>
     <!-- SCHRITT 1: UPLOAD -->
     <div class="panel">
-      <div class="panel-title">// SO EXPORTIERST DU DIE DATEI BEI EBAY</div>
+      <div class="panel-title">So exportierst du die Datei bei eBay</div>
       <div class="hinweis-liste">
         1. eBay Seller Hub öffnen → <strong>„Bestellungen" / „Orders"</strong><br>
         2. Zeitraum wählen (z. B. „Letztes Jahr" oder benutzerdefiniert)<br>

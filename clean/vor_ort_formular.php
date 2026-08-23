@@ -138,7 +138,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
   <div>
     <form method="POST" id="form">
       <div class="panel">
-        <div class="panel-title">// KONTAKTDATEN</div>
+        <div class="panel-title">Kontaktdaten</div>
         <label class="field-label">Firma</label>
         <input class="field-input" type="text" name="firma" id="firma" required>
         <div class="check-links">
@@ -166,7 +166,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
       </div>
 
       <div class="panel">
-        <div class="panel-title">// FLÄCHEN &amp; RAHMENDATEN</div>
+        <div class="panel-title">Flächen &amp; Rahmendaten</div>
         <div class="row-2">
           <div><label class="field-label">Fläche (m²)</label><input class="field-input" type="number" name="qm" id="qm" value="100"></div>
           <div><label class="field-label">Glasfläche (m²)</label><input class="field-input" type="number" name="glas_qm" id="glas_qm" value="20"></div>
@@ -195,7 +195,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
       </div>
 
       <div class="panel">
-        <div class="panel-title">// REINIGUNGSARTEN (mehrere möglich)</div>
+        <div class="panel-title">Reinigungsarten (mehrere möglich)</div>
         <?php foreach ($arten as $a): $mittelwert = ($a['preis_min'] + $a['preis_max']) / 2; ?>
         <div class="art-zeile" id="art-zeile-<?= $a['id'] ?>">
           <div class="art-kopf" onclick="artUmschalten(<?= $a['id'] ?>)">
@@ -226,7 +226,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
       </div>
 
       <div class="panel">
-        <div class="panel-title">// GESPRÄCHSNOTIZEN</div>
+        <div class="panel-title">Gesprächsnotizen</div>
         <label class="field-label">Interesse-Level</label>
         <div class="interesse-row">
           <button type="button" class="interesse-btn heiss" data-wert="heiss" onclick="interesseWaehlen('heiss')">🔴 Heiß</button>

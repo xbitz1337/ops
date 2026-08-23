@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="main">
   <div class="page-title">Telegram-Nachricht senden</div>
-  <div class="page-sub">// GEHT AN ALLE, DIE MIT DEM BOT VERBUNDEN SIND</div>
+  <div class="page-sub">Geht an alle, die mit dem Bot verbunden sind</div>
 
   <?php if ($erfolg === true): ?>
     <div class="status-box ok">✓ Nachricht wurde gesendet.</div>

@@ -168,7 +168,7 @@ foreach ($einsaetze as $e) { $nach_datum[$e['datum']][] = $e; }
 
   <?php if ($kann_bearbeiten): ?>
   <div class="panel">
-    <div class="panel-title">// EINSATZ PLANEN</div>
+    <div class="panel-title">Einsatz planen</div>
     <label class="field-label">Objekt</label>
     <select class="field-select" id="objekt_id">
       <option value="">— wählen —</option>
@@ -194,9 +194,9 @@ foreach ($einsaetze as $e) { $nach_datum[$e['datum']][] = $e; }
   <?php endif; ?>
 
   <div class="panel">
-    <div class="panel-title">// KOMMENDE EINSÄTZE (nächste 14 Tage)</div>
+    <div class="panel-title">Kommende Einsätze (nächste 14 Tage)</div>
     <?php if (empty($nach_datum)): ?>
-      <div class="empty">// KEINE EINSÄTZE GEPLANT</div>
+      <div class="empty">Keine Einsätze geplant</div>
     <?php else: ?>
       <?php foreach ($nach_datum as $datum => $liste): ?>
       <div class="tag-block">
@@ -253,7 +253,7 @@ foreach ($einsaetze as $e) { $nach_datum[$e['datum']][] = $e; }
 <div class="modal-overlay" id="modal-notiz">
   <div class="modal">
     <div class="modal-titel">
-      <span id="notiz-modal-titel">// EINSATZ-DETAILS</span>
+      <span id="notiz-modal-titel">Einsatz-Details</span>
       <button class="modal-close" onclick="modalSchliessen()">✕</button>
     </div>
     <div id="notiz-foto-grid" class="foto-grid"></div>
@@ -329,7 +329,7 @@ async function einsatzLoeschen(id) {
 
 function notizModalOeffnen(id, firma, notiz, fotos) {
   aktuelleEinsatzId = id;
-  document.getElementById('notiz-modal-titel').textContent = '// ' + firma.toUpperCase();
+  document.getElementById('notiz-modal-titel').textContent = firma;
   document.getElementById('notiz-text').value = notiz || '';
   const grid = document.getElementById('notiz-foto-grid');
   grid.innerHTML = (fotos && fotos.length)

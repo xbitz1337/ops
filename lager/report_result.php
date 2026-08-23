@@ -73,7 +73,7 @@ if (!$report) {
 <div class="main">
   <div class="check-circle">✓</div>
   <h1>Report wurde erstellt</h1>
-  <div class="subtitle">// WAS MÖCHTEST DU JETZT TUN?</div>
+  <div class="subtitle">Was möchtest du jetzt tun?</div>
 
   <div class="report-summary">
     <div class="zeile"><span class="label">Zeitraum</span><span class="wert"><?= date('d.m.Y', strtotime($report['zeitraum_von'])) ?> – <?= date('d.m.Y', strtotime($report['zeitraum_bis'])) ?></span></div>

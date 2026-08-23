@@ -65,7 +65,7 @@ $gesamt_summe = array_sum(array_column($belege, 'gesamtbetrag'));
 
 <div class="main">
   <div class="page-title">Eigenbeleg-Historie</div>
-  <div class="page-sub">// FAHRTKOSTEN-BELEGE</div>
+  <div class="page-sub">Fahrtkosten-Belege</div>
 
   <div class="summe-box">
     <div class="label">Gesamtsumme aller Belege</div>
@@ -80,7 +80,7 @@ $gesamt_summe = array_sum(array_column($belege, 'gesamtbetrag'));
   </div>
 
   <?php if (empty($belege)): ?>
-    <div class="empty">// NOCH KEINE EIGENBELEGE ERSTELLT</div>
+    <div class="empty">Noch keine Eigenbelege erstellt</div>
   <?php else: ?>
   <table>
     <thead>

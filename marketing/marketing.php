@@ -321,7 +321,7 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
   <div class="page-header">
     <div>
       <div class="page-title">Marketing / Strategie</div>
-      <div class="page-sub">// KANÄLE, ZIELE &amp; CONTENT-KALENDER — <?= strtoupper(date('F Y')) ?></div>
+      <div class="page-sub">Kanäle, Ziele &amp; Content-Kalender — <?= date('F Y') ?></div>
     </div>
     <div class="page-actions">
       <button class="btn btn-primary" onclick="openModal('modal-kanal-add')">+ KANAL</button>
@@ -334,7 +334,7 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
     <div class="panel-header"><div class="panel-title">Kanäle &amp; Ziele</div></div>
     <div class="panel-body">
       <?php if (empty($channels)): ?>
-        <div class="empty">// KEINE KANÄLE — KANAL HINZUFÜGEN</div>
+        <div class="empty">Keine Kanäle — Kanal hinzufügen</div>
       <?php else: ?>
         <div class="grid-cards">
           <?php foreach ($channels as $c):
@@ -407,7 +407,7 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
 <div class="modal-overlay" id="modal-kanal-add">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">// KANAL HINZUFÜGEN</div>
+      <div class="modal-title">Kanal hinzufügen</div>
       <button class="modal-close" onclick="closeModal('modal-kanal-add')">✕</button>
     </div>
     <div class="modal-body">
@@ -429,7 +429,7 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
 <div class="modal-overlay" id="modal-fortschritt">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="fortschritt-title">// FORTSCHRITT</div>
+      <div class="modal-title" id="fortschritt-title">Fortschritt</div>
       <button class="modal-close" onclick="closeModal('modal-fortschritt')">✕</button>
     </div>
     <div class="modal-body">
@@ -448,7 +448,7 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
 <div class="modal-overlay" id="modal-content-add">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">// CONTENT HINZUFÜGEN</div>
+      <div class="modal-title">Content hinzufügen</div>
       <button class="modal-close" onclick="closeModal('modal-content-add')">✕</button>
     </div>
     <div class="modal-body">
@@ -518,15 +518,15 @@ updateClock(); setInterval(updateClock, 1000);
 
 async function addKanal() {
   const name = document.getElementById('k-name').value.trim();
-  if (!name) { showToast('// NAME FEHLT', true); return; }
+  if (!name) { showToast('Name fehlt', true); return; }
   const res = await api({
     action: 'kanal_add', name,
     ziel_umsatz: document.getElementById('k-umsatz').value,
     ziel_bestellungen: document.getElementById('k-bestellungen').value,
     notizen: document.getElementById('k-notizen').value,
   });
-  if (res.error) { showToast('// '+res.error, true); return; }
-  showToast('// KANAL HINZUGEFÜGT');
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Kanal hinzugefügt');
   closeModal('modal-kanal-add');
   setTimeout(() => location.reload(), 800);
 }
@@ -534,16 +534,16 @@ async function addKanal() {
 async function deleteKanal(id) {
   if (!confirm('Kanal wirklich entfernen?')) return;
   const res = await api({ action:'kanal_delete', id });
-  if (res.error) { showToast('// '+res.error, true); return; }
+  if (res.error) { showToast(res.error, true); return; }
   document.getElementById('kanal-'+id)?.remove();
-  showToast('// KANAL ENTFERNT');
+  showToast('Kanal entfernt');
 }
 
 function openFortschritt(channelId, umsatz, bestellungen, name) {
   document.getElementById('f-channel-id').value = channelId;
   document.getElementById('f-umsatz').value = umsatz;
   document.getElementById('f-bestellungen').value = bestellungen;
-  document.getElementById('fortschritt-title').textContent = '// FORTSCHRITT — '+name.toUpperCase();
+  document.getElementById('fortschritt-title').textContent = 'Fortschritt — '+name;
   openModal('modal-fortschritt');
 }
 
@@ -554,15 +554,15 @@ async function saveFortschritt() {
     ist_umsatz: document.getElementById('f-umsatz').value,
     ist_bestellungen: document.getElementById('f-bestellungen').value,
   });
-  if (res.error) { showToast('// '+res.error, true); return; }
-  showToast('// FORTSCHRITT GESPEICHERT');
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Fortschritt gespeichert');
   closeModal('modal-fortschritt');
   setTimeout(() => location.reload(), 800);
 }
 
 async function addContent() {
   const titel = document.getElementById('c-titel').value.trim();
-  if (!titel) { showToast('// TITEL FEHLT', true); return; }
+  if (!titel) { showToast('Titel fehlt', true); return; }
   const res = await api({
     action: 'content_add', titel,
     channel_id: document.getElementById('c-channel').value,
@@ -571,16 +571,16 @@ async function addContent() {
     geplant_am: document.getElementById('c-datum').value,
     notizen: document.getElementById('c-notizen').value,
   });
-  if (res.error) { showToast('// '+res.error, true); return; }
-  showToast('// CONTENT HINZUGEFÜGT');
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Content hinzugefügt');
   closeModal('modal-content-add');
   setTimeout(() => location.reload(), 800);
 }
 
 async function updateContentStatus(id, status) {
   const res = await api({ action:'content_status', id, status });
-  if (res.error) { showToast('// FEHLER', true); return; }
-  showToast('// STATUS AKTUALISIERT');
+  if (res.error) { showToast('Fehler', true); return; }
+  showToast('Status aktualisiert');
   setTimeout(() => location.reload(), 600);
 }
 
@@ -588,7 +588,7 @@ async function deleteContent(id) {
   if (!confirm('Eintrag wirklich löschen?')) return;
   await api({ action:'content_delete', id });
   document.getElementById('content-'+id)?.remove();
-  showToast('// EINTRAG GELÖSCHT');
+  showToast('Eintrag gelöscht');
 }
 </script>
 </body>

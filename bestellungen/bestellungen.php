@@ -454,7 +454,7 @@ foreach ($alle_produkte_rows as $row) {
 
 <div class="main">
   <div class="page-title">Bestellungen</div>
-  <div class="page-sub">// WORKFLOW: NEU → ZU VERPACKEN → VERSAND VORBEREITET → VERSENDET</div>
+  <div class="page-sub">Workflow: neu → zu verpacken → Versand vorbereitet → versendet</div>
   <div class="test-hinweis">⚠️ Amazon/eBay/TikTok-APIs noch nicht angebunden — hier siehst du vorerst nur Test-Bestellungen.</div>
 
   <div class="kanal-tabs">
@@ -506,7 +506,7 @@ foreach ($alle_produkte_rows as $row) {
       </div>
       <div class="spalte-body" id="spalte-body-<?= $key ?>">
         <?php if (empty($spalten[$key])): ?>
-          <div class="empty-spalte">// LEER</div>
+          <div class="empty-spalte">Leer</div>
         <?php endif; ?>
         <?php foreach ($spalten[$key] as $b): ?>
         <div class="karte" id="karte-<?= $b['id'] ?>">
@@ -562,7 +562,7 @@ foreach ($alle_produkte_rows as $row) {
 <!-- RETOURE-MODAL -->
 <div id="retoure-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center;">
   <div style="background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:420px; margin:20px; padding:20px;">
-    <div style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px;" id="retoure-titel">// RETOURE ERFASSEN</div>
+    <div style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px;" id="retoure-titel">Retoure erfassen</div>
     <input type="hidden" id="retoure-id">
 
     <label style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:6px;">Menge</label>
@@ -651,7 +651,7 @@ function pruefeLeereSpalten() {
     if (!hatKarten && !hatLeerHinweis) {
       const div = document.createElement('div');
       div.className = 'empty-spalte';
-      div.textContent = '// LEER';
+      div.textContent = 'Leer';
       body.insertBefore(div, body.firstChild);
     }
   });
@@ -666,7 +666,7 @@ async function testBestellungLoeschen(id) {
 
 function openRetoureModal(id, artikelName, maxMenge) {
   document.getElementById('retoure-id').value = id;
-  document.getElementById('retoure-titel').textContent = '// RETOURE — ' + artikelName.toUpperCase();
+  document.getElementById('retoure-titel').textContent = 'Retoure — ' + artikelName;
   document.getElementById('retoure-menge').value = 1;
   document.getElementById('retoure-menge').max = maxMenge;
   document.getElementById('retoure-grund').value = '';

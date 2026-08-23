@@ -206,7 +206,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
       </div>
       <div class="spalte-body">
         <?php if (empty($spalten[$key])): ?>
-          <div class="empty-spalte">// LEER</div>
+          <div class="empty-spalte">Leer</div>
         <?php endif; ?>
         <?php foreach ($spalten[$key] as $o): ?>
         <div class="karte" id="objekt-<?= $o['id'] ?>" onclick="detailsOeffnen(<?= $o['id'] ?>)" style="cursor:pointer;">
@@ -241,7 +241,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
 <div class="modal-overlay" id="modal-details" onclick="if(event.target===this) detailsSchliessen()">
   <div class="modal-box">
     <div class="modal-kopf">
-      <span id="dm-titel">// LEAD-DETAILS</span>
+      <span id="dm-titel">Lead-Details</span>
       <div style="display:flex; gap:10px; align-items:center;">
         <?php if ($kann_bearbeiten): ?>
         <button class="modal-close" id="dm-bearbeiten-btn" onclick="bearbeitenModusUmschalten()" style="font-size:11px; font-family:var(--mono); color:var(--blue-bright);">✎ Bearbeiten</button>
@@ -315,7 +315,7 @@ async function detailsOeffnen(id) {
   if (res.error) { document.getElementById('dm-inhalt').innerHTML = '<div class="dm-lade">Fehler beim Laden</div>'; return; }
 
   aktuelleDetailDaten = res;
-  document.getElementById('dm-titel').textContent = '// ' + res.firma.toUpperCase();
+  document.getElementById('dm-titel').textContent = res.firma;
   ansichtRendern();
 }
 

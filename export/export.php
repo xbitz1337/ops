@@ -43,13 +43,13 @@ require_modul_zugriff('export');
   <div class="page-title">Daten exportieren (CSV)</div>
 
   <div class="panel">
-    <div class="panel-title">// LAGERBESTAND</div>
+    <div class="panel-title">Lagerbestand</div>
     <div class="panel-desc">Aktueller Bestand, Ø-EK und EK-Wert je Produkt — als Excel-lesbare CSV-Datei.</div>
     <a class="btn-download" href="lager_csv.php">↓ Lagerbestand herunterladen</a>
   </div>
 
   <div class="panel">
-    <div class="panel-title">// BESTELLUNGEN</div>
+    <div class="panel-title">Bestellungen</div>
     <div class="panel-desc">Alle Bestellungen im gewählten Zeitraum, über alle Kanäle.</div>
     <form action="bestellungen_csv.php" method="GET">
       <div class="row-2">

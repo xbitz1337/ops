@@ -218,7 +218,7 @@ $aktivitaeten = $pdo->query("SELECT * FROM aktivitaetslog ORDER BY zeitpunkt DES
 
 <div class="main">
   <div class="page-title">Admin</div>
-  <div class="page-sub">// NUR FÜR DICH SICHTBAR (SYSTEMVERWALTER)</div>
+  <div class="page-sub">Nur für dich sichtbar (Systemverwalter)</div>
 
   <div class="tab-nav">
     <button class="tab-btn active" onclick="tabWechseln('benutzer', this)">👤 Benutzer &amp; Rechte</button>
@@ -229,7 +229,7 @@ $aktivitaeten = $pdo->query("SELECT * FROM aktivitaetslog ORDER BY zeitpunkt DES
 
   <div class="tab-content active" id="tab-benutzer">
     <div class="panel">
-      <div class="panel-title">// NEUEN BENUTZER ANLEGEN</div>
+      <div class="panel-title">Neuen Benutzer anlegen</div>
       <div class="row-3">
         <div><label class="field-label">Username</label><input class="field-input" id="neu-username" type="text" placeholder="z.B. mfriedrich"></div>
         <div><label class="field-label">Name</label><input class="field-input" id="neu-name" type="text" placeholder="Max Friedrich"></div>
@@ -239,7 +239,7 @@ $aktivitaeten = $pdo->query("SELECT * FROM aktivitaetslog ORDER BY zeitpunkt DES
     </div>
 
     <div class="panel">
-      <div class="panel-title">// BESTEHENDE BENUTZER</div>
+      <div class="panel-title">Bestehende Benutzer</div>
       <?php foreach ($alle_user as $u): $ist_admin = $u['username'] === 'qaf'; ?>
       <div class="user-block">
         <div class="user-header" onclick="toggleUser(<?= $u['id'] ?>)">
@@ -291,7 +291,7 @@ $aktivitaeten = $pdo->query("SELECT * FROM aktivitaetslog ORDER BY zeitpunkt DES
 
   <div class="tab-content" id="tab-einstellungen">
     <div class="panel">
-      <div class="panel-title">// GLOBALE EINSTELLUNGEN</div>
+      <div class="panel-title">Globale Einstellungen</div>
       <?php foreach ($alle_einstellungen as $e):
           $meta = $EINSTELLUNGEN_LABELS[$e['schluessel']] ?? ['label' => $e['schluessel'], 'einheit' => ''];
       ?>
@@ -313,9 +313,9 @@ $aktivitaeten = $pdo->query("SELECT * FROM aktivitaetslog ORDER BY zeitpunkt DES
 
   <div class="tab-content" id="tab-papierkorb">
     <div class="panel">
-      <div class="panel-title">// PAPIERKORB (Wiederherstellbar)</div>
+      <div class="panel-title">Papierkorb (wiederherstellbar)</div>
       <?php if (empty($papierkorb_eintraege)): ?>
-        <div class="empty">// LEER</div>
+        <div class="empty">Leer</div>
       <?php else: ?>
         <?php foreach ($papierkorb_eintraege as $p): ?>
         <div class="papierkorb-zeile" id="pk-<?= $p['id'] ?>">
@@ -336,9 +336,9 @@ $aktivitaeten = $pdo->query("SELECT * FROM aktivitaetslog ORDER BY zeitpunkt DES
 
   <div class="tab-content" id="tab-log">
     <div class="panel">
-      <div class="panel-title">// AKTIVITÄTSLOG (letzte 100)</div>
+      <div class="panel-title">Aktivitätslog (letzte 100)</div>
       <?php if (empty($aktivitaeten)): ?>
-        <div class="empty">// NOCH KEINE EINTRÄGE</div>
+        <div class="empty">Noch keine Einträge</div>
       <?php else: ?>
         <?php foreach ($aktivitaeten as $a): ?>
         <div class="log-zeile">

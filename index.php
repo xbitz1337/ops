@@ -239,7 +239,7 @@ $error = '';
       </div>
 
       <?php if($error): ?>
-        <div class="error-msg">// <?= htmlspecialchars($error) ?></div>
+        <div class="error-msg"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>
 
       <button type="submit" class="login-btn" id="login-btn">Zugang anfordern</button>
@@ -280,7 +280,7 @@ $error = '';
 
     if (data.error) {
       err.style.display = 'block';
-      err.textContent = '// ' + data.error.toUpperCase();
+      err.textContent = data.error;
       document.getElementById('pin').value = '';
       document.getElementById('pin').style.borderColor = '#F87171';
       setTimeout(() => document.getElementById('pin').style.borderColor = '', 1500);

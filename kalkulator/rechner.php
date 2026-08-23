@@ -101,7 +101,7 @@ require_modul_zugriff('kalkulator');
 
 <div class="main">
   <div class="page-title">Gewinn-Kalkulator</div>
-  <div class="page-sub">// SCHNELLE WAS-WÄRE-WENN-KALKULATION — UNABHÄNGIG VOM LAGERBESTAND</div>
+  <div class="page-sub">Schnelle Was-wäre-wenn-Kalkulation — unabhängig vom Lagerbestand</div>
 
   <div class="layout">
     <!-- EINGABE -->
@@ -157,7 +157,7 @@ require_modul_zugriff('kalkulator');
     <div>
       <div class="panel-title" style="margin-bottom:16px;">Ergebnis</div>
       <div id="ergebnis-container">
-        <div class="empty-state">// VK- UND EK-PREIS EINTRAGEN FÜR KALKULATION</div>
+        <div class="empty-state">VK- und EK-Preis eintragen für Kalkulation</div>
       </div>
     </div>
   </div>
@@ -191,7 +191,7 @@ function berechnen() {
   const container = document.getElementById('ergebnis-container');
 
   if (!vk || vk <= 0 || !ekInput || ekInput <= 0) {
-    container.innerHTML = '<div class="empty-state">// VK- UND EK-PREIS EINTRAGEN FÜR KALKULATION</div>';
+    container.innerHTML = '<div class="empty-state">VK- und EK-Preis eintragen für Kalkulation</div>';
     return;
   }
 
@@ -205,7 +205,7 @@ function berechnen() {
   if (document.getElementById('pf-tiktok').checked) ausgewaehlt.push('tiktok');
 
   if (ausgewaehlt.length === 0) {
-    container.innerHTML = '<div class="empty-state">// MINDESTENS EINE PLATTFORM AUSWÄHLEN</div>';
+    container.innerHTML = '<div class="empty-state">Mindestens eine Plattform auswählen</div>';
     return;
   }
 

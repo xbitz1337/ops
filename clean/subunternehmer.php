@@ -77,7 +77,7 @@ $subunternehmer = $pdo->query("SELECT * FROM clean_subunternehmer WHERE aktiv = 
 
   <?php if ($kann_bearbeiten): ?>
   <div class="panel">
-    <div class="panel-title">// NEU HINZUFÜGEN</div>
+    <div class="panel-title">Neu hinzufügen</div>
     <div class="row-3">
       <div><label class="field-label">Name</label><input class="field-input" id="neu-name" type="text"></div>
       <div><label class="field-label">Kontakt</label><input class="field-input" id="neu-kontakt" type="text" placeholder="Telefon/E-Mail"></div>
@@ -88,9 +88,9 @@ $subunternehmer = $pdo->query("SELECT * FROM clean_subunternehmer WHERE aktiv = 
   <?php endif; ?>
 
   <div class="panel">
-    <div class="panel-title">// AKTIVE SUBUNTERNEHMER</div>
+    <div class="panel-title">Aktive Subunternehmer</div>
     <?php if (empty($subunternehmer)): ?>
-      <div style="font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:20px;">// NOCH KEINE ANGELEGT</div>
+      <div style="font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:20px;">Noch keine angelegt</div>
     <?php else: ?>
       <?php foreach ($subunternehmer as $s): ?>
       <div class="su-zeile" id="su-<?= $s['id'] ?>">

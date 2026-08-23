@@ -94,7 +94,7 @@ $fake_orte = [['20095', 'Hamburg'], ['10115', 'Berlin'], ['80331', 'München'], 
 
 <div class="main">
   <div class="page-title">Test-Bestellung erstellen</div>
-  <div class="page-sub">// SIMULIERT EINE EINGEHENDE BESTELLUNG FÜR TESTZWECKE</div>
+  <div class="page-sub">Simuliert eine eingehende Bestellung für Testzwecke</div>
 
   <div class="panel">
     <button type="button" class="btn-fake" onclick="zufallsdatenEinfuellen()">🎲 Zufällige Testdaten einfüllen</button>

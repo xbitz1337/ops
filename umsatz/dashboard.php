@@ -152,7 +152,7 @@ $kanal_farben = ['amazon' => '#FBBF24', 'ebay' => '#9494FF', 'tiktok' => '#9CA0B
 
 <div class="main">
   <div class="page-title">Umsatz-Übersicht</div>
-  <div class="page-sub">// AUS TATSÄCHLICHEN LAGER-VERKÄUFEN — NETTO, OHNE 19% USt</div>
+  <div class="page-sub">Aus tatsächlichen Lager-Verkäufen — netto, ohne 19% USt</div>
 
   <div class="zeitraum-tabs">
     <a href="?zeitraum=3monate" class="zeitraum-tab <?= $zeitraum === '3monate' ? 'active' : '' ?>">3 Monate</a>
@@ -184,7 +184,7 @@ $kanal_farben = ['amazon' => '#FBBF24', 'ebay' => '#9494FF', 'tiktok' => '#9CA0B
   <div class="panel">
     <div class="panel-title">Umsatz je Monat</div>
     <?php if (empty($monatsdaten)): ?>
-      <div class="empty">// KEINE VERKÄUFE IM ZEITRAUM</div>
+      <div class="empty">Keine Verkäufe im Zeitraum</div>
     <?php else: ?>
     <div class="balken-chart">
       <?php foreach ($monatsdaten as $m):
@@ -204,7 +204,7 @@ $kanal_farben = ['amazon' => '#FBBF24', 'ebay' => '#9494FF', 'tiktok' => '#9CA0B
   <div class="panel">
     <div class="panel-title">Umsatz je Kanal</div>
     <?php if (empty($kanaldaten)): ?>
-      <div class="empty">// KEINE VERKÄUFE IM ZEITRAUM</div>
+      <div class="empty">Keine Verkäufe im Zeitraum</div>
     <?php else: ?>
     <div class="kanal-liste">
       <?php foreach ($kanaldaten as $k):
@@ -225,7 +225,7 @@ $kanal_farben = ['amazon' => '#FBBF24', 'ebay' => '#9494FF', 'tiktok' => '#9CA0B
   <div class="panel">
     <div class="panel-title">Produkte im Zeitraum — Umsatz &amp; Gewinn</div>
     <?php if (empty($nach_kategorie_verkauf)): ?>
-      <div class="empty">// KEINE VERKÄUFE IM ZEITRAUM</div>
+      <div class="empty">Keine Verkäufe im Zeitraum</div>
     <?php else: ?>
       <?php foreach ($nach_kategorie_verkauf as $kategorie => $items): ?>
       <div style="font-family:var(--mono); font-size:10px; color:var(--blue-bright); margin:16px 0 8px; padding-bottom:6px; border-bottom:1px dashed rgba(124,124,255,0.2);"><?= htmlspecialchars($kategorie) ?></div>

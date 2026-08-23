@@ -69,7 +69,7 @@ $kategorien = $pdo->query('SELECT * FROM lager_kategorien ORDER BY sortierung AS
 
 <div class="main">
   <div class="page-title">Lagerreport</div>
-  <div class="page-sub">// ZEITRAUM WÄHLEN — VORDEFINIERT ODER EIGEN</div>
+  <div class="page-sub">Zeitraum wählen — vordefiniert oder eigen</div>
 
   <div class="panel">
     <div class="panel-title">Zeitraum</div>

@@ -144,7 +144,7 @@ function baue_url($status, $kanal, $suche, $seite) {
   </div>
 
   <?php if (empty($bestellungen)): ?>
-    <div class="empty">// KEINE BESTELLUNGEN GEFUNDEN</div>
+    <div class="empty">Keine Bestellungen gefunden</div>
   <?php else: ?>
   <table>
     <thead>

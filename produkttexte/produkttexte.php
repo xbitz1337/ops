@@ -215,10 +215,10 @@ $plattform_labels = ['amazon' => 'Amazon', 'ebay' => 'eBay', 'tiktok' => 'TikTok
 
 <div class="main">
   <div class="page-title">Produkttext-Generator</div>
-  <div class="page-sub">// COZYCORE-MARKENSTIL — TEXTBAUSTEIN-BASIERT, JEDERZEIT NEU GENERIERBAR</div>
+  <div class="page-sub">CozyCore-Markenstil — textbaustein-basiert, jederzeit neu generierbar</div>
 
   <div class="panel">
-    <div class="panel-title">// EINGABE</div>
+    <div class="panel-title">Eingabe</div>
     <form method="POST">
       <label class="field-label">Produkt</label>
       <select class="field-select" name="produkt_id" required>
@@ -263,9 +263,9 @@ $plattform_labels = ['amazon' => 'Amazon', 'ebay' => 'eBay', 'tiktok' => 'TikTok
   </div>
 
   <div class="panel">
-    <div class="panel-title">// LETZTE 10 GENERIERTE TEXTE</div>
+    <div class="panel-title">Letzte 10 generierte Texte</div>
     <?php if (empty($historie)): ?>
-      <div style="font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:20px;">// NOCH NICHTS GENERIERT</div>
+      <div style="font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:20px;">Noch nichts generiert</div>
     <?php else: ?>
       <?php foreach ($historie as $h): ?>
       <div class="historie-item">

@@ -175,7 +175,7 @@ $status_labels = ['offen' => '⏳ Offen', 'beantragt' => '📤 Beantragt', 'erha
 
 <div class="main">
   <div class="page-title">Ausländische Vorsteuer</div>
-  <div class="page-sub">// TRACKING FÜR AUSLANDSEINKÄUFE (SCHWEDEN, EU U.A.)</div>
+  <div class="page-sub">Tracking für Auslandseinkäufe (Schweden, EU u.a.)</div>
 
   <div class="kpi-row">
     <div class="kpi-card">
@@ -201,7 +201,7 @@ $status_labels = ['offen' => '⏳ Offen', 'beantragt' => '📤 Beantragt', 'erha
   </div>
 
   <?php if (empty($eintraege)): ?>
-    <div class="empty">// KEINE EINTRÄGE GEFUNDEN</div>
+    <div class="empty">Keine Einträge gefunden</div>
   <?php else: ?>
     <?php foreach ($eintraege as $e): ?>
     <div class="eintrag-karte" id="eintrag-<?= $e['id'] ?>">
@@ -244,7 +244,7 @@ $status_labels = ['offen' => '⏳ Offen', 'beantragt' => '📤 Beantragt', 'erha
 <?php if ($ist_admin): ?>
 <div id="bearbeiten-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:400; align-items:center; justify-content:center;">
   <div style="background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:420px; margin:20px; padding:20px;">
-    <div style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px;">// EINTRAG BEARBEITEN</div>
+    <div style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px;">Eintrag bearbeiten</div>
     <input type="hidden" id="be-id">
     <label class="field-label" style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:5px;">Land</label>
     <input class="field-input" id="be-land" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">

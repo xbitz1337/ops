@@ -263,7 +263,7 @@ $historie = $pdo->query("SELECT * FROM eigenbelege ORDER BY erstellt_am DESC LIM
 
 <div class="main">
   <div class="page-title">Eigenbeleg — Fahrtkosten</div>
-  <div class="page-sub">// FÜR PRIVAT GEFAHRENE STRECKEN, KILOMETERSATZ 0,30 €/KM</div>
+  <div class="page-sub">Für privat gefahrene Strecken, Kilometersatz 0,30 €/km</div>
 
   <div class="panel">
     <form method="POST" enctype="multipart/form-data" id="eb-form">
@@ -324,11 +324,11 @@ $historie = $pdo->query("SELECT * FROM eigenbelege ORDER BY erstellt_am DESC LIM
 
   <div class="panel">
     <div class="panel-title" style="display:flex; justify-content:space-between; align-items:center;">
-      <span>// LETZTE BELEGE</span>
+      <span>Letzte Belege</span>
       <a href="eigenbeleg_historie.php" style="font-size:9px; color:var(--blue-bright); text-decoration:none;">Alle ansehen →</a>
     </div>
     <?php if (empty($historie)): ?>
-      <div class="empty">// NOCH KEINE BELEGE ERSTELLT</div>
+      <div class="empty">Noch keine Belege erstellt</div>
     <?php else: ?>
       <?php foreach ($historie as $h): ?>
       <div class="hist-zeile">

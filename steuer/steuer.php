@@ -119,7 +119,7 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
 
 <div class="main">
   <div class="page-title">Steuerrücklage <?= date('Y') ?></div>
-  <div class="page-sub">// GESCHÄTZT AUS TATSÄCHLICHEM ROHERTRAG (30% RICHTWERT)</div>
+  <div class="page-sub">Geschätzt aus tatsächlichem Rohertrag (30% Richtwert)</div>
 
   <div class="kpi-row">
     <div class="kpi-card">
@@ -141,14 +141,14 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
   </div>
 
   <div class="fortschritt-panel">
-    <div class="panel-title">// FORTSCHRITT</div>
+    <div class="panel-title">Fortschritt</div>
     <div class="fortschritt-bar-wrap"><div class="fortschritt-bar" style="width:<?= $fortschritt_pct ?>%;"></div></div>
     <div class="fortschritt-text"><?= round($fortschritt_pct) ?>% der geschätzt benötigten Rücklage zurückgelegt</div>
     <div class="hinweis">Basiert auf 30% des bisherigen Rohertrags — ein Richtwert (KSt 15% + Soli + GewSt), keine verbindliche Steuerberechnung. Für die genaue Höhe fragt euren Steuerberater.</div>
   </div>
 
   <div class="panel">
-    <div class="panel-title">// EINZAHLUNG ERFASSEN</div>
+    <div class="panel-title">Einzahlung erfassen</div>
     <div class="row-2">
       <div>
         <label class="field-label">Betrag (€)</label>
@@ -165,9 +165,9 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
   </div>
 
   <div class="panel">
-    <div class="panel-title">// EINZAHLUNGEN <?= date('Y') ?></div>
+    <div class="panel-title">Einzahlungen <?= date('Y') ?></div>
     <?php if (empty($einzahlungen)): ?>
-      <div class="empty">// NOCH KEINE EINZAHLUNGEN ERFASST</div>
+      <div class="empty">Noch keine Einzahlungen erfasst</div>
     <?php else: ?>
       <?php foreach ($einzahlungen as $e): ?>
       <div class="einzahlung-zeile" id="einzahlung-<?= $e['id'] ?>">

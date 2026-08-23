@@ -78,7 +78,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
 
   <div>
     <div class="panel">
-      <div class="panel-title">// FLÄCHEN &amp; RAHMENDATEN</div>
+      <div class="panel-title">Flächen &amp; Rahmendaten</div>
       <div class="row-2">
         <div><label class="field-label">Fläche (m²)</label><input class="field-input" type="number" id="qm" value="100"></div>
         <div><label class="field-label">Glasfläche (m², für Fensterreinigung)</label><input class="field-input" type="number" id="glas_qm" value="20"></div>
@@ -104,13 +104,13 @@ $laufzeit_optionen = clean_laufzeit_optionen();
     </div>
 
     <div class="panel">
-      <div class="panel-title">// WETTBEWERBSPREIS (optional)</div>
+      <div class="panel-title">Wettbewerbspreis (optional)</div>
       <label class="field-label">Was zahlt der Kunde aktuell? (€/Monat)</label>
       <input class="field-input" type="number" step="0.01" id="aktueller_preis" placeholder="leer lassen, falls unbekannt" style="margin-bottom:0;">
     </div>
 
     <div class="panel">
-      <div class="panel-title">// REINIGUNGSARTEN AUSWÄHLEN (mehrere möglich)</div>
+      <div class="panel-title">Reinigungsarten auswählen (mehrere möglich)</div>
       <?php foreach ($arten as $a): $mittelwert = ($a['preis_min'] + $a['preis_max']) / 2; ?>
       <div class="art-zeile" id="art-zeile-<?= $a['id'] ?>">
         <div class="art-kopf" onclick="artUmschalten(<?= $a['id'] ?>)">
