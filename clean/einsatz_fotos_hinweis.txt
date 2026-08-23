@@ -1,0 +1,1 @@
+Dieser Ordner wird automatisch von einsatz_foto_upload.php befüllt.

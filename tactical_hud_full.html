@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tactical Command Interface</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;900&display=swap');
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #060606;
+    font-family: 'Share Tech Mono', monospace;
+    color: #ffb347;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button { font-family: inherit; cursor: pointer; }
+
+  .screen {
+    position: relative;
+    width: 1440px;
+    max-width: 97vw;
+    aspect-ratio: 16/9.4;
+    background: #0a0a0a;
+    border: 2px solid #1a1a1a;
+    border-radius: 4px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.6);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .scanlines {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 2px, transparent 3px);
+    pointer-events: none; z-index: 60;
+  }
+
+  /* left rail */
+  .rail {
+    grid-row: 1 / 3;
+    background: #060606;
+    border-right: 1px solid #2a2a2a;
+    padding: 14px 12px;
+    font-size: 9.5px;
+    color: #6b6b6b;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .badge {
+    width: 84px; height: 84px; margin: 0 auto 12px;
+    border-radius: 50%;
+    border: 2px solid #d4d4d4;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; color: #d4d4d4;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 8px; letter-spacing: 1px; line-height: 1.5;
+    background: radial-gradient(circle, #1a1a1a, #0a0a0a);
+  }
+  .badge .five0 { font-size: 15px; font-weight: 900; display: block; }
+
+  .rail-section { margin-bottom: 14px; }
+  .rail-title {
+    color: #ffb347; background: #2a1e08; padding: 3px 6px;
+    font-size: 9px; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .asset-row {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+    background: none; border: none; padding: 0; width: 100%; text-align: left; color: inherit;
+  }
+  .asset-row:hover .asset-count { border-color: #ffb347; }
+  .asset-row.active .asset-count { background: #ffb347; color: #1a1200; }
+  .asset-count {
+    color: #ffb347; border: 1px solid #4a3a10; padding: 1px 4px; font-size: 9px; min-width: 26px; text-align: center;
+  }
+  .asset-info { color: #8a8a8a; font-size: 9px; }
+  .asset-info a { color: #4fc3f7; display: block; text-decoration: none; }
+
+  .alert-box { margin-top: auto; font-size: 8.5px; color: #9a9a9a; line-height: 1.6; }
+  .alert-title { color: #ff4d4d; font-size: 9.5px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
+  .alert-title button {
+    background: none; border: 1px solid #ff4d4d; color: #ff4d4d; font-size: 8px; padding: 1px 5px;
+  }
+  .alert-bar { height: 4px; background: #331010; margin-bottom: 6px; position: relative; }
+  .alert-bar span { position: absolute; left:0; top:0; bottom:0; width: 62%; background: #ff4d4d; }
+  .alert-box.dismissed { display: none; }
+
+  /* top bar */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 12px; border-bottom: 1px solid #2a2a2a; font-size: 9px; letter-spacing: 1px; color: #666;
+  }
+  .mode-tabs { display: flex; gap: 6px; }
+  .mode-tabs button {
+    background: none; border: 1px solid #333; color: #777; font-size: 9px; padding: 3px 10px; letter-spacing: 1px;
+  }
+  .mode-tabs button.active { border-color: #ffb347; color: #ffb347; background: #1c1508; }
+  .topbar .right span { margin-left: 14px; }
+  .topbar .right b { color: #4fc3f7; }
+
+  .view { display: none; height: 100%; }
+  .view.active { display: flex; flex-direction: column; }
+
+  /* --- video view --- */
+  .viewer-wrap { position: relative; display: flex; flex-direction: column; padding: 8px 10px 4px; flex: 1; }
+  .pathbar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #4a3005; color: #ffcf6b; font-size: 10px; letter-spacing: 0.5px;
+    padding: 4px 10px; margin-bottom: 6px; border: 1px solid #6b4a0a;
+  }
+  .pathbar .path { color: #ffe4a8; }
+  .content-row { display: flex; gap: 8px; flex: 1; }
+  .adj-panel { width: 100px; display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+  .adj-panel .lbl { font-size: 8.5px; color: #ffb347; margin-bottom: 2px; display: flex; justify-content: space-between; }
+  .adj-panel .lbl b { color: #4fc3f7; }
+  .adj-panel input[type=range] { -webkit-appearance: none; width: 100%; height: 3px; background: #4a3a10; outline: none; }
+  .adj-panel input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%; background: #ffb347; cursor: pointer; }
+  .adj-panel button.reset { margin-top: 4px; background: none; border: 1px solid #4a3a10; color: #ffb347; font-size: 8.5px; padding: 4px; }
+  .adj-panel button.reset:hover { border-color: #ffb347; }
+  .viewer { position: relative; flex: 1; border: 1px solid #ff9a1f; background: #1a1a1a; overflow: hidden; min-height: 340px; }
+  .viewer img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.94; transition: filter 0.05s linear; }
+  .cam-tag { position: absolute; bottom: 10px; left: 10px; background: rgba(30,26,20,0.85); color: #f5e6c8; font-size: 13px; padding: 4px 10px; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
+  .cam-tag::before { content: '\25A3'; color: #ffb347; }
+  .rec-tag { position: absolute; top: 10px; right: 10px; color: #ff5c5c; font-size: 10px; letter-spacing: 1px; background: rgba(20,10,10,0.7); padding: 3px 8px; }
+  .rec-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #ff3b3b; margin-right: 5px; animation: pulse 1.3s infinite; }
+  @keyframes pulse { 50% { opacity: 0.25; } }
+  .action-row { display: flex; gap: 6px; margin-top: 6px; }
+  .action-btn { background: #14100a; border: 1px solid #4a3a10; color: #ffb347; font-size: 9.5px; padding: 5px 10px; letter-spacing: 0.5px; }
+  .action-btn:hover { border-color: #ffb347; background: #2a1e08; }
+  .action-btn.danger { border-color: #6b1a1a; color: #ff8080; }
+  .action-btn.danger:hover { background: #2a0a0a; border-color: #ff4d4d; }
+
+  .modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); display: none; align-items: center; justify-content: center; z-index: 40; }
+  .modal-overlay.show { display: flex; }
+  .modal { width: 260px; border: 1px solid #ff5c5c; background: #0d0808; box-shadow: 0 0 24px rgba(255,60,60,0.35); }
+  .modal .mhead { background: linear-gradient(to right, #7a1414, #ff3b3b); color: #fff; font-size: 10.5px; letter-spacing: 2px; padding: 5px 8px; font-family: 'Orbitron', sans-serif; }
+  .modal .mbody { padding: 14px 10px; text-align: center; }
+  .modal .mbody .title { color: #ffb3b3; font-size: 12px; letter-spacing: 1px; margin-bottom: 6px; }
+  .modal .mbody .fname { color: #ff8080; font-size: 10px; margin-bottom: 12px; }
+  .modal .mbody .confirm-row { display: flex; gap: 10px; justify-content: center; }
+  .modal .mbody .confirm-row button { background: none; border: 1px solid #ff5c5c; color: #ffdada; font-size: 12px; padding: 4px 16px; letter-spacing: 2px; }
+  .modal .mbody .confirm-row button:hover { background: #ff3b3b; color: #1a0000; }
+  .modal .mbody .confirm-row button.no { border-color: #555; color: #aaa; }
+  .modal .mbody .confirm-row button.no:hover { background: #333; color: #fff; }
+  .deleted-flash { position: absolute; inset: 0; background: #000; color: #ff5c5c; display: none; align-items: center; justify-content: center; font-size: 14px; letter-spacing: 2px; z-index: 41; font-family: 'Orbitron', sans-serif; }
+  .deleted-flash.show { display: flex; }
+
+  /* --- profile view --- */
+  .profile-wrap { padding: 10px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .profile-row { display: flex; gap: 8px; flex: 1; min-height: 0; }
+
+  .mugshot-panel { width: 320px; border: 1px solid #ff9a1f; background: #12100c; display: flex; flex-direction: column; }
+  .mugshot-panel .phead { border-bottom: 1px solid #4a3a10; padding: 5px 10px; font-size: 9.5px; letter-spacing: 1px; color: #ffcf6b; }
+  .mugshot-img { flex: 1; display: flex; align-items: center; justify-content: center; background: #1a1a1a; position: relative; overflow: hidden; }
+  .mugshot-img svg { width: 70%; height: 90%; }
+  .mugshot-foot { border-top: 1px solid #4a3a10; padding: 6px 10px; font-size: 9.5px; color: #ffcf6b; }
+  .mugshot-foot div { margin-bottom: 3px; }
+  .mugshot-foot b { color: #fff; }
+
+  .record-panel { flex: 1; border: 1px solid #4fc3f7; background: #0a1218; padding: 10px 14px; overflow-y: auto; font-size: 10.5px; color: #7fd8f5; }
+  .record-panel .rhead { display: flex; justify-content: space-between; color: #4fc3f7; font-size: 9.5px; margin-bottom: 8px; letter-spacing: 1px; }
+  .record-title { color: #b6ecff; font-size: 12px; letter-spacing: 1px; margin: 10px 0 4px; }
+  .record-line { margin-bottom: 3px; color: #6bb8d4; }
+  .record-line b { color: #cdeeff; }
+  .record-link { color: #4fc3f7; text-decoration: underline; }
+  .charge-list { margin-top: 6px; }
+  .charge-row { display: flex; justify-content: space-between; border-top: 1px solid #1c3a4a; padding: 6px 0; }
+  .charge-row .code { color: #ffb347; width: 60px; }
+  .charge-row .desc { flex: 1; }
+  .charge-row .file { color: #4fc3f7; font-size: 9px; text-decoration: underline; }
+
+  .profile-actions { display: flex; gap: 8px; }
+  .profile-actions button { flex: 1; }
+
+  .flagged-note { display: none; color: #ff8080; font-size: 9.5px; margin-top: 8px; letter-spacing: 1px; }
+  .flagged-note.show { display: block; }
+
+  /* bottom bar */
+  .bottombar { grid-column: 1 / 3; display: flex; align-items: center; gap: 16px; padding: 6px 14px; border-top: 1px solid #2a2a2a; background: #060606; font-size: 9px; color: #8a8a8a; flex-wrap: wrap; }
+  .channels { display: flex; gap: 4px; }
+  .channels button { width: 46px; height: 30px; border: 1px solid #333; padding: 0; }
+  .channels button.active { border-color: #ffb347; }
+  .ch-r { background: repeating-linear-gradient(45deg,#3a0000,#3a0000 3px,#5a0000 3px,#5a0000 6px); }
+  .ch-g { background: repeating-linear-gradient(45deg,#003a00,#003a00 3px,#005a00 3px,#005a00 6px); }
+  .ch-b { background: repeating-linear-gradient(45deg,#00003a,#00003a 3px,#00005a 3px,#00005a 6px); }
+  .ch-bw { background: repeating-linear-gradient(45deg,#1a1a1a,#1a1a1a 3px,#3a3a3a 3px,#3a3a3a 6px); }
+  .meter-mini { display: flex; align-items: center; gap: 6px; }
+  .meter-mini .track { width: 60px; height: 5px; background: #1c1c1c; border: 1px solid #333; position: relative; }
+  .meter-mini .track span { position: absolute; top:0; left:0; bottom:0; background: #4fd8ef; transition: width 0.6s linear; }
+  .meter-mini b { color: #4fd8ef; min-width: 30px; display: inline-block; }
+  .spacer { flex: 1; }
+  .search-box { display: flex; align-items: center; gap: 4px; margin-bottom: 10px; }
+  .search-box input { flex: 1; background: #0d0d0d; border: 1px solid #333; color: #ffb347; font-family: inherit; font-size: 9px; padding: 4px 6px; outline: none; }
+  .search-box input:focus { border-color: #ffb347; }
+  .search-box button { background: #2a1e08; border: 1px solid #4a3a10; color: #ffb347; font-size: 9px; padding: 4px 8px; }
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <div class="rail">
+    <div class="badge"><span>SPECIAL INVESTIGATIONS<span class="five0">5-0</span>STATE OF HAWAII</span></div>
+
+    <div class="rail-section">
+      <div class="rail-title">CASE ASSETS: 34-120815</div>
+      <div class="search-box">
+        <input type="text" id="search" placeholder="search case ID...">
+        <button onclick="runSearch()">GO</button>
+      </div>
+      <button class="asset-row" data-cam="1" onclick="setCam(this)">
+        <div class="asset-count">136</div>
+        <div class="asset-info">Documents<a href="#" onclick="event.stopPropagation()">Doc Database Link</a></div>
+      </button>
+      <button class="asset-row" data-cam="2" onclick="setCam(this)">
+        <div class="asset-count">35</div>
+        <div class="asset-info">Images<a href="#" onclick="event.stopPropagation()">Media Database Link</a></div>
+      </button>
+      <button class="asset-row active" data-cam="0" onclick="setCam(this)">
+        <div class="asset-count">22</div>
+        <div class="asset-info">Videos<a href="#" onclick="event.stopPropagation()">Media Database Link</a></div>
+      </button>
+      <button class="asset-row" data-cam="3" onclick="setCam(this)">
+        <div class="asset-count">14</div>
+        <div class="asset-info">Scanned Docs<a href="#" onclick="event.stopPropagation()">Doc Database Link</a></div>
+      </button>
+    </div>
+
+    <div class="alert-box" id="alertBox">
+      <div class="alert-title">ALERT 24-0414 <button onclick="document.getElementById('alertBox').classList.add('dismissed')">DISMISS</button></div>
+      <div class="alert-bar"><span></span></div>
+      <div>APB 093-901352</div>
+      <div>Status: Active</div>
+      <div style="margin-top:6px;">Armed robbery, convenience store. 1 armed individual, security tapes under review.</div>
+      <div style="margin-top:6px;">No shots fired. Suspect considered armed and dangerous. Call for backup immediately.</div>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <div class="mode-tabs">
+      <button id="tabVideo" class="active" onclick="showView('video')">VIDEO FEED</button>
+      <button id="tabProfile" onclick="showView('profile')">SUSPECT PROFILE</button>
+    </div>
+    <div class="right">
+      <span>GRAPHICS ACCELERATION <b>ON</b></span>
+      <span id="clock">00:00:00</span>
+    </div>
+  </div>
+
+  <!-- ===== VIDEO VIEW ===== -->
+  <div class="view active" id="viewVideo">
+    <div class="viewer-wrap">
+      <div class="pathbar">
+        <span>H5-0 NAS: Secure Video Server</span>
+        <span class="path" id="pathLabel">\\Server02\Video\Current\ref_34-0900665\Item34.1</span>
+        <span>Enc [256bit]</span>
+      </div>
+
+      <div class="content-row">
+        <div class="adj-panel">
+          <div><div class="lbl">Hue <b id="hueVal">0</b></div><input type="range" id="hue" min="-180" max="180" value="0" oninput="applyFilters()"></div>
+          <div><div class="lbl">Bright <b id="brightVal">100</b></div><input type="range" id="bright" min="20" max="200" value="100" oninput="applyFilters()"></div>
+          <div><div class="lbl">Contrast <b id="contrastVal">100</b></div><input type="range" id="contrast" min="20" max="200" value="100" oninput="applyFilters()"></div>
+          <div><div class="lbl">Zoom <b id="zoomVal">100</b></div><input type="range" id="zoom" min="100" max="300" value="100" oninput="applyFilters()"></div>
+          <button class="reset" onclick="resetFilters()">RESET</button>
+          <div class="action-row" style="flex-direction:column; margin-top:14px;">
+            <button class="action-btn" onclick="enhance()">ENHANCE</button>
+            <button class="action-btn" onclick="showView('profile')">RUN FACE MATCH</button>
+            <button class="action-btn danger" onclick="openDelete()">DELETE FILE</button>
+          </div>
+        </div>
+
+        <div class="viewer">
+          <img id="feedImg" src="https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=1200&q=60" alt="lobby surveillance feed">
+          <div class="cam-tag" id="camTag">08 - LOBBY CAM</div>
+          <div class="rec-tag">LIVE</div>
+          <div class="modal-overlay" id="deleteModal">
+            <div class="modal">
+              <div class="mhead">DELETE VIDEO</div>
+              <div class="mbody">
+                <div class="title">DELETE VIDEO FILE</div>
+                <div class="fname">34-007934.MOV</div>
+                <div class="confirm-row">
+                  <button onclick="confirmDelete()">Y</button>
+                  <button class="no" onclick="closeDelete()">N</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="deleted-flash" id="deletedFlash">FILE DELETED — LOG UPDATED</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROFILE VIEW ===== -->
+  <div class="view" id="viewProfile">
+    <div class="profile-wrap">
+      <div class="profile-row">
+        <div class="mugshot-panel">
+          <div class="phead">Central Records: Unbooked Image Server</div>
+          <div class="mugshot-img">
+            <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="240" fill="#20242a"/>
+              <circle cx="100" cy="95" r="52" fill="#3a3f47"/>
+              <rect x="55" y="150" width="90" height="90" rx="14" fill="#3a3f47"/>
+              <circle cx="80" cy="90" r="5" fill="#12141a"/>
+              <circle cx="120" cy="90" r="5" fill="#12141a"/>
+              <path d="M82 120 Q100 130 118 120" stroke="#12141a" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="mugshot-foot">
+            <div>&#128100; <b id="pfName">SUBJECT: KAHALE, D.</b></div>
+            <div>ID# <span id="pfId">HN-3422-179</span></div>
+          </div>
+        </div>
+
+        <div class="record-panel">
+          <div class="rhead"><span>Central Records (77384-013287)</span><span>Media Viewer 2</span></div>
+
+          <div>&#9635; HPD REPORT [1]</div>
+          <div class="record-line"><b>CENTRAL RECORDS:</b> <span id="pfNameFull">D. KAHALE</span></div>
+          <div class="record-line">SEP 967-71-5334 &nbsp; 1408 WHITMAN ST, HONOLULU, HI 96820</div>
+          <div class="record-line">SPEC#: 2-INT &nbsp; PRIOR-REC 0084751 &nbsp; HPD-INT #2146728</div>
+          <div class="record-line">REC ON LIST <span class="record-link">[184735, 56381446]</span></div>
+
+          <div class="record-title">COMBINED REPORT: <span id="pfLast">KAHALE, D.</span></div>
+          <div class="record-line">FULL ARREST RECORD &nbsp; <span class="record-link">FILE 46-36816788.DOC -174.DOC</span></div>
+
+          <div class="charge-list">
+            <div class="charge-row"><span class="code">708-830</span><span class="desc">THEFT — 03-JAN-19</span><span class="file">FFPT-40-MD</span></div>
+            <div class="charge-row"><span class="code">708-840</span><span class="desc">ROBBERY — 03-JAN-19</span><span class="file">ROB-2.0-HI</span></div>
+            <div class="charge-row"><span class="code">708-810</span><span class="desc">HOME INVASION — 22-OCT-21</span><span class="file">HIFF-1.0-HI</span></div>
+          </div>
+
+          <div class="record-line" style="margin-top:10px;">PAROLE REPORT &nbsp; P.O. OFFICER 946-349</div>
+          <div class="record-line">REPORT #562P021.134-003.DOC</div>
+
+          <div class="profile-actions" style="margin-top:14px;">
+            <button class="action-btn" onclick="crossCheck()">CROSS-CHECK APB</button>
+            <button class="action-btn danger" onclick="flagSuspect()">FLAG SUSPECT</button>
+          </div>
+          <div class="flagged-note" id="flagNote">&#9873; SUSPECT FLAGGED — UNITS NOTIFIED, LOCATION PING REQUESTED</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottombar">
+    <div class="channels">
+      <button class="ch-r" onclick="setChannel(this,'sepia(1) saturate(6) hue-rotate(-50deg)')"></button>
+      <button class="ch-g" onclick="setChannel(this,'sepia(1) saturate(6) hue-rotate(70deg)')"></button>
+      <button class="ch-b" onclick="setChannel(this,'sepia(1) saturate(6) hue-rotate(180deg)')"></button>
+      <button class="ch-bw active" onclick="setChannel(this,'')"></button>
+    </div>
+    <span id="statusMsg">ENCODING OFF &nbsp; DELTA COMPRESSION &nbsp; VIDEO PROCESSOR</span>
+    <div class="meter-mini">MEM <div class="track"><span id="memBar" style="width:51%"></span></div><b id="memVal">51%</b></div>
+    <div class="meter-mini">CPU <div class="track"><span id="cpuBar" style="width:56%"></span></div><b id="cpuVal">56%</b></div>
+    <div class="meter-mini">THP <div class="track"><span id="thpBar" style="width:38%"></span></div><b id="thpVal">38&deg;C</b></div>
+    <div class="meter-mini">GPU <div class="track"><span id="gpuBar" style="width:27%"></span></div><b id="gpuVal">27&deg;C</b></div>
+    <div class="spacer"></div>
+    <span>SSD <b>460 GB</b></span>
+    <span>NAS <b>23 TB</b></span>
+  </div>
+
+  <div class="scanlines"></div>
+</div>
+
+<script>
+  const cams = [
+    { tag: '08 - LOBBY CAM', img: 'https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=1200&q=60', path: '\\\\Server02\\Video\\Current\\ref_34-0900665\\Item34.1' },
+    { tag: '02 - DOC SCANNER', img: 'https://images.unsplash.com/photo-1568607689150-17e625c1586e?w=1200&q=60', path: '\\\\Server02\\Docs\\Case34-120815\\Batch012' },
+    { tag: '04 - EVIDENCE PHOTO', img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=60', path: '\\\\Server02\\Images\\Case34-120815\\IMG_0441' },
+    { tag: '11 - ARCHIVE SCAN', img: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=60', path: '\\\\Server02\\Scans\\Case34-120815\\Doc014' }
+  ];
+  let channelFilter = '';
+
+  function showView(name) {
+    document.getElementById('viewVideo').classList.toggle('active', name === 'video');
+    document.getElementById('viewProfile').classList.toggle('active', name === 'profile');
+    document.getElementById('tabVideo').classList.toggle('active', name === 'video');
+    document.getElementById('tabProfile').classList.toggle('active', name === 'profile');
+  }
+
+  function applyFilters() {
+    const hue = document.getElementById('hue').value;
+    const bright = document.getElementById('bright').value;
+    const contrast = document.getElementById('contrast').value;
+    const zoom = document.getElementById('zoom').value;
+    document.getElementById('hueVal').textContent = hue;
+    document.getElementById('brightVal').textContent = bright;
+    document.getElementById('contrastVal').textContent = contrast;
+    document.getElementById('zoomVal').textContent = zoom;
+    const img = document.getElementById('feedImg');
+    img.style.filter = `hue-rotate(${hue}deg) brightness(${bright}%) contrast(${contrast}%) ${channelFilter}`;
+    img.style.transform = `scale(${zoom/100})`;
+  }
+  function resetFilters() {
+    document.getElementById('hue').value = 0;
+    document.getElementById('bright').value = 100;
+    document.getElementById('contrast').value = 100;
+    document.getElementById('zoom').value = 100;
+    applyFilters();
+  }
+  function setChannel(btn, filter) {
+    document.querySelectorAll('.channels button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    channelFilter = filter;
+    applyFilters();
+  }
+  function setCam(btn) {
+    document.querySelectorAll('.asset-row').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cam = cams[btn.dataset.cam];
+    document.getElementById('feedImg').src = cam.img;
+    document.getElementById('camTag').textContent = cam.tag;
+    document.getElementById('pathLabel').textContent = cam.path;
+    resetFilters();
+    showView('video');
+  }
+  function enhance() {
+    const statusEl = document.getElementById('statusMsg');
+    statusEl.textContent = 'ENHANCING IMAGE...';
+    document.getElementById('contrast').value = 145;
+    document.getElementById('bright').value = 115;
+    applyFilters();
+    setTimeout(() => { statusEl.textContent = 'ENHANCE COMPLETE'; }, 900);
+    setTimeout(() => { statusEl.textContent = 'ENCODING OFF   DELTA COMPRESSION   VIDEO PROCESSOR'; }, 2400);
+  }
+  function openDelete() { document.getElementById('deleteModal').classList.add('show'); }
+  function closeDelete() { document.getElementById('deleteModal').classList.remove('show'); }
+  function confirmDelete() {
+    closeDelete();
+    const flash = document.getElementById('deletedFlash');
+    flash.classList.add('show');
+    setTimeout(() => flash.classList.remove('show'), 1300);
+  }
+  function runSearch() {
+    const q = document.getElementById('search').value.trim();
+    const statusEl = document.getElementById('statusMsg');
+    statusEl.textContent = q ? `SEARCHING CASE FILES FOR "${q.toUpperCase()}"...` : 'ENTER A CASE ID TO SEARCH';
+    setTimeout(() => {
+      statusEl.textContent = q ? `${Math.floor(Math.random()*9)+1} RESULT(S) FOUND` : 'ENCODING OFF   DELTA COMPRESSION   VIDEO PROCESSOR';
+    }, 1000);
+  }
+  function crossCheck() {
+    const statusEl = document.getElementById('statusMsg');
+    statusEl.textContent = 'CROSS-CHECKING APB DATABASE...';
+    setTimeout(() => { statusEl.textContent = 'MATCH FOUND — APB 093-901352'; }, 1100);
+  }
+  function flagSuspect() {
+    document.getElementById('flagNote').classList.add('show');
+  }
+  function tick() { document.getElementById('clock').innerHTML = new Date().toTimeString().slice(0,8); }
+  tick();
+  setInterval(tick, 1000);
+  function jitterMeters() {
+    const meters = [
+      { bar: 'memBar', val: 'memVal', base: 51, unit: '%' },
+      { bar: 'cpuBar', val: 'cpuVal', base: 56, unit: '%' },
+      { bar: 'thpBar', val: 'thpVal', base: 38, unit: '&deg;C' },
+      { bar: 'gpuBar', val: 'gpuVal', base: 27, unit: '&deg;C' }
+    ];
+    meters.forEach(m => {
+      const v = Math.max(5, Math.min(99, m.base + Math.round((Math.random()-0.5)*14)));
+      document.getElementById(m.bar).style.width = v + '%';
+      document.getElementById(m.val).innerHTML = v + m.unit;
+    });
+  }
+  setInterval(jitterMeters, 2200);
+  applyFilters();
+</script>
+
+</body>
+</html>
