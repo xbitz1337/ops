@@ -506,136 +506,129 @@ unset($t);
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="NA Ops">
-<meta name="theme-color" content="#0f1923">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#14161F">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:        #0f1923;
-    --navy2:       #152236;
-    --blue-mid:    #1e3a5f;
-    --blue-accent: #2d6aad;
-    --blue-bright: #4a9edd;
-    --text:        #c8dff0;
-    --text-dim:    #5a7a9a;
-    --green:       #2ecc71;
-    --orange:      #e67e22;
-    --red:         #e74c3c;
-    --terracotta:  #c88b5a;   /* CozyCore-Akzent, nur bei Wärmflasche-Kategorie */
-    --mono:        'Share Tech Mono', monospace;
-    --sans:        'Exo 2', sans-serif;
+    --navy:        #14161F;
+    --navy2:       #1D2030;
+    --blue-mid:    #262A3D;
+    --blue-accent: #7C7CFF;
+    --blue-bright: #9494FF;
+    --line:        #2E3248;
+    --accent-soft: rgba(124,124,255,0.15);
+    --text:        #E4E6F0;
+    --text-dim:    #8B8FA8;
+    --green:       #4ADE80;
+    --orange:      #FBBF24;
+    --red:         #F87171;
+    --terracotta:  #D9A066;   /* CozyCore-Akzent, nur bei Wärmflasche-Kategorie */
+    --mono:        'Inter', -apple-system, sans-serif;
+    --sans:        'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; overflow-x:hidden; }
-  body::before {
-    content:''; position:fixed; inset:0;
-    background-image: linear-gradient(rgba(45,106,173,0.05) 1px,transparent 1px), linear-gradient(90deg,rgba(45,106,173,0.05) 1px,transparent 1px);
-    background-size:40px 40px; pointer-events:none; z-index:0;
-  }
-  .scanlines { position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px); pointer-events:none; z-index:1; }
 
   /* TOPBAR */
-  .topbar { position:fixed; top:0; left:0; right:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .topbar-left { display:flex; align-items:center; gap:14px; }
-  .logo-mark { width:30px; height:30px; background:var(--blue-mid); border:1px solid var(--blue-accent); display:flex; align-items:center; justify-content:center; clip-path:polygon(10% 0%,90% 0%,100% 10%,100% 90%,90% 100%,10% 100%,0% 90%,0% 10%); }
-  .logo-mark span { font-family:var(--mono); font-size:10px; color:var(--blue-bright); }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
-  .topbar-right { display:flex; align-items:center; gap:16px; font-family:var(--mono); font-size:10px; color:var(--text-dim); }
-  .status-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--green); margin-right:5px; animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .user-badge { background:rgba(45,106,173,0.15); border:1px solid rgba(45,106,173,0.3); padding:4px 10px; color:var(--blue-bright); letter-spacing:2px; }
-  .logout-btn { background:none; border:none; font-family:var(--mono); font-size:10px; color:var(--text-dim); cursor:pointer; letter-spacing:2px; transition:color 0.2s; }
+  .topbar { position:fixed; top:0; left:0; right:0; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; background:var(--navy2); border-bottom:1px solid var(--line); z-index:100; }
+  .topbar-left { display:flex; align-items:center; gap:12px; }
+  .logo-mark { width:32px; height:32px; border-radius:10px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; }
+  .logo-mark span { font-size:12px; font-weight:700; color:var(--blue-accent); }
+  .topbar-title { font-size:15px; font-weight:600; color:#F5F6FA; }
+  .topbar-right { display:flex; align-items:center; gap:16px; font-size:12px; color:var(--text-dim); }
+  .status-dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green); margin-right:6px; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+  .user-badge { background:var(--blue-mid); border:1px solid var(--line); border-radius:20px; padding:5px 12px; color:var(--text); font-weight:500; }
+  .logout-btn { background:none; border:none; font-size:12px; color:var(--text-dim); cursor:pointer; transition:color 0.15s; }
   .logout-btn:hover { color:var(--red); }
 
   /* SIDEBAR */
-  .sidebar { position:fixed; top:48px; left:0; bottom:0; width:200px; background:rgba(15,25,35,0.92); border-right:1px solid rgba(45,106,173,0.15); z-index:50; padding:20px 0; display:flex; flex-direction:column; gap:2px; }
-  .nav-section { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:3px; padding:12px 18px 6px; text-transform:uppercase; }
-  .nav-item { display:flex; align-items:center; gap:10px; padding:10px 18px; font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:1px; cursor:pointer; transition:all 0.15s; border-left:2px solid transparent; text-transform:uppercase; }
-  .nav-item:hover { color:var(--text); background:rgba(45,106,173,0.08); }
-  .nav-item.active { color:var(--blue-bright); background:rgba(74,158,221,0.08); border-left-color:var(--blue-bright); }
-  .nav-icon { font-size:13px; width:16px; text-align:center; }
-  .nav-badge { margin-left:auto; background:var(--blue-accent); color:#fff; font-size:9px; padding:1px 6px; border-radius:2px; }
+  .sidebar { position:fixed; top:56px; left:0; bottom:0; width:216px; background:var(--navy2); border-right:1px solid var(--line); z-index:50; padding:20px 0; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
+  .nav-section { font-size:11px; color:var(--text-dim); letter-spacing:1px; padding:14px 20px 6px; font-weight:600; text-transform:uppercase; }
+  .nav-item { display:flex; align-items:center; gap:10px; padding:10px 20px; font-size:13.5px; color:var(--text-dim); cursor:pointer; transition:all 0.15s; font-weight:500; border-left:3px solid transparent; text-decoration:none; }
+  .nav-item:hover { color:var(--text); background:var(--blue-mid); }
+  .nav-item.active { color:var(--blue-accent); background:var(--accent-soft); border-left-color:var(--blue-accent); }
+  .nav-icon { font-size:14px; width:18px; text-align:center; }
+  .nav-badge { margin-left:auto; background:var(--blue-accent); color:#fff; font-size:11px; font-weight:600; padding:1px 7px; border-radius:10px; }
   .nav-badge.urgent { background:var(--red); }
   .nav-spacer { flex:1; }
 
   /* MAIN */
-  .main { margin-left:200px; margin-top:48px; padding:24px; position:relative; z-index:2; }
+  .main { margin-left:216px; margin-top:56px; padding:28px; position:relative; z-index:2; }
   .page { display:none; animation:fadeUp 0.3s ease; }
   .page.active { display:block; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
   /* PAGE HEADER */
   .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:2px; margin-top:4px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; }
+  .page-sub { font-size:13px; color:var(--text-dim); margin-top:4px; }
   .page-actions { display:flex; gap:8px; flex-wrap:wrap; }
 
   /* STATS */
   .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px; }
-  .stat-card { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:16px 18px; position:relative; overflow:hidden; }
-  .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue-accent),var(--blue-bright)); }
-  .stat-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
-  .stat-value { font-size:28px; font-weight:700; color:#e8f4ff; line-height:1; }
+  .stat-card { background:var(--navy2); border:1px solid var(--line); border-radius:18px; padding:18px 20px; position:relative; overflow:hidden; }
+  .stat-label { font-size:11px; color:var(--text-dim); font-weight:500; margin-bottom:8px; }
+  .stat-value { font-size:26px; font-weight:700; color:#F5F6FA; line-height:1; }
   .stat-value.green { color:var(--green); }
   .stat-value.orange { color:var(--orange); }
-  .stat-detail { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:6px; }
+  .stat-detail { font-size:11px; color:var(--text-dim); margin-top:6px; }
 
   /* GRID */
   .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
 
   /* PANEL */
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); position:relative; margin-bottom:16px; }
-  .panel::after { content:''; position:absolute; bottom:0; right:0; width:12px; height:12px; border-bottom:1px solid rgba(45,106,173,0.3); border-right:1px solid rgba(45,106,173,0.3); }
-  .panel-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(45,106,173,0.15); flex-wrap:wrap; gap:8px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--blue-bright); display:flex; align-items:center; gap:8px; }
-  .panel-title::before { content:'//'; color:var(--blue-accent); }
-  .panel-action { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; cursor:pointer; transition:color 0.2s; background:none; border:none; }
+  .panel { background:var(--navy2); border:1px solid var(--line); border-radius:20px; position:relative; margin-bottom:16px; }
+  .panel-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:8px; }
+  .panel-title { font-size:15px; font-weight:600; color:var(--text); display:flex; align-items:center; gap:8px; }
+  .panel-action { font-size:12px; color:var(--text-dim); cursor:pointer; transition:color 0.2s; background:none; border:none; font-family:var(--sans); }
   .panel-action:hover { color:var(--blue-bright); }
-  .panel-body { padding:16px 18px; }
+  .panel-body { padding:18px 20px; }
 
   /* BUTTONS */
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:8px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; }
-  .btn-primary { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
-  .btn-primary:hover { background:rgba(74,158,221,0.1); border-color:var(--blue-bright); }
-  .btn-terracotta { color:var(--terracotta); border-color:rgba(200,139,90,0.4); }
-  .btn-terracotta:hover { background:rgba(200,139,90,0.1); border-color:var(--terracotta); }
-  .btn-danger { color:var(--red); border-color:rgba(231,76,60,0.3); }
-  .btn-danger:hover { background:rgba(231,76,60,0.1); }
-  .btn-sm { padding:5px 10px; font-size:9px; }
+  .btn { font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 16px; border-radius:12px; cursor:pointer; border:1px solid; transition:all 0.15s; background:none; }
+  .btn-primary { color:var(--blue-bright); border-color:rgba(124,124,255,0.4); }
+  .btn-primary:hover { background:var(--accent-soft); border-color:var(--blue-bright); }
+  .btn-terracotta { color:var(--terracotta); border-color:rgba(217,160,102,0.4); }
+  .btn-terracotta:hover { background:rgba(217,160,102,0.12); border-color:var(--terracotta); }
+  .btn-danger { color:var(--red); border-color:rgba(248,113,113,0.35); }
+  .btn-danger:hover { background:rgba(248,113,113,0.12); }
+  .btn-sm { padding:6px 11px; font-size:12px; border-radius:10px; }
 
   /* TODO ITEMS */
-  .todo-item { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid rgba(45,106,173,0.1); }
+  .todo-item { display:flex; align-items:flex-start; gap:12px; padding:14px 0; border-bottom:1px solid var(--line); }
   .todo-item:last-child { border-bottom:none; }
-  .todo-priority { width:3px; height:44px; flex-shrink:0; border-radius:2px; margin-top:2px; }
+  .todo-priority { width:4px; height:44px; flex-shrink:0; border-radius:4px; margin-top:2px; }
   .todo-priority.hoch { background:var(--red); }
   .todo-priority.mittel { background:var(--orange); }
   .todo-priority.niedrig { background:var(--green); }
   .todo-info { flex:1; }
-  .todo-title { font-size:13px; font-weight:600; color:var(--text); margin-bottom:4px; }
-  .todo-meta { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; display:flex; gap:10px; flex-wrap:wrap; }
-  .todo-assignee { background:rgba(45,106,173,0.15); border:1px solid rgba(45,106,173,0.25); padding:1px 7px; font-size:9px; color:var(--blue-bright); letter-spacing:1px; white-space:nowrap; font-family:var(--mono); }
-  .todo-status { font-family:var(--mono); font-size:9px; letter-spacing:2px; padding:2px 8px; border:1px solid; white-space:nowrap; }
-  .todo-status.offen { color:var(--orange); border-color:rgba(230,126,34,0.3); }
-  .todo-status.in_bearbeitung { color:var(--blue-bright); border-color:rgba(74,158,221,0.3); }
-  .todo-status.erledigt { color:var(--green); border-color:rgba(46,204,113,0.3); }
+  .todo-title { font-size:13.5px; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .todo-meta { font-size:11px; color:var(--text-dim); display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .todo-assignee { background:var(--accent-soft); border-radius:8px; padding:2px 9px; font-size:11px; color:var(--blue-bright); white-space:nowrap; }
+  .todo-status { font-size:11px; font-weight:600; border-radius:10px; padding:3px 10px; border:1px solid; white-space:nowrap; }
+  .todo-status.offen { color:var(--orange); border-color:rgba(251,191,36,0.3); }
+  .todo-status.in_bearbeitung { color:var(--blue-bright); border-color:rgba(124,124,255,0.3); }
+  .todo-status.erledigt { color:var(--green); border-color:rgba(74,222,128,0.3); }
   .deadline-warn { color:var(--red); }
 
   /* LAGER ITEMS */
   .kategorie-block { margin-bottom:18px; }
   .kategorie-block:last-child { margin-bottom:0; }
-  .kategorie-label { font-family:var(--mono); font-size:10px; letter-spacing:3px; text-transform:uppercase; padding:6px 0; margin-bottom:6px; border-bottom:1px dashed rgba(45,106,173,0.2); display:flex; align-items:center; justify-content:space-between; }
-  .kategorie-label.is-cozycore { color:var(--terracotta); border-bottom-color:rgba(200,139,90,0.25); }
+  .kategorie-label { font-size:12px; font-weight:600; padding:6px 0; margin-bottom:6px; border-bottom:1px dashed var(--line); display:flex; align-items:center; justify-content:space-between; }
+  .kategorie-label.is-cozycore { color:var(--terracotta); border-bottom-color:rgba(217,160,102,0.3); }
   .kategorie-label.is-other { color:var(--blue-bright); }
-  .kategorie-count { font-size:9px; color:var(--text-dim); }
+  .kategorie-count { font-size:11px; color:var(--text-dim); font-weight:500; }
 
-  .lager-item { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid rgba(45,106,173,0.1); }
+  .lager-item { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--line); }
   .lager-item:last-child { border-bottom:none; }
-  .lager-img { width:48px; height:48px; background:var(--blue-mid); border:1px solid rgba(45,106,173,0.3); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; overflow:hidden; }
+  .lager-img { width:48px; height:48px; border-radius:12px; background:var(--blue-mid); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; overflow:hidden; }
   .lager-img img { width:100%; height:100%; object-fit:cover; }
-  .lager-name { font-size:13px; font-weight:600; color:var(--text); margin-bottom:3px; }
-  .lager-stock { font-family:var(--mono); font-size:10px; color:var(--text-dim); }
-  .lager-stock span { color:var(--blue-bright); }
+  .lager-name { font-size:13.5px; font-weight:600; color:var(--text); margin-bottom:3px; }
+  .lager-stock { font-size:12px; color:var(--text-dim); }
+  .lager-stock span { color:var(--blue-bright); font-weight:600; }
   .lager-stock span.low { color:var(--red); }
-  .lager-ekwert { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:2px; }
+  .lager-ekwert { font-size:11px; color:var(--text-dim); margin-top:2px; }
 
   /* ÜBERSICHTS-KREISE (Lager-Seite) */
   .kreise-row { display:flex; gap:20px; flex-wrap:wrap; justify-content:space-around; padding:20px 10px 24px; }
@@ -643,19 +636,19 @@ unset($t);
   .kreis-circle {
     width:110px; height:110px; border-radius:50%;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    border:2px solid rgba(45,106,173,0.35);
-    background: radial-gradient(circle at 35% 30%, rgba(45,106,173,0.15), rgba(21,34,54,0.9));
+    border:2px solid var(--line);
+    background: radial-gradient(circle at 35% 30%, rgba(124,124,255,0.15), rgba(29,32,48,0.9));
   }
-  .kreis-circle .kreis-value { font-size:26px; font-weight:700; color:#e8f4ff; line-height:1; font-family:var(--mono); }
-  .kreis-circle .kreis-einheit { font-size:9px; color:var(--text-dim); margin-top:4px; font-family:var(--mono); letter-spacing:1px; }
-  .kreis-label { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); text-align:center; }
-  .kreis.insgesamt .kreis-circle { border-color:rgba(74,158,221,0.5); }
+  .kreis-circle .kreis-value { font-size:26px; font-weight:700; color:#F5F6FA; line-height:1; }
+  .kreis-circle .kreis-einheit { font-size:10px; color:var(--text-dim); margin-top:4px; }
+  .kreis-label { font-size:12px; font-weight:600; color:var(--text-dim); text-align:center; }
+  .kreis.insgesamt .kreis-circle { border-color:rgba(124,124,255,0.5); }
   .kreis.insgesamt .kreis-value { color:var(--blue-bright); }
-  .kreis.verfuegbar .kreis-circle { border-color:rgba(46,204,113,0.5); }
+  .kreis.verfuegbar .kreis-circle { border-color:rgba(74,222,128,0.5); }
   .kreis.verfuegbar .kreis-value { color:var(--green); }
-  .kreis.verkauft .kreis-circle { border-color:rgba(230,126,34,0.5); }
+  .kreis.verkauft .kreis-circle { border-color:rgba(251,191,36,0.5); }
   .kreis.verkauft .kreis-value { color:var(--orange); }
-  .kreis.eigenbedarf .kreis-circle { border-color:rgba(231,76,60,0.5); }
+  .kreis.eigenbedarf .kreis-circle { border-color:rgba(248,113,113,0.5); }
   .kreis.eigenbedarf .kreis-value { color:var(--red); }
   @media(max-width:768px) { .kreise-row { gap:14px; } .kreis-circle { width:88px; height:88px; } .kreis-circle .kreis-value { font-size:20px; } }
 
@@ -665,118 +658,116 @@ unset($t);
   .mini-kreis-circle {
     width:56px; height:56px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    border:2px solid rgba(45,106,173,0.35);
-    background: radial-gradient(circle at 35% 30%, rgba(45,106,173,0.12), rgba(21,34,54,0.9));
-    font-family:var(--mono); font-size:15px; font-weight:700; color:#e8f4ff;
+    border:2px solid var(--line);
+    background: radial-gradient(circle at 35% 30%, rgba(124,124,255,0.12), rgba(29,32,48,0.9));
+    font-size:15px; font-weight:700; color:#F5F6FA;
   }
-  .mini-kreis-label { font-family:var(--mono); font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--text-dim); text-align:center; line-height:1.3; }
-  .mini-kreis.insgesamt .mini-kreis-circle { border-color:rgba(74,158,221,0.5); color:var(--blue-bright); }
-  .mini-kreis.verfuegbar .mini-kreis-circle { border-color:rgba(46,204,113,0.5); color:var(--green); }
-  .mini-kreis.verfuegbar.niedrig .mini-kreis-circle { border-color:rgba(230,126,34,0.7); color:var(--orange); animation:pulse-niedrig 2s infinite; }
+  .mini-kreis-label { font-size:10px; font-weight:500; color:var(--text-dim); text-align:center; line-height:1.3; }
+  .mini-kreis.insgesamt .mini-kreis-circle { border-color:rgba(124,124,255,0.5); color:var(--blue-bright); }
+  .mini-kreis.verfuegbar .mini-kreis-circle { border-color:rgba(74,222,128,0.5); color:var(--green); }
+  .mini-kreis.verfuegbar.niedrig .mini-kreis-circle { border-color:rgba(251,191,36,0.7); color:var(--orange); animation:pulse-niedrig 2s infinite; }
   .mini-kreis.verfuegbar.niedrig .mini-kreis-label { color:var(--orange); }
   @keyframes pulse-niedrig { 0%,100%{opacity:1} 50%{opacity:0.6} }
-  .mini-kreis.verkauft .mini-kreis-circle { border-color:rgba(230,126,34,0.5); color:var(--orange); }
-  .mini-kreis.eigenbedarf .mini-kreis-circle { border-color:rgba(231,76,60,0.5); color:var(--red); }
-  .mini-kreis.schwund .mini-kreis-circle { border-color:rgba(150,150,150,0.6); color:#999; background: radial-gradient(circle at 35% 30%, rgba(150,150,150,0.15), rgba(21,34,54,0.9)); }
-  .mini-kreis.schwund .mini-kreis-label { color:#c0392b; }
+  .mini-kreis.verkauft .mini-kreis-circle { border-color:rgba(251,191,36,0.5); color:var(--orange); }
+  .mini-kreis.eigenbedarf .mini-kreis-circle { border-color:rgba(248,113,113,0.5); color:var(--red); }
+  .mini-kreis.schwund .mini-kreis-circle { border-color:rgba(150,150,150,0.6); color:#999; background: radial-gradient(circle at 35% 30%, rgba(150,150,150,0.15), rgba(29,32,48,0.9)); }
+  .mini-kreis.schwund .mini-kreis-label { color:#e08080; }
 
   /* VK-PREIS & GEWINN-KALKULATION */
   .vk-row { display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
   .vk-input-wrap { display:flex; align-items:center; gap:6px; }
-  .vk-input-wrap label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; }
-  .vk-input { width:90px; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.3); color:var(--text); font-family:var(--mono); font-size:12px; padding:6px 8px; outline:none; }
-  .vk-input:focus { border-color:var(--blue-bright); }
-  .calc-toggle-btn { font-family:var(--mono); font-size:9px; letter-spacing:1px; color:var(--green); border:1px solid rgba(46,204,113,0.35); background:none; padding:6px 12px; cursor:pointer; }
-  .calc-toggle-btn:hover { background:rgba(46,204,113,0.1); }
+  .vk-input-wrap label { font-size:11px; color:var(--text-dim); font-weight:500; }
+  .vk-input { width:90px; background:var(--blue-mid); border:1px solid var(--line); border-radius:10px; color:var(--text); font-family:var(--sans); font-size:13px; padding:7px 9px; outline:none; }
+  .vk-input:focus { border-color:var(--blue-accent); }
+  .calc-toggle-btn { font-size:12px; font-weight:600; color:var(--green); border:1px solid rgba(74,222,128,0.35); border-radius:10px; background:none; padding:7px 12px; cursor:pointer; }
+  .calc-toggle-btn:hover { background:rgba(74,222,128,0.12); }
 
-  .kalkulation-box { display:none; margin-top:14px; width:100%; border-top:1px dashed rgba(45,106,173,0.2); padding-top:14px; }
+  .kalkulation-box { display:none; margin-top:14px; width:100%; border-top:1px dashed var(--line); padding-top:14px; }
   .kalkulation-box.open { display:block; }
-  .kalkulation-hinweis { font-family:var(--mono); font-size:8px; color:var(--text-dim); margin-bottom:12px; letter-spacing:0.5px; }
+  .kalkulation-hinweis { font-size:11px; color:var(--text-dim); margin-bottom:12px; }
   .plattform-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-  .plattform-card { background:rgba(15,25,35,0.6); border:1px solid rgba(45,106,173,0.2); padding:12px; }
-  .plattform-card .plattform-name { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:8px; border-bottom:1px solid rgba(45,106,173,0.15); padding-bottom:6px; }
-  .plattform-zeile { display:flex; justify-content:space-between; font-size:11px; padding:3px 0; }
-  .plattform-zeile .label { color:var(--text-dim); font-family:var(--mono); font-size:9px; }
-  .plattform-zeile .wert { font-family:var(--mono); font-weight:600; }
+  .plattform-card { background:var(--blue-mid); border:1px solid var(--line); border-radius:14px; padding:14px; }
+  .plattform-card .plattform-name { font-size:12px; font-weight:600; color:var(--blue-bright); margin-bottom:8px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+  .plattform-zeile { display:flex; justify-content:space-between; font-size:12px; padding:3px 0; }
+  .plattform-zeile .label { color:var(--text-dim); font-size:11px; }
+  .plattform-zeile .wert { font-weight:600; }
   .plattform-zeile.gewinn .wert { color:var(--green); }
-  .plattform-zeile.gewinn { border-top:1px solid rgba(45,106,173,0.15); margin-top:4px; padding-top:6px; }
+  .plattform-zeile.gewinn { border-top:1px solid var(--line); margin-top:4px; padding-top:6px; }
   .plattform-zeile.ruecklage .wert { color:var(--orange); }
-  .plattform-zeile.verbleibt { border-top:1px solid rgba(45,106,173,0.15); margin-top:4px; padding-top:6px; }
-  .plattform-zeile.verbleibt .wert { color:var(--green); font-size:13px; }
-  .plattform-total { margin-top:10px; padding-top:8px; border-top:1px dashed rgba(45,106,173,0.2); font-family:var(--mono); font-size:9px; color:var(--text-dim); }
-  .plattform-total .total-wert { color:var(--green); font-size:14px; font-weight:700; display:block; margin-top:2px; }
+  .plattform-zeile.verbleibt { border-top:1px solid var(--line); margin-top:4px; padding-top:6px; }
+  .plattform-zeile.verbleibt .wert { color:var(--green); font-size:14px; }
+  .plattform-total { margin-top:10px; padding-top:8px; border-top:1px dashed var(--line); font-size:11px; color:var(--text-dim); }
+  .plattform-total .total-wert { color:var(--green); font-size:15px; font-weight:700; display:block; margin-top:2px; }
   .plattform-zeile.negativ .wert { color:var(--red) !important; }
   @media(max-width:768px) { .plattform-grid { grid-template-columns:1fr; } }
 
   /* MODAL */
-  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center; }
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
-  .modal { background:var(--navy2); border:1px solid rgba(45,106,173,0.3); width:100%; max-width:480px; margin:20px; position:relative; max-height:90vh; overflow-y:auto; }
-  .modal::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue-accent),var(--blue-bright),var(--blue-accent),transparent); }
-  .modal-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(45,106,173,0.15); position:sticky; top:0; background:var(--navy2); z-index:2; }
-  .modal-title { font-family:var(--mono); font-size:11px; letter-spacing:3px; color:var(--blue-bright); }
+  .modal { background:var(--navy2); border:1px solid var(--line); border-radius:20px; width:100%; max-width:480px; margin:20px; position:relative; max-height:90vh; overflow-y:auto; }
+  .modal-header { display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--navy2); border-radius:20px 20px 0 0; z-index:2; }
+  .modal-title { font-size:16px; font-weight:600; color:#F5F6FA; }
   .modal-close { background:none; border:none; color:var(--text-dim); font-size:18px; cursor:pointer; transition:color 0.2s; }
   .modal-close:hover { color:var(--red); }
-  .modal-body { padding:20px; display:flex; flex-direction:column; gap:14px; }
-  .modal-footer { padding:16px 20px; border-top:1px solid rgba(45,106,173,0.15); display:flex; justify-content:flex-end; gap:10px; }
+  .modal-body { padding:22px; display:flex; flex-direction:column; gap:14px; }
+  .modal-footer { padding:16px 22px; border-top:1px solid var(--line); display:flex; justify-content:flex-end; gap:10px; }
 
   /* FORM */
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
-  .field-label::before { content:'//'; color:var(--blue-accent); }
+  .field-label { font-size:12px; font-weight:500; color:var(--text-dim); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
   .field-input, .field-select, .field-textarea {
-    width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25);
-    color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none;
-    transition:border-color 0.2s;
+    width:100%; background:var(--blue-mid); border:1px solid var(--line); border-radius:12px;
+    color:var(--text); font-family:var(--sans); font-size:14px; padding:11px 13px; outline:none;
+    transition:border-color 0.15s;
   }
-  .field-input:focus, .field-select:focus, .field-textarea:focus { border-color:var(--blue-bright); }
+  .field-input:focus, .field-select:focus, .field-textarea:focus { border-color:var(--blue-accent); }
   .field-select option { background:var(--navy2); }
   .field-textarea { resize:vertical; min-height:80px; }
-  .field-hint { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:-6px; }
-  .typ-fields { display:none; flex-direction:column; gap:14px; border-left:2px solid rgba(45,106,173,0.2); padding-left:12px; }
+  .field-hint { font-size:11px; color:var(--text-dim); margin-top:-6px; }
+  .typ-fields { display:none; flex-direction:column; gap:14px; border-left:2px solid var(--line); padding-left:12px; }
   .typ-fields.active { display:flex; }
 
   /* TOAST */
-  .toast { position:fixed; bottom:24px; right:24px; background:var(--navy2); border:1px solid rgba(45,106,173,0.3); border-left:3px solid var(--green); padding:12px 20px; font-family:var(--mono); font-size:11px; letter-spacing:1px; z-index:300; opacity:0; transform:translateY(10px); transition:all 0.3s; pointer-events:none; }
+  .toast { position:fixed; bottom:24px; right:24px; background:var(--navy2); border:1px solid var(--line); border-left:3px solid var(--green); border-radius:14px; padding:13px 20px; font-size:13px; z-index:300; opacity:0; transform:translateY(10px); transition:all 0.3s; pointer-events:none; }
   .toast.show { opacity:1; transform:translateY(0); }
   .toast.error { border-left-color:var(--red); }
 
   /* EMPTY STATE */
-  .empty { font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:2px; text-align:center; padding:30px; }
+  .empty { font-size:13px; color:var(--text-dim); text-align:center; padding:30px; }
 
   /* STATUS SELECT */
-  select.status-select { background:none; border:1px solid rgba(45,106,173,0.2); color:var(--text-dim); font-family:var(--mono); font-size:9px; letter-spacing:1px; padding:3px 6px; cursor:pointer; }
+  select.status-select { background:none; border:1px solid var(--line); border-radius:8px; color:var(--text-dim); font-family:var(--sans); font-size:11px; padding:4px 8px; cursor:pointer; }
   select.status-select option { background:var(--navy2); }
 
   /* VERLAUF */
-  .verlauf-item { padding:8px 0; border-bottom:1px solid rgba(45,106,173,0.1); font-family:var(--mono); font-size:10px; }
+  .verlauf-item { padding:9px 0; border-bottom:1px solid var(--line); font-size:12px; }
   .verlauf-item:last-child { border-bottom:none; }
-  .verlauf-typ { display:inline-block; padding:1px 8px; border:1px solid; margin-right:8px; }
-  .verlauf-typ.zugang_einkauf { color:var(--green); border-color:rgba(46,204,113,0.3); }
-  .verlauf-typ.abgang_verkauf { color:var(--orange); border-color:rgba(230,126,34,0.3); }
-  .verlauf-typ.abgang_eigenbedarf { color:var(--blue-bright); border-color:rgba(74,158,221,0.3); }
-  .verlauf-typ.retoure { color:var(--red); border-color:rgba(231,76,60,0.3); }
-  .verlauf-typ.korrektur { color:var(--text-dim); border-color:rgba(90,122,154,0.3); }
+  .verlauf-typ { display:inline-block; padding:2px 9px; border-radius:8px; border:1px solid; margin-right:8px; font-size:11px; }
+  .verlauf-typ.zugang_einkauf { color:var(--green); border-color:rgba(74,222,128,0.3); }
+  .verlauf-typ.abgang_verkauf { color:var(--orange); border-color:rgba(251,191,36,0.3); }
+  .verlauf-typ.abgang_eigenbedarf { color:var(--blue-bright); border-color:rgba(124,124,255,0.3); }
+  .verlauf-typ.retoure { color:var(--red); border-color:rgba(248,113,113,0.3); }
+  .verlauf-typ.korrektur { color:var(--text-dim); border-color:var(--line); }
 
   /* MOBILE BOTTOM NAV — ersetzt die Sidebar auf kleinen Screens */
   .mobile-nav {
     display:none;
     position:fixed; bottom:0; left:0; right:0;
-    background:rgba(15,25,35,0.98); border-top:1px solid rgba(45,106,173,0.25);
+    background:var(--navy2); border-top:1px solid var(--line);
     z-index:150;
     padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 26px);
   }
   .mobile-nav-inner { display:flex; height:60px; overflow:visible; }
   .mobile-nav-item {
     flex:1 0 auto; min-width:58px; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:3px; color:var(--text-dim); font-family:var(--mono); font-size:8px;
-    letter-spacing:0.5px; text-transform:uppercase; cursor:pointer; position:relative;
+    gap:3px; color:var(--text-dim); font-size:9.5px; font-weight:500;
+    cursor:pointer; position:relative;
     text-decoration:none; border:none; background:none;
   }
   .mobile-nav-item .mn-icon { font-size:18px; line-height:1; }
   .mobile-nav-item.active { color:var(--blue-bright); }
   .mobile-nav-item .mn-badge {
     position:absolute; top:4px; right:22%; background:var(--red); color:#fff;
-    font-size:8px; padding:1px 4px; border-radius:6px; font-family:var(--mono);
+    font-size:9px; padding:1px 5px; border-radius:8px; font-weight:600;
   }
 
   /* MITTLERER, HERVORGEHOBENER RUNDER BUTTON (Bestellungen) */
@@ -786,53 +777,53 @@ unset($t);
     width:56px; height:56px; border-radius:50%;
     background:linear-gradient(145deg, var(--blue-bright), var(--blue-accent));
     display:flex; align-items:center; justify-content:center;
-    font-size:26px; box-shadow:0 4px 14px rgba(45,106,173,0.5), 0 0 0 4px var(--navy);
+    font-size:26px; box-shadow:0 4px 14px rgba(124,124,255,0.4), 0 0 0 4px var(--navy);
   }
   .mobile-nav-item-fab span:last-child {
-    margin-top:30px; font-size:8px;
+    margin-top:30px; font-size:9px;
   }
   .mobile-nav-item-fab.active .mn-icon-fab {
-    background:linear-gradient(145deg, #6ab4ea, var(--blue-bright));
+    background:linear-gradient(145deg, #ABABFF, var(--blue-bright));
   }
 
   /* MEHR-MENÜ */
   .mehr-overlay {
-    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200;
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200;
     align-items:flex-end;
   }
   .mehr-overlay.open { display:flex; }
   .mehr-sheet {
-    width:100%; background:var(--navy2); border-top:1px solid rgba(45,106,173,0.3);
-    border-radius:16px 16px 0 0; padding:12px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+    width:100%; background:var(--navy2); border-top:1px solid var(--line);
+    border-radius:20px 20px 0 0; padding:14px 20px calc(20px + env(safe-area-inset-bottom, 0px));
     animation:mehrSlideUp 0.2s ease;
   }
   @keyframes mehrSlideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
-  .mehr-handle { width:36px; height:4px; background:rgba(90,122,154,0.4); border-radius:2px; margin:0 auto 16px; }
-  .mehr-titel { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; text-align:center; }
+  .mehr-handle { width:36px; height:4px; background:var(--line); border-radius:2px; margin:0 auto 16px; }
+  .mehr-titel { font-size:15px; font-weight:600; color:#F5F6FA; margin-bottom:16px; text-align:center; }
   .mehr-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
   .mehr-item {
-    display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px 6px;
-    background:rgba(15,25,35,0.6); border:1px solid rgba(45,106,173,0.2); text-decoration:none;
-    color:var(--text); font-family:var(--mono); font-size:10px; text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:6px; padding:16px 6px;
+    background:var(--blue-mid); border:1px solid var(--line); border-radius:14px; text-decoration:none;
+    color:var(--text); font-size:11px; text-align:center;
   }
   .mehr-icon { font-size:22px; }
   .mehr-schliessen {
-    width:100%; padding:12px; background:none; border:1px solid rgba(90,122,154,0.3);
-    color:var(--text-dim); font-family:var(--mono); font-size:11px; letter-spacing:1px;
-    text-transform:uppercase; cursor:pointer;
+    width:100%; padding:13px; background:var(--blue-mid); border:1px solid var(--line); border-radius:14px;
+    color:var(--text-dim); font-family:var(--sans); font-size:13px; font-weight:600;
+    cursor:pointer;
   }
 
   @media(max-width:768px) {
     .sidebar { display:none; }
     .mobile-nav { display:block; }
-    .main { margin-left:0; padding:14px; padding-bottom:110px; }
-    .topbar { padding:0 12px; }
+    .main { margin-left:0; padding:16px; padding-bottom:110px; }
+    .topbar { padding:0 14px; }
     .topbar-right { gap:8px; }
     .topbar-right .user-badge { display:none; }
-    .topbar-title { font-size:12px; }
-    .logo-mark { width:26px; height:26px; }
+    .topbar-title { font-size:13px; }
+    .logo-mark { width:28px; height:28px; }
     .stats-row { grid-template-columns:1fr 1fr; gap:10px; }
-    .stat-card { padding:12px 14px; }
+    .stat-card { padding:14px 16px; }
     .stat-value { font-size:22px; }
     .grid-2 { grid-template-columns:1fr; }
     .page-header { flex-direction:column; align-items:stretch; }
@@ -843,7 +834,7 @@ unset($t);
     .modal { margin:12px; max-height:85vh; }
     .lager-item { flex-wrap:wrap; }
     .lager-item > div[style*="justify-content:flex-end"] { width:100%; justify-content:flex-start !important; margin-top:8px; }
-    table { font-size:10px; }
+    table { font-size:12px; }
   }
 
   @media(max-width:420px) {
@@ -859,7 +850,8 @@ unset($t);
     width: 160px; min-height: 130px; padding: 14px 12px 10px;
     font-family: 'Comic Sans MS', 'Segoe Print', cursive, var(--sans);
     font-size: 13px; line-height: 1.4; color: #2a2a2a;
-    box-shadow: 2px 4px 10px rgba(0,0,0,0.35);
+    border-radius: 6px;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
     position: relative; display: flex; flex-direction: column;
     transition: transform 0.15s;
   }
@@ -872,28 +864,28 @@ unset($t);
   .sticky-note.farbe-blau { background: #b8e2ff; }
   .sticky-note.farbe-gruen { background: #c3f7c3; }
   .sticky-note-text { flex: 1; word-break: break-word; white-space: pre-wrap; }
-  .sticky-note-meta { font-family: var(--mono); font-size: 9px; color: rgba(0,0,0,0.45); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sticky-note-meta { font-size: 10px; color: rgba(0,0,0,0.45); margin-top: 8px; }
   .sticky-note-close {
     position: absolute; top: 4px; right: 6px; background: none; border: none;
     font-size: 12px; color: rgba(0,0,0,0.3); cursor: pointer; padding: 2px 4px;
   }
   .sticky-note-close:hover { color: rgba(0,0,0,0.7); }
   .sticky-note-neu {
-    width: 160px; min-height: 130px; border: 2px dashed rgba(90,122,154,0.4);
+    width: 160px; min-height: 130px; border: 2px dashed var(--line); border-radius: 14px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     color: var(--text-dim); cursor: pointer; transition: all 0.15s;
   }
   .sticky-note-neu:hover { border-color: var(--blue-bright); color: var(--blue-bright); }
 
   .sticky-note-modal-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 500;
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 500;
     align-items: center; justify-content: center;
   }
   .sticky-note-modal-overlay.open { display: flex; }
-  .sticky-note-modal { background: var(--navy2); border: 1px solid rgba(45,106,173,0.3); width: 100%; max-width: 380px; margin: 20px; padding: 20px; }
+  .sticky-note-modal { background: var(--navy2); border: 1px solid var(--line); border-radius: 18px; width: 100%; max-width: 380px; margin: 20px; padding: 22px; }
   .sticky-note-modal textarea {
-    width: 100%; min-height: 100px; background: rgba(15,25,35,0.8); border: 1px solid rgba(45,106,173,0.25);
-    color: var(--text); font-family: var(--sans); font-size: 13px; padding: 10px 12px; outline: none;
+    width: 100%; min-height: 100px; background: var(--blue-mid); border: 1px solid var(--line); border-radius: 12px;
+    color: var(--text); font-family: var(--sans); font-size: 13px; padding: 11px 13px; outline: none;
     resize: vertical; margin-bottom: 14px;
   }
   .sticky-note-farben { display: flex; gap: 8px; margin-bottom: 16px; }
@@ -921,7 +913,7 @@ unset($t);
     <div class="user-badge"><?= strtoupper($user['username']) ?> // <?= strtoupper($user['name']) ?></div>
     <form method="post" action="auth.php" style="display:inline;">
       <input type="hidden" name="action" value="logout">
-      <button type="submit" class="logout-btn">[ LOGOUT ]</button>
+      <button type="submit" class="logout-btn">Logout</button>
     </form>
   </div>
 </div>
@@ -1038,7 +1030,7 @@ unset($t);
     <div class="page-header">
       <div>
         <div class="page-title">Dashboard</div>
-        <div class="page-sub">// ÜBERSICHT — NA COMMERCE SOLUTIONS GMBH</div>
+        <div class="page-sub">Übersicht — NA Commerce Solutions GmbH</div>
       </div>
       <div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);text-align:right;">
         <div id="date-display"></div>
@@ -1064,7 +1056,7 @@ unset($t);
     </div>
 
     <!-- HEUTE-WIDGET -->
-    <div class="panel" style="border-color:rgba(74,158,221,0.35);">
+    <div class="panel" style="border-color:rgba(148,148,255,0.35);">
       <div class="panel-header">
         <div class="panel-title">Heute — <?= date('d.m.Y') ?></div>
       </div>
@@ -1112,17 +1104,17 @@ unset($t);
 
     <div class="stats-row">
       <div class="stat-card">
-        <div class="stat-label">Lager // Produkte</div>
+        <div class="stat-label">Lager · Produkte</div>
         <div class="stat-value"><?= $lager_count ?></div>
         <div class="stat-detail">Aktive Artikel</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Lager // EK-Wert</div>
+        <div class="stat-label">Lager · EK-Wert</div>
         <div class="stat-value green">€<?= number_format($lager_ek_gesamt, 0, ',', '.') ?></div>
         <div class="stat-detail">Aktueller Bestandswert</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Aufgaben // Offen</div>
+        <div class="stat-label">Aufgaben · Offen</div>
         <div class="stat-value <?= $todo_offen > 0 ? 'orange' : '' ?>"><?= $todo_offen ?></div>
         <div class="stat-detail">Offene Aufgaben</div>
       </div>
@@ -1143,7 +1135,7 @@ unset($t);
         <div class="panel-body">
           <?php $recent_todos = array_slice(array_filter($todos, fn($t) => $t['status'] !== 'erledigt'), 0, 4); ?>
           <?php if(empty($recent_todos)): ?>
-            <div class="empty">// KEINE OFFENEN AUFGABEN</div>
+            <div class="empty">Keine offenen Aufgaben</div>
           <?php else: ?>
             <?php foreach($recent_todos as $t): ?>
             <div class="todo-item">
@@ -1176,7 +1168,7 @@ unset($t);
         </div>
         <div class="panel-body">
           <?php if(empty($produkte)): ?>
-            <div class="empty">// KEIN BESTAND</div>
+            <div class="empty">Kein Bestand</div>
           <?php else: ?>
             <?php foreach(array_slice($produkte,0,4) as $p): ?>
             <div class="lager-item">
@@ -1198,13 +1190,13 @@ unset($t);
   <!-- ── LAGER ── -->
   <div class="page" id="page-lager">
     <div class="page-header">
-      <div><div class="page-title">Lager<?= $zeige_archiv ? ' — Archiv' : '' ?></div><div class="page-sub">// BESTANDSVERWALTUNG · LIVE BERECHNET AUS BEWEGUNGSHISTORIE</div></div>
+      <div><div class="page-title">Lager<?= $zeige_archiv ? ' — Archiv' : '' ?></div><div class="page-sub">Bestandsverwaltung · live berechnet aus Bewegungshistorie</div></div>
       <div class="page-actions">
-        <a href="lager/history.php" class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);text-decoration:none;display:inline-block;">📄 REPORT-HISTORIE</a>
+        <a href="lager/history.php" class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);text-decoration:none;display:inline-block;">📄 REPORT-HISTORIE</a>
         <a href="lager/report_new.php" class="btn btn-terracotta" style="text-decoration:none;display:inline-block;">↓ REPORT ERSTELLEN</a>
-        <a href="lager/auslaendische_vorsteuer.php" class="btn" style="color:var(--orange);border-color:rgba(230,126,34,0.4);text-decoration:none;display:inline-block;">🌍 AUSLÄNDISCHE MWST</a>
-        <a href="lager/verpackungsmaterial.php" class="btn" style="color:var(--blue-bright);border-color:rgba(74,158,221,0.4);text-decoration:none;display:inline-block;">📦 VERPACKUNGSMATERIAL</a>
-        <a href="lager/verpackungsmaterial.php" class="btn" style="color:var(--blue-bright);border-color:rgba(74,158,221,0.4);text-decoration:none;display:inline-block;">📦 VERPACKUNGSMATERIAL</a>
+        <a href="lager/auslaendische_vorsteuer.php" class="btn" style="color:var(--orange);border-color:rgba(251,191,36,0.4);text-decoration:none;display:inline-block;">🌍 AUSLÄNDISCHE MWST</a>
+        <a href="lager/verpackungsmaterial.php" class="btn" style="color:var(--blue-bright);border-color:rgba(148,148,255,0.4);text-decoration:none;display:inline-block;">📦 VERPACKUNGSMATERIAL</a>
+        <a href="lager/verpackungsmaterial.php" class="btn" style="color:var(--blue-bright);border-color:rgba(148,148,255,0.4);text-decoration:none;display:inline-block;">📦 VERPACKUNGSMATERIAL</a>
         <?php if (!$zeige_archiv && $zugriff_lager_bearbeiten): ?>
           <button class="btn btn-primary" onclick="openModal('modal-produkt-add')">+ PRODUKT</button>
           <button class="btn btn-primary" onclick="openBewegungModalGlobal()">± BEWEGUNG ERFASSEN</button>
@@ -1216,13 +1208,13 @@ unset($t);
       <form method="GET" style="display:flex; gap:8px; flex:1;" action="dashboard.php#lager">
         <?php if ($zeige_archiv): ?><input type="hidden" name="archiv" value="1"><?php endif; ?>
         <input type="text" name="suche" class="field-input" style="max-width:280px;" placeholder="🔍 Produkt suchen..." value="<?= htmlspecialchars($suche) ?>">
-        <button type="submit" class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);">SUCHEN</button>
-        <?php if ($suche !== ''): ?><a href="dashboard.php<?= $zeige_archiv ? '?archiv=1' : '' ?>#lager" class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);text-decoration:none;display:inline-flex;align-items:center;">✕</a><?php endif; ?>
+        <button type="submit" class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);">SUCHEN</button>
+        <?php if ($suche !== ''): ?><a href="dashboard.php<?= $zeige_archiv ? '?archiv=1' : '' ?>#lager" class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);text-decoration:none;display:inline-flex;align-items:center;">✕</a><?php endif; ?>
       </form>
       <?php if ($zeige_archiv): ?>
         <a href="dashboard.php<?= $suche !== '' ? '?suche=' . urlencode($suche) : '' ?>#lager" class="btn btn-primary" style="text-decoration:none;display:inline-block;">◫ ZU AKTIVEN PRODUKTEN</a>
       <?php else: ?>
-        <a href="dashboard.php?archiv=1<?= $suche !== '' ? '&suche=' . urlencode($suche) : '' ?>#lager" class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);text-decoration:none;display:inline-block;">🗄 ARCHIV ANSEHEN</a>
+        <a href="dashboard.php?archiv=1<?= $suche !== '' ? '&suche=' . urlencode($suche) : '' ?>#lager" class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);text-decoration:none;display:inline-block;">🗄 ARCHIV ANSEHEN</a>
       <?php endif; ?>
     </div>
 
@@ -1267,7 +1259,7 @@ unset($t);
       <div class="panel-body">
         <?php if ($zeige_archiv): ?>
           <?php if (empty($produkte)): ?>
-            <div class="empty">// ARCHIV LEER</div>
+            <div class="empty">Archiv leer</div>
           <?php else: ?>
             <?php foreach ($produkte as $p): ?>
             <div class="lager-item" id="produkt-<?= $p['id'] ?>">
@@ -1284,7 +1276,7 @@ unset($t);
             <?php endforeach; ?>
           <?php endif; ?>
         <?php elseif(empty($produkte)): ?>
-          <div class="empty">// KEIN BESTAND — PRODUKT HINZUFÜGEN</div>
+          <div class="empty">Kein Bestand — Produkt hinzufügen</div>
         <?php else: ?>
           <?php
           // Kategorien SIND direkt die Marken-Gruppen (CozyCore, NA Commerce,
@@ -1358,16 +1350,16 @@ unset($t);
                 <div class="kalkulation-box" id="kalk-box-<?= $p['id'] ?>"
                      data-ek="<?= $p['ek_preis_avg'] ?>"
                      data-bestand="<?= $p['bestand'] ?>">
-                  <div class="kalkulation-hinweis">// VEREINFACHTE KALKULATION — KEINE STEUERBERATUNG. GEBÜHRENSÄTZE IM CODE ANPASSBAR.</div>
+                  <div class="kalkulation-hinweis">Vereinfachte Kalkulation — keine Steuerberatung. Gebührensätze im Code anpassbar.</div>
                   <div class="plattform-grid" id="kalk-grid-<?= $p['id'] ?>"></div>
                 </div>
               </div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
-                <button class="btn btn-sm" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="openBearbeitenModal(<?= $p['id'] ?>)">✎ BEARBEITEN</button>
+                <button class="btn btn-sm" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="openBearbeitenModal(<?= $p['id'] ?>)">✎ BEARBEITEN</button>
                 <button class="btn btn-primary btn-sm" onclick="openBewegungModal(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>', <?= $p['bestand'] ?>)">± BEWEGUNG</button>
-                <button class="btn btn-sm" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="openVerlauf(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>')">VERLAUF</button>
+                <button class="btn btn-sm" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="openVerlauf(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>')">VERLAUF</button>
                 <span onclick="letzteBewegungRueckgaengig(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>')" title="Letzte Bewegung rückgängig machen" style="align-self:center; font-size:13px; opacity:0.3; cursor:pointer; transition:opacity 0.15s; padding:0 4px;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.3">↩</span>
-                <button class="btn btn-sm" style="<?= $p['bestand'] > 0 ? 'color:var(--text-dim);border-color:rgba(90,122,154,0.15);opacity:0.4;cursor:not-allowed;' : 'color:var(--orange);border-color:rgba(230,126,34,0.35);' ?>"
+                <button class="btn btn-sm" style="<?= $p['bestand'] > 0 ? 'color:var(--text-dim);border-color:rgba(139,143,168,0.15);opacity:0.4;cursor:not-allowed;' : 'color:var(--orange);border-color:rgba(251,191,36,0.35);' ?>"
                         onclick="archivProdukt(<?= $p['id'] ?>, <?= $p['bestand'] ?>)"
                         <?= $p['bestand'] > 0 ? 'title="Erst Bestand auf 0 bringen (verkaufen/verbrauchen)"' : '' ?>>🗄 ARCHIV</button>
               </div>
@@ -1383,7 +1375,7 @@ unset($t);
   <!-- ── TODOS ── -->
   <div class="page" id="page-todos">
     <div class="page-header">
-      <div><div class="page-title">Aufgaben</div><div class="page-sub">// TASK MANAGEMENT</div></div>
+      <div><div class="page-title">Aufgaben</div><div class="page-sub">Task Management</div></div>
       <button class="btn btn-primary" onclick="openModal('modal-todo-add')">+ AUFGABE ERSTELLEN</button>
     </div>
     <div class="panel">
@@ -1397,7 +1389,7 @@ unset($t);
       </div>
       <div class="panel-body">
         <?php if(empty($todos)): ?>
-          <div class="empty">// KEINE AUFGABEN — ERSTELLE EINE NEUE</div>
+          <div class="empty">Keine Aufgaben — erstelle eine neue</div>
         <?php else: ?>
           <?php foreach($todos as $t): ?>
           <div class="todo-item">
@@ -1437,7 +1429,7 @@ unset($t);
 <div class="modal-overlay" id="modal-produkt-add">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">// PRODUKT HINZUFÜGEN</div>
+      <div class="modal-title">Produkt hinzufügen</div>
       <button class="modal-close" onclick="closeModal('modal-produkt-add')">✕</button>
     </div>
     <div class="modal-body">
@@ -1456,7 +1448,7 @@ unset($t);
       </div>
       <div><div class="field-label">Produktfoto (optional)</div><input class="field-input" id="p-foto" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" style="padding:8px 12px;cursor:pointer;"></div>
 
-      <div class="field-label" style="margin-top:6px;border-top:1px dashed rgba(45,106,173,0.2);padding-top:14px;">SKUs für automatische Bestellzuordnung (später, optional)</div>
+      <div class="field-label" style="margin-top:6px;border-top:1px dashed rgba(124,124,255,0.2);padding-top:14px;">SKUs für automatische Bestellzuordnung (später, optional)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
         <div><div class="field-label" style="font-size:8px;">eBay</div><input class="field-input" id="p-ebay-sku" type="text" placeholder="SKU"></div>
         <div><div class="field-label" style="font-size:8px;">Amazon</div><input class="field-input" id="p-amazon-sku" type="text" placeholder="ASIN/SKU"></div>
@@ -1464,7 +1456,7 @@ unset($t);
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="closeModal('modal-produkt-add')">ABBRECHEN</button>
+      <button class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="closeModal('modal-produkt-add')">ABBRECHEN</button>
       <button class="btn btn-primary" onclick="addProdukt()">SPEICHERN</button>
     </div>
   </div>
@@ -1474,7 +1466,7 @@ unset($t);
 <div class="modal-overlay" id="modal-bewegung-add">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="bewegung-title">// BEWEGUNG ERFASSEN</div>
+      <div class="modal-title" id="bewegung-title">Bewegung erfassen</div>
       <button class="modal-close" onclick="closeModal('modal-bewegung-add')">✕</button>
     </div>
     <div class="modal-body">
@@ -1549,7 +1541,7 @@ unset($t);
       <div><div class="field-label">Notiz (optional)</div><input class="field-input" id="b-notiz" type="text"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="closeModal('modal-bewegung-add')">ABBRECHEN</button>
+      <button class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="closeModal('modal-bewegung-add')">ABBRECHEN</button>
       <button class="btn btn-primary" onclick="addBewegung()">BESTÄTIGEN</button>
     </div>
   </div>
@@ -1559,7 +1551,7 @@ unset($t);
 <div class="modal-overlay" id="modal-produkt-bearbeiten">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="bearbeiten-titel">// PRODUKT BEARBEITEN</div>
+      <div class="modal-title" id="bearbeiten-titel">Produkt bearbeiten</div>
       <button class="modal-close" onclick="closeModal('modal-produkt-bearbeiten')">✕</button>
     </div>
     <div class="modal-body">
@@ -1568,7 +1560,7 @@ unset($t);
         <div><div class="field-label">EK-Preis netto (€)</div><input class="field-input" id="be-ek" type="number" step="0.01"></div>
         <div><div class="field-label">VK-Preis brutto (€)</div><input class="field-input" id="be-vk" type="number" step="0.01"></div>
       </div>
-      <div class="field-label" style="margin-top:6px;border-top:1px dashed rgba(45,106,173,0.2);padding-top:14px;">SKUs für automatische Bestellzuordnung</div>
+      <div class="field-label" style="margin-top:6px;border-top:1px dashed rgba(124,124,255,0.2);padding-top:14px;">SKUs für automatische Bestellzuordnung</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
         <div><div class="field-label" style="font-size:8px;">eBay</div><input class="field-input" id="be-ebay-sku" type="text" placeholder="SKU"></div>
         <div><div class="field-label" style="font-size:8px;">Amazon</div><input class="field-input" id="be-amazon-sku" type="text" placeholder="ASIN/SKU"></div>
@@ -1578,7 +1570,7 @@ unset($t);
       <input class="field-input" id="be-barcode" type="text" placeholder="z.B. EAN/UPC vom Produkt-Etikett">
     </div>
     <div class="modal-footer">
-      <button class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="closeModal('modal-produkt-bearbeiten')">ABBRECHEN</button>
+      <button class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="closeModal('modal-produkt-bearbeiten')">ABBRECHEN</button>
       <button class="btn btn-primary" onclick="produktBearbeitenSpeichern()">SPEICHERN</button>
     </div>
   </div>
@@ -1588,7 +1580,7 @@ unset($t);
 <div class="modal-overlay" id="modal-reaktivieren">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="reaktivieren-title">// PRODUKT REAKTIVIEREN</div>
+      <div class="modal-title" id="reaktivieren-title">Produkt reaktivieren</div>
       <button class="modal-close" onclick="closeModal('modal-reaktivieren')">✕</button>
     </div>
     <div class="modal-body">
@@ -1597,7 +1589,7 @@ unset($t);
       <div class="field-hint">Falls sich der Einkaufspreis seit der Archivierung geändert hat, hier eintragen. Sonst leer lassen.</div>
     </div>
     <div class="modal-footer">
-      <button class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="closeModal('modal-reaktivieren')">ABBRECHEN</button>
+      <button class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="closeModal('modal-reaktivieren')">ABBRECHEN</button>
       <button class="btn btn-primary" onclick="reaktivierenBestaetigen()">REAKTIVIEREN</button>
     </div>
   </div>
@@ -1607,7 +1599,7 @@ unset($t);
 <div class="modal-overlay" id="modal-verlauf">
   <div class="modal" style="max-width:560px;">
     <div class="modal-header">
-      <div class="modal-title" id="verlauf-title">// VERLAUF</div>
+      <div class="modal-title" id="verlauf-title">Verlauf</div>
       <button class="modal-close" onclick="closeModal('modal-verlauf')">✕</button>
     </div>
     <div class="modal-body" id="verlauf-body" style="max-height:420px;overflow-y:auto;">
@@ -1620,7 +1612,7 @@ unset($t);
 <div class="sticky-note-modal-overlay" id="barcode-scan-overlay">
   <div style="background:#000; width:100%; max-width:480px; margin:20px; position:relative;">
     <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--navy2);">
-      <span style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); letter-spacing:1px;">// BARCODE SCANNEN</span>
+      <span style="font-size:13px; color:var(--blue-bright); font-weight:600;">Barcode scannen</span>
       <button class="modal-close" onclick="barcodeScanAbbrechen()">✕</button>
     </div>
     <div id="barcode-scan-viewport" style="width:100%; height:320px; position:relative; overflow:hidden;"></div>
@@ -1646,7 +1638,7 @@ unset($t);
 <div class="modal-overlay" id="modal-todo-add">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">// AUFGABE ERSTELLEN</div>
+      <div class="modal-title">Aufgabe erstellen</div>
       <button class="modal-close" onclick="closeModal('modal-todo-add')">✕</button>
     </div>
     <div class="modal-body">
@@ -1671,7 +1663,7 @@ unset($t);
       <div><div class="field-label">Deadline</div><input class="field-input" id="t-deadline" type="date"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="closeModal('modal-todo-add')">ABBRECHEN</button>
+      <button class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="closeModal('modal-todo-add')">ABBRECHEN</button>
       <button class="btn btn-primary" onclick="addTodo()">SPEICHERN</button>
     </div>
   </div>
@@ -1806,7 +1798,7 @@ function renderKalkulation(produktId) {
 
   const erg = berechneKalkulation(vk, ek);
   if (!erg) {
-    grid.innerHTML = '<div class="empty" style="grid-column:1/-1;padding:14px;">// VK-PREIS EINTRAGEN FÜR KALKULATION</div>';
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1;padding:14px;">VK-Preis eintragen für Kalkulation</div>';
     return;
   }
 
@@ -1840,14 +1832,14 @@ function toggleKalkulation(produktId) {
 async function saveVkPreis(produktId) {
   const input = document.getElementById('vk-' + produktId);
   const res = await api({ action: 'produkt_vk_update', id: produktId, vk_preis_brutto: input.value });
-  if (res.error) { showToast('// ' + res.error, true); return; }
-  showToast('// VK-PREIS GESPEICHERT');
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('VK-Preis gespeichert');
 }
 
 // ── LAGER: PRODUKTE ──────────────────────────────────────────────────────────
 async function addProdukt() {
   const name = document.getElementById('p-name').value.trim();
-  if(!name) { showToast('// NAME FEHLT', true); return; }
+  if(!name) { showToast('Name fehlt', true); return; }
 
   let foto_url = '';
   const fotoFile = document.getElementById('p-foto').files[0];
@@ -1856,7 +1848,7 @@ async function addProdukt() {
     fd.append('foto', fotoFile);
     const upRes = await fetch('upload.php', { method:'POST', body:fd });
     const upData = await upRes.json();
-    if (upData.error) { showToast('// FOTO: ' + upData.error, true); return; }
+    if (upData.error) { showToast('Foto: ' + upData.error, true); return; }
     foto_url = upData.url;
   }
 
@@ -1870,22 +1862,22 @@ async function addProdukt() {
     amazon_sku: document.getElementById('p-amazon-sku').value,
     tiktok_sku: document.getElementById('p-tiktok-sku').value,
   });
-  if(res.error) { showToast('// '+res.error, true); return; }
-  showToast('// PRODUKT HINZUGEFÜGT');
+  if(res.error) { showToast(res.error, true); return; }
+  showToast('Produkt hinzugefügt');
   closeModal('modal-produkt-add');
   setTimeout(() => reloadOnCurrentPage(), 800);
 }
 
 async function archivProdukt(id, bestand) {
   if (bestand > 0) {
-    showToast('// ERST BESTAND AUF 0 BRINGEN (VERKAUFEN/VERBRAUCHEN)', true);
+    showToast('Erst Bestand auf 0 bringen (verkaufen/verbrauchen)', true);
     return;
   }
   if(!confirm('Produkt ins Archiv verschieben? Historie bleibt erhalten, du kannst es jederzeit wieder reaktivieren.')) return;
   const res = await api({ action:'produkt_archivieren', id });
-  if(res.error) { showToast('// '+res.error, true); return; }
+  if(res.error) { showToast(res.error, true); return; }
   document.getElementById('produkt-'+id)?.remove();
-  showToast('// PRODUKT ARCHIVIERT');
+  showToast('Produkt archiviert');
 }
 
 let archivLoeschmodusAktiv = false;
@@ -1899,17 +1891,17 @@ function toggleArchivLoeschmodus() {
 async function produktEndgueltigLoeschen(id, name) {
   if (!confirm('"' + name + '" WIRKLICH ENDGÜLTIG löschen? Das entfernt auch die komplette Bewegungshistorie unwiderruflich — kann NICHT rückgängig gemacht werden!')) return;
   const res = await api({ action: 'produkt_endgueltig_loeschen', id });
-  if (res.error) { showToast('// ' + res.error, true); return; }
+  if (res.error) { showToast(res.error, true); return; }
   document.getElementById('produkt-' + id)?.remove();
-  showToast('// PRODUKT ENDGÜLTIG GELÖSCHT');
+  showToast('Produkt endgültig gelöscht');
 }
 
 async function openBearbeitenModal(id) {
   const res = await api({ action: 'produkt_details_holen', id });
-  if (res.error) { showToast('// ' + res.error, true); return; }
+  if (res.error) { showToast(res.error, true); return; }
 
   document.getElementById('be-id').value = id;
-  document.getElementById('bearbeiten-titel').textContent = '// BEARBEITEN — ' + res.name.toUpperCase();
+  document.getElementById('bearbeiten-titel').textContent = 'Bearbeiten — ' + res.name;
   document.getElementById('be-ek').value = res.ek_preis_netto ?? '';
   document.getElementById('be-vk').value = res.vk_preis_brutto ?? '';
   document.getElementById('be-ebay-sku').value = res.ebay_sku ?? '';
@@ -1931,8 +1923,8 @@ async function produktBearbeitenSpeichern() {
     tiktok_sku: document.getElementById('be-tiktok-sku').value,
     barcode: document.getElementById('be-barcode').value,
   });
-  if (res.error) { showToast('// ' + res.error, true); return; }
-  showToast('// GESPEICHERT');
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Gespeichert');
   closeModal('modal-produkt-bearbeiten');
   setTimeout(() => reloadOnCurrentPage(), 800);
 }
@@ -1940,7 +1932,7 @@ async function produktBearbeitenSpeichern() {
 function openReaktivierenModal(id, name) {
   document.getElementById('react-id').value = id;
   document.getElementById('react-ek').value = '';
-  document.getElementById('reaktivieren-title').textContent = '// REAKTIVIEREN — '+name.toUpperCase();
+  document.getElementById('reaktivieren-title').textContent = 'Reaktivieren — '+name;
   openModal('modal-reaktivieren');
 }
 
@@ -1948,8 +1940,8 @@ async function reaktivierenBestaetigen() {
   const id = document.getElementById('react-id').value;
   const neuer_ek = document.getElementById('react-ek').value;
   const res = await api({ action:'produkt_reaktivieren', id, neuer_ek });
-  if(res.error) { showToast('// '+res.error, true); return; }
-  showToast('// PRODUKT REAKTIVIERT');
+  if(res.error) { showToast(res.error, true); return; }
+  showToast('Produkt reaktiviert');
   closeModal('modal-reaktivieren');
   setTimeout(() => { window.location.href = 'dashboard.php#lager'; }, 800);
 }
@@ -1982,7 +1974,7 @@ toggleTypFields();
 
 function openBewegungModal(produktId, name, bestand) {
   document.getElementById('b-produkt').value = produktId;
-  document.getElementById('bewegung-title').textContent = '// BEWEGUNG — '+name.toUpperCase();
+  document.getElementById('bewegung-title').textContent = 'Bewegung — '+name;
   aktuellerBestandFuerModal = bestand ?? 0;
   document.getElementById('b-menge').value = 1;
   document.getElementById('b-datum').value = new Date().toISOString().slice(0,10);
@@ -2030,8 +2022,8 @@ async function addBewegung() {
   if (typ === 'korrektur') payload.korrektur_grund = document.getElementById('b-korrektur-grund').value;
 
   const res = await api(payload);
-  if(res.error) { showToast('// '+res.error, true); return; }
-  showToast('// BEWEGUNG ERFASST — NEUER BESTAND: '+res.bestand);
+  if(res.error) { showToast(res.error, true); return; }
+  showToast('Bewegung erfasst — neuer Bestand: '+res.bestand);
   closeModal('modal-bewegung-add');
   setTimeout(() => reloadOnCurrentPage(), 800);
 }
@@ -2111,14 +2103,14 @@ async function barcodeGefunden(code) {
   const res = await api({ action: 'produkt_per_barcode', barcode: code });
   barcodeScanAbbrechen();
 
-  if (res.error) { showToast('// ' + res.error, true); return; }
+  if (res.error) { showToast(res.error, true); return; }
 
   const feld = document.getElementById(barcodeZielFeld);
   if (feld) {
     feld.value = res.produkt_id;
     feld.dispatchEvent(new Event('change'));
   }
-  showToast('// ' + res.produkt_name + ' ERKANNT');
+  showToast(res.produkt_name + ' erkannt');
 }
 
 function barcodeScanAbbrechen() {
@@ -2151,19 +2143,19 @@ async function stickyNoteSpeichern() {
   const text = document.getElementById('sticky-note-text').value.trim();
   if (!text) { return; }
   const res = await api({ action: 'notiz_anlegen', text, farbe: stickyGewaehlteFarbe });
-  if (res.error) { showToast('// ' + res.error, true); return; }
+  if (res.error) { showToast(res.error, true); return; }
   window.location.reload();
 }
 async function notizLoeschen(id) {
   if (!confirm('Diese Notiz entfernen?')) return;
   const res = await api({ action: 'notiz_loeschen', id });
-  if (res.error) { showToast('// ' + res.error, true); return; }
+  if (res.error) { showToast(res.error, true); return; }
   document.getElementById('notiz-' + id)?.remove();
 }
 
 async function openVerlauf(id, name) {
   verlaufAktuellesProdukt = { id, name };
-  document.getElementById('verlauf-title').textContent = '// VERLAUF — '+name.toUpperCase();
+  document.getElementById('verlauf-title').textContent = 'Verlauf — '+name;
   document.getElementById('verlauf-body').innerHTML = '<div class="empty">Wird geladen...</div>';
   openModal('modal-verlauf');
   await verlaufNeuLaden();
@@ -2171,7 +2163,7 @@ async function openVerlauf(id, name) {
 
 async function verlaufNeuLaden() {
   const data = await api({ action:'lager_verlauf', id: verlaufAktuellesProdukt.id });
-  if(!data.length) { document.getElementById('verlauf-body').innerHTML = '<div class="empty">// KEIN VERLAUF</div>'; return; }
+  if(!data.length) { document.getElementById('verlauf-body').innerHTML = '<div class="empty">Kein Verlauf</div>'; return; }
   document.getElementById('verlauf-body').innerHTML = data.map(v => {
     let detail = '';
     if (v.typ === 'abgang_verkauf') detail = `${v.verkaufskanal ?? ''} · ${v.verkaufspreis_brutto ? '€'+v.verkaufspreis_brutto : ''}`;
@@ -2194,16 +2186,16 @@ async function verlaufNeuLaden() {
 async function letzteBewegungRueckgaengig(produktId, produktName) {
   if (!confirm(`Letzte Lager-Bewegung von "${produktName}" wirklich rückgängig machen?`)) return;
   const res = await api({ action: 'letzte_bewegung_rueckgaengig', produkt_id: produktId });
-  if (res.error) { showToast('// ' + res.error, true); return; }
-  showToast('// LETZTE BEWEGUNG RÜCKGÄNGIG GEMACHT');
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Letzte Bewegung rückgängig gemacht');
   setTimeout(() => reloadOnCurrentPage(), 1000);
 }
 
 async function bewegungRueckgaengig(bewegungId) {
   if (!confirm('Diese Bewegung wirklich rückgängig machen? Sie wird komplett aus der Historie entfernt (wirkt sich auch auf Umsatz/Reports aus).')) return;
   const res = await api({ action: 'bewegung_rueckgaengig', bewegung_id: bewegungId });
-  if (res.error) { showToast('// ' + res.error, true); return; }
-  showToast('// BEWEGUNG RÜCKGÄNGIG GEMACHT');
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Bewegung rückgängig gemacht');
   await verlaufNeuLaden();
   setTimeout(() => reloadOnCurrentPage(), 1000);
 }
@@ -2211,24 +2203,24 @@ async function bewegungRueckgaengig(bewegungId) {
 // ── TODOS ────────────────────────────────────────────────────────────────────
 async function addTodo() {
   const titel = document.getElementById('t-titel').value.trim();
-  if(!titel) { showToast('// TITEL FEHLT', true); return; }
+  if(!titel) { showToast('Titel fehlt', true); return; }
   const res = await api({ action:'todo_add', titel, beschreibung:document.getElementById('t-desc').value, prioritaet:document.getElementById('t-prio').value, assignee:document.getElementById('t-assign').value, deadline:document.getElementById('t-deadline').value });
-  if(res.error) { showToast('// '+res.error, true); return; }
-  showToast('// AUFGABE ERSTELLT');
+  if(res.error) { showToast(res.error, true); return; }
+  showToast('Aufgabe erstellt');
   closeModal('modal-todo-add');
   setTimeout(() => reloadOnCurrentPage(), 800);
 }
 
 async function updateTodoStatus(id, status) {
   const res = await api({ action:'todo_status', id, status });
-  if(res.error) { showToast('// FEHLER', true); return; }
-  showToast('// STATUS AKTUALISIERT');
+  if(res.error) { showToast('Fehler', true); return; }
+  showToast('Status aktualisiert');
 }
 
 async function deleteTodo(id) {
   if(!confirm('Aufgabe wirklich löschen?')) return;
   await api({ action:'todo_delete', id });
-  showToast('// AUFGABE GELÖSCHT');
+  showToast('Aufgabe gelöscht');
   setTimeout(() => reloadOnCurrentPage(), 800);
 }
 </script>
