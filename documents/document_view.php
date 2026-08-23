@@ -9,7 +9,7 @@ require_once __DIR__ . '/../config.php';
 $pdo = db();
 $id = (int)($_GET['id'] ?? 0);
 
-$stmt = $pdo->prepare("SELECT dateiname, dateipfad FROM dokumente WHERE id = :id");
+$stmt = $pdo->prepare("SELECT dateiname, dateipfad, betreff, erstellt_am FROM dokumente WHERE id = :id");
 $stmt->execute([':id' => $id]);
 $doc = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$doc) {
@@ -44,16 +44,21 @@ if (($_GET['raw'] ?? '') === '1') {
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Inter', -apple-system, sans-serif; background:#14161F; height:100vh; display:flex; flex-direction:column; }
   .topbar {
-    height:52px; flex-shrink:0; display:flex; align-items:center; justify-content:space-between;
+    height:64px; flex-shrink:0; display:flex; align-items:center; justify-content:space-between;
     padding:0 16px; background:#1D2030; border-bottom:1px solid #2E3248;
   }
-  .back-link { font-size:13px; color:#9494FF; text-decoration:none; white-space:nowrap; }
-  .doc-titel { font-size:12.5px; font-weight:600; color:#E4E6F0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0 10px; flex:1; text-align:center; }
-  .download-btn {
-    background:#7C7CFF; color:#fff; text-decoration:none; font-size:12.5px; font-weight:600;
-    padding:8px 14px; border-radius:10px; white-space:nowrap;
+  .icon-btn {
+    width:36px; height:36px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    color:#9494FF; text-decoration:none; border-radius:10px; background:none; border:none; cursor:pointer;
   }
-  .download-btn:hover { opacity:0.9; }
+  .icon-btn:active { background:#262A3D; }
+  .icon-btn svg { width:22px; height:22px; }
+  .doc-titel-block { flex:1; min-width:0; text-align:center; padding:0 6px; }
+  .doc-titel {
+    font-size:14.5px; font-weight:700; color:#F5F6FA;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .doc-untertitel { font-size:11.5px; color:#8B8FA8; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .pdf-bereich { flex:1; }
   .pdf-bereich embed { width:100%; height:100%; border:none; }
 </style>
@@ -61,9 +66,18 @@ if (($_GET['raw'] ?? '') === '1') {
 <body>
 
 <div class="topbar">
-  <a href="documents_history.php" class="back-link">← Zurück</a>
-  <div class="doc-titel"><?= htmlspecialchars($doc['dateiname']) ?></div>
-  <a href="document_download.php?id=<?= $id ?>" class="download-btn">⬇ Speichern</a>
+  <a href="documents_history.php" class="icon-btn" aria-label="Zurück">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </a>
+  <div class="doc-titel-block">
+    <div class="doc-titel"><?= htmlspecialchars($doc['dateiname']) ?></div>
+    <?php if ($doc['betreff'] || $doc['erstellt_am']): ?>
+      <div class="doc-untertitel"><?= htmlspecialchars($doc['betreff'] ?: 'Erstellt am ' . date('d.m.Y', strtotime($doc['erstellt_am']))) ?></div>
+    <?php endif; ?>
+  </div>
+  <a href="document_download.php?id=<?= $id ?>" class="icon-btn" aria-label="Speichern">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 16l-4-4M12 16l4-4"></path><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
+  </a>
 </div>
 
 <div class="pdf-bereich">

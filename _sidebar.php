@@ -34,11 +34,23 @@ $sb_todo_offen = (int)$sb_pdo->query("SELECT COUNT(*) FROM aufgaben WHERE status
     border-bottom: 1px solid #2E3248; z-index: 100; font-family: 'Inter', -apple-system, sans-serif;
   }
   .topbar-left { display: flex; align-items: center; gap: 12px; }
+  .sb-menu-btn {
+    display: none; background: none; border: none; cursor: pointer; padding: 6px;
+    color: #E4E6F0; font-size: 18px; line-height: 1; border-radius: 8px;
+  }
+  .sb-menu-btn:active { background: #262A3D; }
+  .sb-back-btn {
+    display: none; background: none; border: none; cursor: pointer; padding: 6px;
+    color: #9494FF; font-size: 20px; line-height: 1; border-radius: 8px; text-decoration: none;
+    align-items: center; justify-content: center;
+  }
+  .sb-back-btn:active { background: #262A3D; }
   .logo-mark {
     width: 32px; height: 32px; border-radius: 10px; background: #7C7CFF22;
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
   .logo-mark span { font-size: 12px; font-weight: 700; color: #7C7CFF; }
+  .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
   .topbar-title { font-size: 15px; font-weight: 600; color: #F5F6FA; }
   .topbar-right { display: flex; align-items: center; gap: 16px; font-size: 12px; color: #8B8FA8; }
   .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; margin-right: 6px; animation: sb-pulse 2s infinite; }
@@ -56,6 +68,7 @@ $sb_todo_offen = (int)$sb_pdo->query("SELECT COUNT(*) FROM aufgaben WHERE status
     background: #1D2030; border-right: 1px solid #2E3248;
     z-index: 50; padding: 20px 0; display: flex; flex-direction: column; gap: 2px;
     font-family: 'Inter', -apple-system, sans-serif; overflow-y: auto;
+    transition: transform 0.2s ease;
   }
   .sidebar .nav-section { font-size: 11px; color: #8B8FA8; letter-spacing: 1px; padding: 14px 20px 6px; font-weight: 600; text-transform: uppercase; }
   .sidebar .nav-item {
@@ -70,16 +83,32 @@ $sb_todo_offen = (int)$sb_pdo->query("SELECT COUNT(*) FROM aufgaben WHERE status
   .sidebar .nav-badge.urgent { background: #F87171; }
   .sidebar .nav-spacer { flex: 1; }
 
+  .sb-backdrop { display: none; position: fixed; inset: 0; top: 56px; background: rgba(0,0,0,0.5); z-index: 49; }
+
   .page-content-wrapper { margin-left: 216px; margin-top: 56px; }
   @media (max-width: 900px) {
-    .sidebar { display: none; }
+    .sb-menu-btn { display: inline-flex; align-items: center; justify-content: center; }
+    .sb-back-btn.zeigen { display: inline-flex; }
+    .sidebar {
+      transform: translateX(-100%); box-shadow: 4px 0 24px rgba(0,0,0,0.35);
+    }
+    .sidebar.offen { transform: translateX(0); }
+    .sb-backdrop.offen { display: block; }
     .page-content-wrapper { margin-left: 0; }
   }
 </style>
 
 <div class="topbar">
   <div class="topbar-left">
-    <div class="logo-mark"><span>NA</span></div>
+    <button type="button" class="sb-menu-btn" onclick="sbMenuUmschalten()" aria-label="Menü">☰</button>
+    <a href="#" class="sb-back-btn" id="sb-back-btn" onclick="history.back(); return false;" aria-label="Zurück">←</a>
+    <div class="logo-mark">
+      <?php if (file_exists(__DIR__ . '/assets/naopslogo.png')): ?>
+        <img src="/assets/naopslogo.png" alt="NA">
+      <?php else: ?>
+        <span>NA</span>
+      <?php endif; ?>
+    </div>
     <div class="topbar-title">NA Ops Hub</div>
   </div>
   <div class="topbar-right">
@@ -92,6 +121,7 @@ $sb_todo_offen = (int)$sb_pdo->query("SELECT COUNT(*) FROM aufgaben WHERE status
     </form>
   </div>
 </div>
+<div class="sb-backdrop" id="sb-backdrop" onclick="sbMenuSchliessen()"></div>
 <script>
   function sbUpdateClock() {
     const el = document.getElementById('sb-clock');
@@ -99,6 +129,21 @@ $sb_todo_offen = (int)$sb_pdo->query("SELECT COUNT(*) FROM aufgaben WHERE status
   }
   sbUpdateClock();
   setInterval(sbUpdateClock, 1000);
+
+  function sbMenuUmschalten() {
+    document.querySelector('.sidebar').classList.toggle('offen');
+    document.getElementById('sb-backdrop').classList.toggle('offen');
+  }
+  function sbMenuSchliessen() {
+    document.querySelector('.sidebar').classList.remove('offen');
+    document.getElementById('sb-backdrop').classList.remove('offen');
+  }
+  // Zurück-Pfeil neben dem Logo nur zeigen, wenn diese Seite nicht das
+  // Dashboard selbst ist UND es eine Browser-Historie gibt, in die man
+  // zurück kann (sonst wäre er wirkungslos).
+  if (window.location.pathname !== '/dashboard.php' && history.length > 1) {
+    document.getElementById('sb-back-btn').classList.add('zeigen');
+  }
 </script>
 
 <div class="sidebar">
