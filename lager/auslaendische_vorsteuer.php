@@ -129,43 +129,43 @@ $status_labels = ['offen' => '⏳ Offen', 'beantragt' => '📤 Beantragt', 'erha
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ausländische Vorsteuer — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red:#e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red:#F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
   .main { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:20px; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:20px; }
 
   .kpi-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
-  .kpi-card { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:16px; }
-  .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px; }
+  .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; }
   .kpi-value { font-size:22px; font-weight:700; }
 
   .toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
   .filter-tabs { display:flex; gap:6px; flex-wrap:wrap; }
-  .filter-tab { font-family:var(--mono); font-size:10px; padding:7px 12px; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); text-decoration:none; }
-  .filter-tab.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; }
-  .btn-primary { color:var(--green); border-color:rgba(46,204,113,0.4); }
+  .filter-tab { font-family:var(--mono); font-size:10px; padding:7px 12px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); text-decoration:none; }
+  .filter-tab.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; }
+  .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
 
-  .eintrag-karte { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:16px; margin-bottom:10px; }
+  .eintrag-karte { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px; margin-bottom:10px; }
   .eintrag-kopf { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
   .eintrag-titel { font-weight:700; font-size:14px; }
   .eintrag-meta { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:3px; }
   .eintrag-betrag { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--orange); text-align:right; }
   .eintrag-status-row { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
-  select.status-select { background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:10px; padding:6px 10px; }
+  select.status-select { background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:10px; padding:6px 10px; }
   .status-badge { font-family:var(--mono); font-size:9px; padding:3px 9px; border-radius:8px; }
-  .status-badge.offen { background:rgba(230,126,34,0.15); color:var(--orange); }
-  .status-badge.beantragt { background:rgba(74,158,221,0.15); color:var(--blue-bright); }
-  .status-badge.erhalten { background:rgba(46,204,113,0.15); color:var(--green); }
-  .status-badge.abgelehnt { background:rgba(231,76,60,0.15); color:var(--red); }
+  .status-badge.offen { background:rgba(251,191,36,0.15); color:var(--orange); }
+  .status-badge.beantragt { background:rgba(148,148,255,0.15); color:var(--blue-bright); }
+  .status-badge.erhalten { background:rgba(74,222,128,0.15); color:var(--green); }
+  .status-badge.abgelehnt { background:rgba(248,113,113,0.15); color:var(--red); }
   .empty { text-align:center; font-family:var(--mono); font-size:11px; color:var(--text-dim); padding:30px; }
 </style>
 </head>
@@ -227,7 +227,7 @@ $status_labels = ['offen' => '⏳ Offen', 'beantragt' => '📤 Beantragt', 'erha
           </select>
         <?php endif; ?>
         <?php if ($ist_admin): ?>
-          <button class="btn" style="color:var(--blue-bright); border-color:rgba(74,158,221,0.4); padding:6px 12px; font-size:9px;"
+          <button class="btn" style="color:var(--blue-bright); border-color:rgba(148,148,255,0.4); padding:6px 12px; font-size:9px;"
                   onclick='bearbeitenOeffnen(<?= json_encode([
                       "id" => $e["id"], "land" => $e["land"], "lieferant" => $e["lieferant"],
                       "rechnungsnummer" => $e["rechnungsnummer"], "bruttobetrag" => $e["bruttobetrag"],
@@ -242,30 +242,30 @@ $status_labels = ['offen' => '⏳ Offen', 'beantragt' => '📤 Beantragt', 'erha
 
 <!-- Bearbeiten-Modal, nur Admin -->
 <?php if ($ist_admin): ?>
-<div id="bearbeiten-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:400; align-items:center; justify-content:center;">
-  <div style="background:var(--navy2); border:1px solid rgba(45,106,173,0.3); width:100%; max-width:420px; margin:20px; padding:20px;">
-    <div style="font-family:var(--mono); font-size:11px; letter-spacing:2px; color:var(--blue-bright); margin-bottom:16px;">// EINTRAG BEARBEITEN</div>
+<div id="bearbeiten-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:400; align-items:center; justify-content:center;">
+  <div style="background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:420px; margin:20px; padding:20px;">
+    <div style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px;">// EINTRAG BEARBEITEN</div>
     <input type="hidden" id="be-id">
     <label class="field-label" style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:5px;">Land</label>
-    <input class="field-input" id="be-land" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
+    <input class="field-input" id="be-land" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
     <label class="field-label" style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:5px;">Lieferant</label>
-    <input class="field-input" id="be-lieferant" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
+    <input class="field-input" id="be-lieferant" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
     <label class="field-label" style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:5px;">Rechnungsnummer</label>
-    <input class="field-input" id="be-rechnungsnummer" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
+    <input class="field-input" id="be-rechnungsnummer" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
       <div>
         <label class="field-label" style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:5px;">Menge (Stk)</label>
-        <input class="field-input" type="number" id="be-menge" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
+        <input class="field-input" type="number" id="be-menge" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
       </div>
       <div>
         <label class="field-label" style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:5px;">Bruttobetrag (€)</label>
-        <input class="field-input" type="number" step="0.01" id="be-bruttobetrag" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
+        <input class="field-input" type="number" step="0.01" id="be-bruttobetrag" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:12px;">
       </div>
     </div>
     <label class="field-label" style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:5px;">MwSt-Satz (%)</label>
-    <input class="field-input" type="number" step="0.01" id="be-mwst-satz" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:16px;">
+    <input class="field-input" type="number" step="0.01" id="be-mwst-satz" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; margin-bottom:16px;">
     <div style="display:flex; gap:10px;">
-      <button class="btn" style="flex:1; color:var(--text-dim); border-color:rgba(90,122,154,0.3);" onclick="bearbeitenSchliessen()">Abbrechen</button>
+      <button class="btn" style="flex:1; color:var(--text-dim); border-color:rgba(139,143,168,0.3);" onclick="bearbeitenSchliessen()">Abbrechen</button>
       <button class="btn btn-primary" style="flex:1;" onclick="bearbeitenSpeichern()">✓ Speichern</button>
     </div>
   </div>

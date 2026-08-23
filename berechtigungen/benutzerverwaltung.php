@@ -8,7 +8,7 @@ $user = currentUser();
 
 if ($user['username'] !== 'qaf') {
     http_response_code(403);
-    die('<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;background:#0f1923;color:#c8dff0;padding:60px 20px;text-align:center;"><h2>🔒 Kein Zugriff</h2><a href="../dashboard.php" style="color:#4a9edd;">← Zurück zum Dashboard</a></body></html>');
+    die('<!DOCTYPE html><html><body style="font-family:-apple-system,sans-serif;background:#14161F;color:#E4E6F0;padding:60px 20px;text-align:center;"><h2>🔒 Kein Zugriff</h2><a href="../dashboard.php" style="color:#9494FF;">← Zurück zum Dashboard</a></body></html>');
 }
 
 $pdo = db();
@@ -148,67 +148,67 @@ $aktivitaeten = $pdo->query("SELECT * FROM aktivitaetslog ORDER BY zeitpunkt DES
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --red: #e74c3c; --orange: #e67e22;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --red: #F87171; --orange: #FBBF24;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:1100px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:24px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:24px; }
 
   .tab-nav { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
-  .tab-btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); }
-  .tab-btn.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .tab-btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); }
+  .tab-btn.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
   .tab-content { display:none; }
   .tab-content.active { display:block; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:20px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
 
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
   .row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:10px 16px; cursor:pointer; border:1px solid; background:none; }
-  .btn-primary { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
-  .btn-primary:hover { background:rgba(74,158,221,0.1); }
-  .btn-danger { color:var(--red); border-color:rgba(231,76,60,0.3); font-size:9px; padding:5px 10px; }
+  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; }
+  .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
+  .btn-primary:hover { background:rgba(148,148,255,0.1); }
+  .btn-danger { color:var(--red); border-color:rgba(248,113,113,0.3); font-size:9px; padding:5px 10px; }
 
-  .user-block { border:1px solid rgba(45,106,173,0.2); margin-bottom:14px; }
-  .user-header { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:rgba(15,25,35,0.6); cursor:pointer; }
+  .user-block { border:1px solid rgba(124,124,255,0.2); margin-bottom:14px; }
+  .user-header { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:rgba(20,22,31,0.6); cursor:pointer; }
   .user-name { font-weight:700; font-size:14px; }
   .user-username { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-left:8px; }
-  .admin-badge { font-family:var(--mono); font-size:9px; background:rgba(46,204,113,0.15); color:var(--green); padding:2px 8px; border-radius:8px; margin-left:8px; }
+  .admin-badge { font-family:var(--mono); font-size:9px; background:rgba(74,222,128,0.15); color:var(--green); padding:2px 8px; border-radius:8px; margin-left:8px; }
   .user-body { display:none; padding:16px; }
   .user-body.open { display:block; }
 
   table { width:100%; border-collapse:collapse; font-size:12px; }
-  th { text-align:left; padding:8px; font-family:var(--mono); font-size:9px; color:var(--text-dim); text-transform:uppercase; border-bottom:1px solid rgba(45,106,173,0.15); }
-  td { padding:8px; border-bottom:1px solid rgba(45,106,173,0.08); }
-  select.mini-select { background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-size:11px; padding:5px 8px; }
+  th { text-align:left; padding:8px; font-family:var(--mono); font-size:9px; color:var(--text-dim); border-bottom:1px solid rgba(124,124,255,0.15); }
+  td { padding:8px; border-bottom:1px solid rgba(124,124,255,0.08); }
+  select.mini-select { background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-size:11px; padding:5px 8px; }
   .check-label { font-family:var(--mono); font-size:9px; display:flex; align-items:center; gap:5px; cursor:pointer; }
   .speichern-btn { font-family:var(--mono); font-size:9px; color:var(--blue-bright); background:none; border:1px solid var(--blue-bright); padding:4px 10px; cursor:pointer; }
 
-  .einstellung-zeile { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(45,106,173,0.1); gap:12px; }
+  .einstellung-zeile { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(124,124,255,0.1); gap:12px; }
   .einstellung-zeile .info { flex:1; }
   .einstellung-zeile .schluessel-name { font-weight:600; font-size:13px; }
   .einstellung-zeile .beschreibung { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:2px; }
   .einstellung-zeile input { width:100px; text-align:right; }
 
-  .papierkorb-zeile, .log-zeile { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(45,106,173,0.08); gap:10px; }
+  .papierkorb-zeile, .log-zeile { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(124,124,255,0.08); gap:10px; }
   .papierkorb-zeile .info, .log-zeile .info { flex:1; }
   .papierkorb-titel { font-weight:600; font-size:13px; }
   .papierkorb-meta, .log-meta { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:2px; }
-  .modul-badge { font-family:var(--mono); font-size:8px; background:rgba(74,158,221,0.15); color:var(--blue-bright); padding:2px 7px; border-radius:6px; margin-right:6px; }
-  .log-aktion { font-family:var(--mono); font-size:8px; background:rgba(230,126,34,0.15); color:var(--orange); padding:2px 7px; border-radius:6px; margin-right:6px; }
+  .modul-badge { font-family:var(--mono); font-size:8px; background:rgba(148,148,255,0.15); color:var(--blue-bright); padding:2px 7px; border-radius:6px; margin-right:6px; }
+  .log-aktion { font-family:var(--mono); font-size:8px; background:rgba(251,191,36,0.15); color:var(--orange); padding:2px 7px; border-radius:6px; margin-right:6px; }
   .empty { text-align:center; font-family:var(--mono); font-size:11px; color:var(--text-dim); padding:24px; }
 </style>
 </head>

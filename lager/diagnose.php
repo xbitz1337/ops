@@ -65,31 +65,31 @@ if ($produkt_id) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lager-Diagnose — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red:#e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red:#F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
   .main { max-width:1000px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:20px; }
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .field-select { width:100%; max-width:400px; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:20px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .field-select { width:100%; max-width:400px; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; }
 
   .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
-  .kpi-card { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:14px; }
-  .kpi-label { font-family:var(--mono); font-size:8px; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px; }
-  .kpi-value { font-size:18px; font-weight:700; color:#e8f4ff; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:14px; }
+  .kpi-label { font-family:var(--mono); font-size:8px; color:var(--text-dim); margin-bottom:6px; }
+  .kpi-value { font-size:18px; font-weight:700; color:#F5F6FA; }
 
   table { width:100%; border-collapse:collapse; font-size:11px; }
-  th { text-align:left; padding:8px; font-family:var(--mono); font-size:8px; color:var(--text-dim); text-transform:uppercase; border-bottom:1px solid rgba(45,106,173,0.15); position:sticky; top:0; background:var(--navy2); }
-  td { padding:8px; border-bottom:1px solid rgba(45,106,173,0.08); font-family:var(--mono); }
+  th { text-align:left; padding:8px; font-family:var(--mono); font-size:8px; color:var(--text-dim); border-bottom:1px solid rgba(124,124,255,0.15); position:sticky; top:0; background:var(--navy2); }
+  td { padding:8px; border-bottom:1px solid rgba(124,124,255,0.08); font-family:var(--mono); }
   .typ-zugang { color:var(--green); }
   .typ-abgang { color:var(--red); }
   .typ-sonst { color:var(--text-dim); }

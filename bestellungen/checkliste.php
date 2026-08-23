@@ -26,52 +26,52 @@ $kanal_labels = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Sho
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkliste — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-mid: #1e3a5f;
-    --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-mid: #262A3D;
+    --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:480px; margin:0 auto; padding:20px 16px 60px; }
 
-  .schritt { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .schritt-nr { font-family:var(--mono); font-size:9px; color:var(--blue-bright); letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; }
+  .schritt { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .schritt-nr { font-family:var(--mono); font-size:9px; color:var(--blue-bright); margin-bottom:10px; }
   .schritt.done { opacity:0.5; }
   .schritt.done .schritt-nr { color:var(--green); }
 
   .produkt-box { display:flex; gap:14px; align-items:center; }
-  .produkt-img { width:64px; height:64px; background:var(--blue-mid); border:1px solid rgba(45,106,173,0.3); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0; overflow:hidden; }
+  .produkt-img { width:64px; height:64px; background:var(--blue-mid); border:1px solid rgba(124,124,255,0.3); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0; overflow:hidden; }
   .produkt-img img { width:100%; height:100%; object-fit:cover; }
   .produkt-name { font-size:16px; font-weight:700; margin-bottom:4px; }
   .produkt-menge { font-family:var(--mono); font-size:12px; color:var(--text-dim); }
-  .kanal-badge { font-family:var(--mono); font-size:9px; padding:2px 7px; border-radius:8px; background:rgba(74,158,221,0.15); color:var(--blue-bright); margin-left:6px; }
+  .kanal-badge { font-family:var(--mono); font-size:9px; padding:2px 7px; border-radius:8px; background:rgba(148,148,255,0.15); color:var(--blue-bright); margin-left:6px; }
 
   .adresse-box { font-size:14px; line-height:1.7; }
   .adresse-box .kaeufer { font-weight:700; font-size:16px; margin-bottom:4px; }
 
-  .bestaetigung-box { margin-top:16px; padding:14px; background:rgba(15,25,35,0.6); border:1px solid rgba(45,106,173,0.25); display:flex; align-items:flex-start; gap:10px; cursor:pointer; }
+  .bestaetigung-box { margin-top:16px; padding:14px; background:rgba(20,22,31,0.6); border:1px solid rgba(124,124,255,0.25); display:flex; align-items:flex-start; gap:10px; cursor:pointer; }
   .bestaetigung-box input[type=checkbox] { width:20px; height:20px; margin-top:1px; accent-color:var(--blue-bright); flex-shrink:0; cursor:pointer; }
   .bestaetigung-text { font-size:13px; line-height:1.5; }
 
-  .btn-gross { width:100%; padding:16px; font-family:var(--mono); font-size:13px; letter-spacing:2px; text-transform:uppercase; border:1px solid var(--blue-bright); color:var(--blue-bright); background:none; cursor:pointer; margin-top:14px; }
-  .btn-gross:hover:not(:disabled) { background:rgba(74,158,221,0.1); }
+  .btn-gross { width:100%; padding:16px; font-family:var(--mono); font-size:13px; border:1px solid var(--blue-bright); color:var(--blue-bright); background:none; cursor:pointer; margin-top:14px; }
+  .btn-gross:hover:not(:disabled) { background:rgba(148,148,255,0.1); }
   .btn-gross:disabled { opacity:0.35; cursor:not-allowed; }
   .btn-gross.gruen { border-color:var(--green); color:var(--green); }
-  .btn-gross.gruen:hover:not(:disabled) { background:rgba(46,204,113,0.1); }
+  .btn-gross.gruen:hover:not(:disabled) { background:rgba(74,222,128,0.1); }
 
   .scan-area { margin-top:14px; }
-  #scan-video { width:100%; border:1px solid rgba(45,106,173,0.3); display:none; margin-bottom:10px; }
-  #scan-box video, #scan-box canvas { width:100%; border:1px solid rgba(45,106,173,0.3); }
+  #scan-video { width:100%; border:1px solid rgba(124,124,255,0.3); display:none; margin-bottom:10px; }
+  #scan-box video, #scan-box canvas { width:100%; border:1px solid rgba(124,124,255,0.3); }
   .field-input {
-    width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25);
+    width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono); font-size:14px; padding:12px; outline:none;
     margin-bottom:10px;
   }
@@ -80,7 +80,7 @@ $kanal_labels = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Sho
   .scan-status.gefunden { color:var(--green); }
 
   .fertig-box { text-align:center; padding:40px 20px; }
-  .fertig-check { width:60px; height:60px; border-radius:50%; background:rgba(46,204,113,0.12); border:2px solid var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:26px; color:var(--green); }
+  .fertig-check { width:60px; height:60px; border-radius:50%; background:rgba(74,222,128,0.12); border:2px solid var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:26px; color:var(--green); }
 </style>
 </head>
 <body>
@@ -126,7 +126,7 @@ $kanal_labels = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Sho
         <div class="scan-status" id="dpd-status"></div>
 
         <div id="dpd-vorschau" style="display:none; margin-top:12px;">
-          <iframe id="dpd-pdf-frame" style="width:100%; height:280px; border:1px solid rgba(45,106,173,0.3); background:#fff;"></iframe>
+          <iframe id="dpd-pdf-frame" style="width:100%; height:280px; border:1px solid rgba(124,124,255,0.3); background:#fff;"></iframe>
           <label class="bestaetigung-box" for="dpd-gedruckt-check" style="margin-top:10px;">
             <input type="checkbox" id="dpd-gedruckt-check" onchange="dpdGedrucktGeaendert()">
             <span class="bestaetigung-text">Ich habe das Label ausgedruckt und auf das Paket geklebt.</span>
@@ -162,7 +162,7 @@ $kanal_labels = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Sho
   <?php if ($b['status'] === 'versendet'): ?>
   <div class="fertig-box">
     <div class="fertig-check">✓</div>
-    <div style="font-family:var(--mono); font-size:13px; letter-spacing:1px; color:var(--green); margin-bottom:6px;">VERSAND ABGESCHLOSSEN</div>
+    <div style="font-family:var(--mono); font-size:13px; color:var(--green); margin-bottom:6px;">VERSAND ABGESCHLOSSEN</div>
     <?php if ($b['sendungsnummer']): ?>
       <div style="font-family:var(--mono); font-size:11px; color:var(--text-dim);">📦 <?= htmlspecialchars($b['sendungsnummer']) ?></div>
     <?php endif; ?>

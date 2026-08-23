@@ -160,50 +160,50 @@ $plattform_labels = ['amazon' => 'Amazon', 'ebay' => 'eBay', 'tiktok' => 'TikTok
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Produkttexte — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --terracotta: #c88b5a;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --terracotta: #D9A066;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:24px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:24px; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:20px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
 
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; display:block; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
   .field-input, .field-select {
-    width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25);
+    width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px;
   }
   .field-input:focus, .field-select:focus { border-color:var(--blue-bright); }
   .plattform-row { display:flex; gap:8px; margin-bottom:14px; }
-  .plattform-btn { flex:1; padding:10px; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); font-family:var(--mono); font-size:11px; cursor:pointer; }
-  .plattform-btn.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .plattform-btn { flex:1; padding:10px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); font-family:var(--mono); font-size:11px; cursor:pointer; }
+  .plattform-btn.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
 
-  .btn-generieren { width:100%; background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); padding:13px; font-family:var(--mono); font-size:12px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
-  .btn-generieren:hover { background:rgba(74,158,221,0.1); }
+  .btn-generieren { width:100%; background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); padding:13px; font-family:var(--mono); font-size:12px; cursor:pointer; }
+  .btn-generieren:hover { background:rgba(148,148,255,0.1); }
 
-  .ergebnis-box { background:rgba(15,25,35,0.6); border:1px solid rgba(200,139,90,0.3); padding:20px; margin-top:20px; }
-  .ergebnis-label { font-family:var(--mono); font-size:9px; color:var(--terracotta); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+  .ergebnis-box { background:rgba(20,22,31,0.6); border:1px solid rgba(217,160,102,0.3); padding:20px; margin-top:20px; }
+  .ergebnis-label { font-family:var(--mono); font-size:9px; color:var(--terracotta); margin-bottom:6px; }
   .ergebnis-titel { font-size:16px; font-weight:700; margin-bottom:16px; }
   .ergebnis-bullets { list-style:none; margin-bottom:16px; }
-  .ergebnis-bullets li { padding:6px 0; font-size:13px; border-bottom:1px solid rgba(45,106,173,0.1); }
+  .ergebnis-bullets li { padding:6px 0; font-size:13px; border-bottom:1px solid rgba(124,124,255,0.1); }
   .ergebnis-bullets li:before { content:'✓ '; color:var(--green); font-weight:700; }
   .ergebnis-beschreibung { font-size:13px; line-height:1.6; color:var(--text); }
   .copy-btn { font-family:var(--mono); font-size:9px; color:var(--blue-bright); background:none; border:1px solid var(--blue-bright); padding:4px 10px; cursor:pointer; margin-top:8px; }
-  .copy-btn:hover { background:rgba(74,158,221,0.1); }
+  .copy-btn:hover { background:rgba(148,148,255,0.1); }
 
-  .historie-item { padding:12px 0; border-bottom:1px solid rgba(45,106,173,0.1); }
+  .historie-item { padding:12px 0; border-bottom:1px solid rgba(124,124,255,0.1); }
   .historie-item:last-child { border-bottom:none; }
   .historie-meta { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:4px; }
   .historie-titel { font-size:13px; font-weight:600; }

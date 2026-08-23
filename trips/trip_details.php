@@ -94,31 +94,31 @@ $prozent = $gesamt > 0 ? round($erledigt_anzahl / $gesamt * 100) : 0;
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars($trip['name']) ?> — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red:#e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red:#F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
   .main { max-width:640px; margin:0 auto; padding:24px 20px 60px; }
   .zurueck-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; display:inline-block; margin-bottom:16px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; color:#e8f4ff; margin-bottom:10px; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:10px; }
 
-  .fortschritt-box { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:16px 18px; margin-bottom:18px; }
+  .fortschritt-box { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px 18px; margin-bottom:18px; }
   .fortschritt-text { font-family:var(--mono); font-size:12px; color:var(--text-dim); margin-bottom:8px; }
-  .fortschritt-bar { height:8px; background:rgba(45,106,173,0.15); overflow:hidden; }
+  .fortschritt-bar { height:8px; background:rgba(124,124,255,0.15); overflow:hidden; }
   .fortschritt-fill { height:100%; background:var(--green); transition:width 0.3s; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:18px; margin-bottom:18px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:14px; }
-  .field-input { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:11px 12px; outline:none; margin-bottom:10px; }
-  .btn { font-family:var(--mono); font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:11px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; text-align:center; }
-  .btn-primary { color:var(--green); border-color:rgba(46,204,113,0.4); width:100%; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:18px; margin-bottom:18px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:14px; }
+  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:11px 12px; outline:none; margin-bottom:10px; }
+  .btn { font-family:var(--mono); font-size:11px; padding:11px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; text-align:center; }
+  .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); width:100%; }
 
-  .stopp-karte { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:16px; margin-bottom:10px; display:flex; gap:12px; }
+  .stopp-karte { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px; margin-bottom:10px; display:flex; gap:12px; }
   .stopp-karte.erledigt { opacity:0.45; }
   .stopp-nummer { font-family:var(--mono); font-size:22px; font-weight:700; color:var(--blue-bright); min-width:32px; }
   .stopp-inhalt { flex:1; }
@@ -127,18 +127,18 @@ $prozent = $gesamt > 0 ? round($erledigt_anzahl / $gesamt * 100) : 0;
   .stopp-notiz { font-size:12px; color:var(--text-dim); margin-top:4px; }
   .stopp-aktionen { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
   .stopp-btn { font-family:var(--mono); font-size:10px; padding:9px 14px; border:1px solid; text-decoration:none; text-align:center; cursor:pointer; background:none; }
-  .stopp-btn.navigieren { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
-  .stopp-btn.abholen { color:var(--orange); border-color:rgba(230,126,34,0.4); }
-  .stopp-btn.erledigt-btn { color:var(--green); border-color:rgba(46,204,113,0.4); }
+  .stopp-btn.navigieren { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
+  .stopp-btn.abholen { color:var(--orange); border-color:rgba(251,191,36,0.4); }
+  .stopp-btn.erledigt-btn { color:var(--green); border-color:rgba(74,222,128,0.4); }
   .stopp-sort { display:flex; flex-direction:column; gap:4px; }
-  .sort-btn { background:none; border:1px solid rgba(45,106,173,0.25); color:var(--text-dim); cursor:pointer; width:28px; height:24px; font-size:11px; }
+  .sort-btn { background:none; border:1px solid rgba(124,124,255,0.25); color:var(--text-dim); cursor:pointer; width:28px; height:24px; font-size:11px; }
   .sort-btn:hover { color:var(--blue-bright); border-color:var(--blue-bright); }
   .loeschen-btn { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:14px; align-self:flex-start; }
   .empty { text-align:center; font-family:var(--mono); font-size:11px; color:var(--text-dim); padding:24px; }
 
   .stopp-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:400; align-items:center; justify-content:center; }
   .stopp-modal-overlay.open { display:flex; }
-  .stopp-modal { background:var(--navy2); border:1px solid rgba(45,106,173,0.3); width:100%; max-width:420px; margin:20px; padding:20px; max-height:88vh; overflow-y:auto; }
+  .stopp-modal { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:420px; margin:20px; padding:20px; max-height:88vh; overflow-y:auto; }
   .stopp-modal-kopf { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
   .modal-close-btn { background:none; border:none; color:var(--text-dim); font-size:16px; cursor:pointer; }
 </style>

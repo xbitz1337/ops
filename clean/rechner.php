@@ -19,51 +19,51 @@ $laufzeit_optionen = clean_laufzeit_optionen();
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clean-Kalkulator — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red:#e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red:#F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
   .main { max-width:1050px; margin:0 auto; padding:24px 20px 60px; display:grid; grid-template-columns:1fr 340px; gap:20px; }
   @media(max-width:900px) { .main { grid-template-columns:1fr; } }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:20px; grid-column:1/-1; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:20px; grid-column:1/-1; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; }
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
 
-  .art-zeile { border:1px solid rgba(45,106,173,0.2); padding:12px 14px; margin-bottom:10px; }
-  .art-zeile.aktiv { border-color:rgba(46,204,113,0.4); background:rgba(46,204,113,0.05); }
+  .art-zeile { border:1px solid rgba(124,124,255,0.2); padding:12px 14px; margin-bottom:10px; }
+  .art-zeile.aktiv { border-color:rgba(74,222,128,0.4); background:rgba(74,222,128,0.05); }
   .art-kopf { display:flex; align-items:center; gap:10px; cursor:pointer; }
   .art-kopf input[type=checkbox] { width:18px; height:18px; accent-color:var(--green); }
   .art-name { font-weight:700; font-size:13px; flex:1; }
   .art-range { font-family:var(--mono); font-size:9px; color:var(--text-dim); }
-  .art-details { display:none; margin-top:12px; padding-top:12px; border-top:1px dashed rgba(45,106,173,0.2); }
+  .art-details { display:none; margin-top:12px; padding-top:12px; border-top:1px dashed rgba(124,124,255,0.2); }
   .art-details.sichtbar { display:block; }
   .art-details .field-input { margin-bottom:10px; padding:7px 10px; font-size:12px; }
 
   .freq-presets { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
-  .freq-btn { font-family:var(--mono); font-size:9px; padding:6px 10px; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); cursor:pointer; white-space:nowrap; }
-  .freq-btn.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .freq-btn { font-family:var(--mono); font-size:9px; padding:6px 10px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); cursor:pointer; white-space:nowrap; }
+  .freq-btn.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
   .freq-btn .rabatt-tag { color:var(--green); margin-left:4px; }
 
-  .ergebnis-box { position:sticky; top:64px; background:rgba(15,25,35,0.6); border:1px solid rgba(46,204,113,0.3); padding:18px; height:fit-content; }
-  .erg-zeile { display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; padding:6px 0; border-bottom:1px solid rgba(45,106,173,0.08); }
+  .ergebnis-box { position:sticky; top:64px; background:rgba(20,22,31,0.6); border:1px solid rgba(74,222,128,0.3); padding:18px; height:fit-content; }
+  .erg-zeile { display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; padding:6px 0; border-bottom:1px solid rgba(124,124,255,0.08); }
   .erg-zeile .label { color:var(--text-dim); }
-  .erg-zeile.final { margin-top:6px; padding-top:12px; border-top:1px solid rgba(46,204,113,0.2); }
+  .erg-zeile.final { margin-top:6px; padding-top:12px; border-top:1px solid rgba(74,222,128,0.2); }
   .erg-zeile.final .wert { color:var(--green); font-size:18px; font-weight:700; }
-  .aufschluesselung-titel { font-family:var(--mono); font-size:9px; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px; letter-spacing:1px; }
+  .aufschluesselung-titel { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin:14px 0 6px; }
   .aufschl-zeile { display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; padding:3px 0; color:var(--text-dim); }
 
-  .wettbewerb-box { background:rgba(230,126,34,0.1); border:1px solid rgba(230,126,34,0.3); padding:14px; margin-top:14px; }
-  .wettbewerb-box .titel { font-family:var(--mono); font-size:9px; color:var(--orange); text-transform:uppercase; margin-bottom:8px; }
+  .wettbewerb-box { background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); padding:14px; margin-top:14px; }
+  .wettbewerb-box .titel { font-family:var(--mono); font-size:9px; color:var(--orange); margin-bottom:8px; }
   .wettbewerb-box .preis { font-size:18px; font-weight:700; color:var(--orange); font-family:var(--mono); }
   .wettbewerb-box .hinweis { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:6px; line-height:1.4; }
   .wettbewerb-box .uebernehmen-btn { font-family:var(--mono); font-size:9px; color:var(--green); background:none; border:1px solid var(--green); padding:5px 10px; cursor:pointer; margin-top:8px; }

@@ -86,35 +86,35 @@ $einheit_labels = ['stueck' => 'Stk', 'meter' => 'm', 'gramm' => 'g'];
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verpackungsmaterial — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red: #e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red: #F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
   .main { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:20px; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:20px; }
 
   .tab-nav { display:flex; gap:6px; margin-bottom:20px; }
-  .tab-btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); }
-  .tab-btn.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .tab-btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); }
+  .tab-btn.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
   .tab-content { display:none; }
   .tab-content.active { display:block; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:14px; }
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; outline:none; margin-bottom:12px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:14px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; outline:none; margin-bottom:12px; }
   .row-3 { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:10px; }
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid; background:none; }
-  .btn-primary { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; }
+  .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
 
-  .material-karte { display:flex; justify-content:space-between; align-items:center; padding:14px; border:1px solid rgba(45,106,173,0.15); margin-bottom:8px; }
-  .material-karte.niedrig { border-color:rgba(230,126,34,0.4); background:rgba(230,126,34,0.06); }
+  .material-karte { display:flex; justify-content:space-between; align-items:center; padding:14px; border:1px solid rgba(124,124,255,0.15); margin-bottom:8px; }
+  .material-karte.niedrig { border-color:rgba(251,191,36,0.4); background:rgba(251,191,36,0.06); }
   .material-name { font-weight:700; font-size:14px; }
   .material-meta { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:3px; }
   .material-bestand { font-family:var(--mono); font-size:18px; font-weight:700; }
@@ -122,8 +122,8 @@ $einheit_labels = ['stueck' => 'Stk', 'meter' => 'm', 'gramm' => 'g'];
   .nachbuchen-form { display:flex; gap:6px; align-items:center; }
   .nachbuchen-form input { width:70px; }
 
-  .produkt-rezept-block { border:1px solid rgba(45,106,173,0.15); margin-bottom:8px; }
-  .produkt-rezept-kopf { padding:12px 14px; background:rgba(15,25,35,0.6); cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
+  .produkt-rezept-block { border:1px solid rgba(124,124,255,0.15); margin-bottom:8px; }
+  .produkt-rezept-kopf { padding:12px 14px; background:rgba(20,22,31,0.6); cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
   .produkt-rezept-body { display:none; padding:14px; }
   .produkt-rezept-body.open { display:block; }
   .rezept-zeile { display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:12px; }
