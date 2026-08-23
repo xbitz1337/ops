@@ -55,52 +55,24 @@ $status_labels = ['geplant' => '📅 Geplant', 'laufend' => '🚗 Läuft gerade'
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sammel-Trips — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red:#e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .main { max-width:640px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:20px; }
-
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:18px; margin-bottom:18px; }
-  .field-input { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:12px; outline:none; margin-bottom:10px; }
-  .btn { font-family:var(--mono); font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:12px 18px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; text-align:center; }
-  .btn-primary { color:var(--green); border-color:rgba(46,204,113,0.4); width:100%; }
-
-  .trip-karte { display:block; background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:16px 18px; margin-bottom:10px; text-decoration:none; color:var(--text); }
-  .trip-karte:hover { border-color:var(--blue-bright); }
-  .trip-name { font-size:16px; font-weight:700; }
-  .trip-meta { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:6px; }
-  .trip-status-badge { font-family:var(--mono); font-size:9px; padding:3px 9px; border-radius:8px; }
-  .status-geplant { background:rgba(74,158,221,0.15); color:var(--blue-bright); }
-  .status-laufend { background:rgba(230,126,34,0.15); color:var(--orange); }
-  .status-abgeschlossen { background:rgba(46,204,113,0.15); color:var(--green); }
-  .fortschritt-bar { height:5px; background:rgba(45,106,173,0.15); margin-top:10px; overflow:hidden; }
-  .fortschritt-fill { height:100%; background:var(--green); }
-  .empty { text-align:center; font-family:var(--mono); font-size:11px; color:var(--text-dim); padding:30px; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body>
 <?php require_once __DIR__ . '/_sidebar.php'; ?>
 <div class="page-content-wrapper">
 
-<div class="main">
+<div class="main schmal">
   <div class="page-title">Sammel-Trips</div>
-  <div class="page-sub">// ABHOLTOUREN PLANEN UND ABARBEITEN</div>
+  <div class="page-sub">Abholtouren planen und abarbeiten</div>
 
   <div class="panel">
-    <input class="field-input" id="neu-name" placeholder="z.B. August SE Trip">
-    <button class="btn btn-primary" onclick="tripAnlegen()">+ Neuen Trip anlegen</button>
+    <input id="neu-name" placeholder="z.B. August SE Trip">
+    <button class="btn-primary" onclick="tripAnlegen()">+ Neuen Trip anlegen</button>
   </div>
 
   <?php if (empty($trips)): ?>
-    <div class="empty">// NOCH KEIN TRIP ANGELEGT</div>
+    <div class="empty">Noch kein Trip angelegt</div>
   <?php else: ?>
     <?php foreach ($trips as $t):
         $anzahl = (int)$t['anzahl_stopps'];
@@ -108,9 +80,9 @@ $status_labels = ['geplant' => '📅 Geplant', 'laufend' => '🚗 Läuft gerade'
         $prozent = $anzahl > 0 ? round($erledigt / $anzahl * 100) : 0;
     ?>
     <a href="trip_details.php?id=<?= $t['id'] ?>" class="trip-karte">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div class="kopf">
         <div class="trip-name"><?= htmlspecialchars($t['name']) ?></div>
-        <span class="trip-status-badge status-<?= $t['status'] ?>"><?= $status_labels[$t['status']] ?></span>
+        <span class="status-badge status-<?= $t['status'] ?>"><?= $status_labels[$t['status']] ?></span>
       </div>
       <div class="trip-meta"><?= $erledigt ?> von <?= $anzahl ?> Stopps erledigt</div>
       <?php if ($anzahl > 0): ?>
