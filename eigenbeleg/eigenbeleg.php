@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['api'])) {
         $stmt->execute([$id]);
         $beleg = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($beleg) {
-            $pdf_pfad = __DIR__ . '/' . $beleg['dateipfad'];
+            $pdf_pfad = __DIR__ . '/../' . $beleg['dateipfad'];
             if (file_exists($pdf_pfad)) unlink($pdf_pfad);
             if ($beleg['foto_pfad']) {
-                $foto_pfad_voll = __DIR__ . '/' . $beleg['foto_pfad'];
+                $foto_pfad_voll = __DIR__ . '/../' . $beleg['foto_pfad'];
                 if (file_exists($foto_pfad_voll)) unlink($foto_pfad_voll);
             }
             $pdo->prepare("DELETE FROM eigenbelege WHERE id = ?")->execute([$id]);
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erlaubt = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
         $mime = $_FILES['foto']['type'];
         if (isset($erlaubt[$mime])) {
-            $ordner = __DIR__ . '/eigenbeleg_fotos';
+            $ordner = __DIR__ . '/../eigenbeleg_fotos';
             if (!is_dir($ordner)) mkdir($ordner, 0755, true);
             $dateiname_foto = uniqid('route_') . '.' . $erlaubt[$mime];
             $zielpfad = $ordner . '/' . $dateiname_foto;
@@ -197,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $jahr_ordner = date('Y', strtotime($datum));
     $monat_ordner = date('m', strtotime($datum));
     $relativer_ordner = "eigenbelege/{$jahr_ordner}/{$monat_ordner}";
-    $absoluter_ordner = __DIR__ . '/' . $relativer_ordner;
+    $absoluter_ordner = __DIR__ . '/../' . $relativer_ordner;
     if (!is_dir($absoluter_ordner)) mkdir($absoluter_ordner, 0755, true);
 
     $dateiname = str_replace(['/', ' '], '-', $belegnummer) . '.pdf';

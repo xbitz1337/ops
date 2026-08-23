@@ -17,7 +17,7 @@ $beleg = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$beleg) { http_response_code(404); die('Beleg nicht gefunden.'); }
 
-$pfad = __DIR__ . '/' . $beleg['dateipfad'];
+$pfad = __DIR__ . '/../' . $beleg['dateipfad'];
 if (!file_exists($pfad)) { http_response_code(404); die('Datei nicht mehr vorhanden.'); }
 
 // ── ROH-MODUS: liefert die eigentlichen PDF-Bytes fürs <embed> bzw. Download ─

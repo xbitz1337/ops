@@ -26,7 +26,7 @@ if (!$doc) {
 }
 
 // Datei von der Platte entfernen, falls vorhanden
-$pfad = __DIR__ . '/' . $doc['dateipfad'];
+$pfad = __DIR__ . '/../' . $doc['dateipfad'];
 if (file_exists($pfad)) {
     unlink($pfad);
 }

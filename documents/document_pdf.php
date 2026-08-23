@@ -105,7 +105,7 @@ $betreff_slug = trim($betreff_slug, '-');
 if ($bestehendes_dokument) {
     // AKTUALISIEREN: alte Datei entfernen, neue unter neuem Namen im aktuellen
     // Monatsordner ablegen (Betreff kann sich geändert haben) und DB-Zeile updaten.
-    $alte_datei = __DIR__ . '/' . $bestehendes_dokument['dateipfad'];
+    $alte_datei = __DIR__ . '/../' . $bestehendes_dokument['dateipfad'];
     if (file_exists($alte_datei)) {
         unlink($alte_datei);
     }
@@ -113,7 +113,7 @@ if ($bestehendes_dokument) {
     $jahr = date('Y');
     $monat = date('m');
     $relativer_ordner = "documents/{$jahr}/{$monat}";
-    $absoluter_ordner = __DIR__ . '/' . $relativer_ordner;
+    $absoluter_ordner = __DIR__ . '/../' . $relativer_ordner;
     if (!is_dir($absoluter_ordner)) {
         mkdir($absoluter_ordner, 0755, true);
     }
@@ -153,7 +153,7 @@ if ($bestehendes_dokument) {
 $jahr = date('Y');
 $monat = date('m');
 $relativer_ordner = "documents/{$jahr}/{$monat}";
-$absoluter_ordner = __DIR__ . '/' . $relativer_ordner;
+$absoluter_ordner = __DIR__ . '/../' . $relativer_ordner;
 if (!is_dir($absoluter_ordner)) {
     mkdir($absoluter_ordner, 0755, true);
 }

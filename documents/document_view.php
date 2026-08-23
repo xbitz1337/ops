@@ -16,7 +16,7 @@ if (!$doc) {
     http_response_code(404);
     die('Dokument nicht gefunden.');
 }
-$pfad = __DIR__ . '/' . $doc['dateipfad'];
+$pfad = __DIR__ . '/../' . $doc['dateipfad'];
 if (!file_exists($pfad)) {
     http_response_code(404);
     die('Datei nicht mehr auf dem Server vorhanden.');
