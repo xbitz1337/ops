@@ -99,9 +99,9 @@ $produkte = $pdo->query("SELECT id, name FROM lager_produkte WHERE aktiv = 1 ORD
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
   .page-sub { font-family:var(--mono); font-size:10px; color:var(--orange); margin-bottom:24px; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:10px 12px; outline:none; margin-bottom:14px; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
   .berechnung-box { background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); padding:14px 16px; margin-bottom:16px; font-family:var(--mono); }

@@ -22,13 +22,7 @@ require_modul_zugriff('kalkulator');
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  body::before {
-    content:''; position:fixed; inset:0;
-    background-image: linear-gradient(rgba(124,124,255,0.05) 1px,transparent 1px), linear-gradient(90deg,rgba(124,124,255,0.05) 1px,transparent 1px);
-    background-size:40px 40px; pointer-events:none; z-index:0;
-  }
-
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+.topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
   .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
   .back-link:hover { text-decoration:underline; }
   .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
@@ -40,14 +34,13 @@ require_modul_zugriff('kalkulator');
   .layout { display:grid; grid-template-columns:380px 1fr; gap:20px; }
   @media(max-width:900px) { .layout { grid-template-columns:1fr; } }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
   .field-input, .field-select {
     width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono); font-size:14px; padding:10px 12px; outline:none;
-    margin-bottom:16px;
-  }
+    margin-bottom:16px; border-radius:12px; }
   .field-input:focus { border-color:var(--blue-bright); }
 
   .checkbox-row { display:flex; align-items:center; gap:8px; margin-bottom:16px; cursor:pointer; }
@@ -63,7 +56,7 @@ require_modul_zugriff('kalkulator');
   .plattform-check .satz { font-family:var(--mono); font-size:9px; color:var(--text-dim); }
 
   .versand-row { display:flex; gap:8px; margin-bottom:16px; }
-  .versand-row .field-input { margin-bottom:0; flex:1; }
+  .versand-row .field-input { margin-bottom:0; flex:1; border-radius:12px; }
   .versand-row .mwst-toggle {
     display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:9px;
     color:var(--text-dim); white-space:nowrap; padding:0 8px; border:1px solid rgba(124,124,255,0.25);

@@ -111,18 +111,17 @@ $kanal_farben = ['amazon' => '#FBBF24', 'ebay' => '#9494FF', 'tiktok' => '#9CA0B
   .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px; margin-bottom:20px; }
 
   .zeitraum-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
-  .zeitraum-tab { font-family:var(--mono); font-size:11px; padding:8px 16px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; }
+  .zeitraum-tab { font-family:var(--mono); font-size:11px; padding:8px 16px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; border-radius:12px; }
   .zeitraum-tab.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
 
   .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
   @media(max-width:700px) { .kpi-row { grid-template-columns:1fr; } }
-  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; position:relative; overflow:hidden; }
-  .kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue-accent),var(--blue-bright)); }
-  .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:10px; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; position:relative; overflow:hidden; border-radius:18px; }
+.kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:10px; }
   .kpi-value { font-size:30px; font-weight:700; color:#F5F6FA; }
   .kpi-value.green { color:var(--green); }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:22px; margin-bottom:20px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:22px; margin-bottom:20px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:20px; }
 
   .balken-chart { display:flex; align-items:flex-end; gap:8px; height:200px; padding-top:20px; }

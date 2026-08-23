@@ -53,6 +53,6 @@ function require_modul_zugriff(string $modul, string $mindest = 'ansehen'): void
 {
     if (!hat_modul_zugriff($modul, $mindest)) {
         http_response_code(403);
-        die('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family:-apple-system,sans-serif;background:#0f1923;color:#c8dff0;padding:60px 20px;text-align:center;"><h2>🔒 Kein Zugriff</h2><p style="color:#5a7a9a;">Du hast keine Berechtigung für diesen Bereich.</p><a href="/dashboard.php" style="color:#4a9edd;">← Zurück zum Dashboard</a></body></html>');
+        die('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family:-apple-system,sans-serif;background:#14161F;color:#E4E6F0;padding:60px 20px;text-align:center;"><h2>🔒 Kein Zugriff</h2><p style="color:#8B8FA8;">Du hast keine Berechtigung für diesen Bereich.</p><a href="/dashboard.php" style="color:#9494FF;">← Zurück zum Dashboard</a></body></html>');
     }
 }

@@ -55,12 +55,12 @@ $subunternehmer = $pdo->query("SELECT * FROM clean_subunternehmer WHERE aktiv = 
   .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
   .main { max-width:700px; margin:0 auto; padding:24px 20px 60px; }
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:20px; }
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
+  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; border-radius:12px; }
   .row-3 { display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px; }
-  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; }
+  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; border-radius:12px; }
   .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
   .su-zeile { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(124,124,255,0.1); }
   .su-name { font-weight:700; }

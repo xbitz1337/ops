@@ -105,12 +105,12 @@ $einheit_labels = ['stueck' => 'Stk', 'meter' => 'm', 'gramm' => 'g'];
   .tab-content { display:none; }
   .tab-content.active { display:block; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:14px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; outline:none; margin-bottom:12px; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:9px 11px; outline:none; margin-bottom:12px; border-radius:12px; }
   .row-3 { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:10px; }
-  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; border-radius:12px; }
   .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
 
   .material-karte { display:flex; justify-content:space-between; align-items:center; padding:14px; border:1px solid rgba(124,124,255,0.15); margin-bottom:8px; }

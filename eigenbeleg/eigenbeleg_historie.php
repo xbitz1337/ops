@@ -34,7 +34,7 @@ $gesamt_summe = array_sum(array_column($belege, 'gesamtbetrag'));
   .summe-box .wert { font-size:22px; font-weight:700; color:var(--orange); }
 
   .toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; border-radius:12px; }
   .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
   .loeschmodus-btn { color:var(--red); border-color:rgba(248,113,113,0.3); }
   .loeschmodus-btn.aktiv { background:var(--red); color:#fff; }

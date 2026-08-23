@@ -120,12 +120,12 @@ foreach ($einsaetze as $e) { $nach_datum[$e['datum']][] = $e; }
   .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
   .main { max-width:800px; margin:0 auto; padding:24px 20px 60px; }
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:20px; }
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; }
+  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; border-radius:12px; }
   .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
 
   .tag-block { margin-bottom:16px; }
@@ -139,7 +139,7 @@ foreach ($einsaetze as $e) { $nach_datum[$e['datum']][] = $e; }
   .checkin-badge { padding:2px 8px; border-radius:8px; }
   .checkin-badge.aktiv { background:rgba(74,222,128,0.15); color:var(--green); }
   .checkin-badge.wartend { background:rgba(251,191,36,0.15); color:var(--orange); }
-  .mini-btn { font-family:var(--mono); font-size:9px; padding:5px 9px; border:1px solid rgba(124,124,255,0.3); background:none; color:var(--text); cursor:pointer; }
+  .mini-btn { font-family:var(--mono); font-size:9px; padding:5px 9px; border:1px solid rgba(124,124,255,0.3); background:none; color:var(--text); cursor:pointer; border-radius:10px; }
   .mini-btn.checkin { color:var(--green); border-color:rgba(74,222,128,0.3); }
   .mini-btn.checkout { color:var(--orange); border-color:rgba(251,191,36,0.3); }
   .mini-btn.foto { color:var(--blue-bright); border-color:rgba(148,148,255,0.3); }
@@ -151,10 +151,10 @@ foreach ($einsaetze as $e) { $nach_datum[$e['datum']][] = $e; }
 
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
-  .modal { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:480px; margin:20px; padding:20px; max-height:85vh; overflow-y:auto; }
+  .modal { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:480px; margin:20px; padding:20px; max-height:85vh; overflow-y:auto; border-radius:20px; }
   .modal-titel { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; display:flex; justify-content:space-between; }
   .modal-close { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:16px; }
-  .field-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; min-height:100px; margin-bottom:14px; }
+  .field-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; min-height:100px; margin-bottom:14px; border-radius:12px; }
   .foto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
   .foto-grid img { width:100%; aspect-ratio:1; object-fit:cover; border:1px solid rgba(124,124,255,0.3); }
 </style>

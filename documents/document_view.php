@@ -39,20 +39,21 @@ if (($_GET['raw'] ?? '') === '1') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars($doc['dateiname']) ?> — NA Ops Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif; background:#F5F5F7; height:100vh; display:flex; flex-direction:column; }
+  body { font-family:'Inter', -apple-system, sans-serif; background:#14161F; height:100vh; display:flex; flex-direction:column; }
   .topbar {
     height:52px; flex-shrink:0; display:flex; align-items:center; justify-content:space-between;
-    padding:0 16px; background:#fff; border-bottom:1px solid #E5E5E7;
+    padding:0 16px; background:#1D2030; border-bottom:1px solid #2E3248;
   }
-  .back-link { font-size:13px; color:#0071E3; text-decoration:none; white-space:nowrap; }
-  .doc-titel { font-size:12.5px; font-weight:600; color:#1D1D1F; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0 10px; flex:1; text-align:center; }
+  .back-link { font-size:13px; color:#9494FF; text-decoration:none; white-space:nowrap; }
+  .doc-titel { font-size:12.5px; font-weight:600; color:#E4E6F0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0 10px; flex:1; text-align:center; }
   .download-btn {
-    background:#0071E3; color:#fff; text-decoration:none; font-size:12.5px; font-weight:600;
-    padding:8px 14px; border-radius:8px; white-space:nowrap;
+    background:#7C7CFF; color:#fff; text-decoration:none; font-size:12.5px; font-weight:600;
+    padding:8px 14px; border-radius:10px; white-space:nowrap;
   }
-  .download-btn:hover { background:#0077ED; }
+  .download-btn:hover { opacity:0.9; }
   .pdf-bereich { flex:1; }
   .pdf-bereich embed { width:100%; height:100%; border:none; }
 </style>

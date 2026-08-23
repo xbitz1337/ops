@@ -79,11 +79,11 @@ if ($produkt_id) {
   .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
   .main { max-width:1000px; margin:0 auto; padding:24px 20px 60px; }
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:20px; }
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
-  .field-select { width:100%; max-width:400px; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
+  .field-select { width:100%; max-width:400px; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; border-radius:12px; }
 
   .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
-  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:14px; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:14px; border-radius:18px; }
   .kpi-label { font-family:var(--mono); font-size:8px; color:var(--text-dim); margin-bottom:6px; }
   .kpi-value { font-size:18px; font-weight:700; color:#F5F6FA; }
 

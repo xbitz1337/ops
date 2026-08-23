@@ -41,12 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
   .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:24px; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; border-radius:20px; }
   .field-input {
     width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--sans); font-size:14px; padding:14px; outline:none;
-    min-height:140px; resize:vertical; margin-bottom:16px;
-  }
+    min-height:140px; resize:vertical; margin-bottom:16px; border-radius:12px; }
   .field-input:focus { border-color:var(--blue-bright); }
   .btn-send { width:100%; background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); padding:14px; font-family:var(--mono); font-size:13px; cursor:pointer; }
   .btn-send:hover { background:rgba(148,148,255,0.1); }

@@ -148,7 +148,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
   .page-title { font-size:22px; font-weight:700; color:#F5F6FA; margin-bottom:16px; }
 
   .page-actions { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
-  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; border-radius:12px; }
   .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
   .btn-primary:hover { background:rgba(74,222,128,0.1); }
   .btn-secondary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
@@ -175,7 +175,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
   .karte-preis { font-family:var(--mono); font-size:12px; color:var(--green); font-weight:700; margin-bottom:8px; }
   .karte-aktionen { display:flex; gap:6px; flex-wrap:wrap; }
   select.status-select { background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:9px; padding:4px 6px; }
-  .mini-btn { font-family:var(--mono); font-size:9px; padding:4px 8px; border:1px solid rgba(248,113,113,0.3); background:none; color:var(--red); cursor:pointer; }
+  .mini-btn { font-family:var(--mono); font-size:9px; padding:4px 8px; border:1px solid rgba(248,113,113,0.3); background:none; color:var(--red); cursor:pointer; border-radius:10px; }
   .empty-spalte { font-family:var(--mono); font-size:9px; color:var(--text-dim); text-align:center; padding:16px 8px; }
 </style>
 </head>
@@ -258,7 +258,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
 <style>
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
-  .modal-box { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:560px; margin:20px; max-height:88vh; overflow-y:auto; }
+  .modal-box { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:560px; margin:20px; max-height:88vh; overflow-y:auto; border-radius:20px; }
   .modal-kopf { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(124,124,255,0.15); font-family:var(--mono); font-size:11px; color:var(--blue-bright); position:sticky; top:0; background:var(--navy2); }
   .modal-close { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:16px; }
   .modal-inhalt { padding:20px; }
@@ -273,8 +273,8 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
   .dm-badge { font-family:var(--mono); font-size:9px; padding:2px 8px; border-radius:8px; }
 
   .dm-field-label { font-family:var(--mono); font-size:8px; color:var(--text-dim); margin-bottom:4px; display:block; }
-  .dm-input, .dm-select, .dm-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:8px 10px; outline:none; margin-bottom:10px; }
-  .dm-textarea { min-height:70px; resize:vertical; }
+  .dm-input, .dm-select, .dm-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:8px 10px; outline:none; margin-bottom:10px; border-radius:10px; }
+  .dm-textarea { min-height:70px; resize:vertical; border-radius:10px; }
   .dm-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .dm-speichern-btn { width:100%; background:none; border:1px solid var(--green); color:var(--green); padding:12px; font-family:var(--mono); font-size:12px; cursor:pointer; margin-top:6px; }
   .dm-speichern-btn:hover { background:rgba(74,222,128,0.1); }

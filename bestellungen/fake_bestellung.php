@@ -70,13 +70,12 @@ $fake_orte = [['20095', 'Hamburg'], ['10115', 'Berlin'], ['80331', 'München'], 
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
   .page-sub { font-family:var(--mono); font-size:10px; color:var(--orange); margin-bottom:24px; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; border-radius:20px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
   .field-input, .field-select {
     width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none;
-    margin-bottom:14px;
-  }
+    margin-bottom:14px; border-radius:12px; }
   .field-input:focus, .field-select:focus { border-color:var(--blue-bright); }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .kanal-row { display:flex; gap:8px; margin-bottom:14px; }

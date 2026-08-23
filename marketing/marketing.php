@@ -132,17 +132,10 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; overflow-x:hidden; }
-  body::before {
-    content:''; position:fixed; inset:0;
-    background-image: linear-gradient(rgba(124,124,255,0.05) 1px,transparent 1px), linear-gradient(90deg,rgba(124,124,255,0.05) 1px,transparent 1px);
-    background-size:40px 40px; pointer-events:none; z-index:0;
-  }
-  .scanlines { position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px); pointer-events:none; z-index:1; }
-
-  .topbar { position:fixed; top:0; left:0; right:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+.topbar { position:fixed; top:0; left:0; right:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
   .topbar-left { display:flex; align-items:center; gap:14px; }
-  .logo-mark { width:30px; height:30px; background:var(--blue-mid); border:1px solid var(--blue-accent); display:flex; align-items:center; justify-content:center; clip-path:polygon(10% 0%,90% 0%,100% 10%,100% 90%,90% 100%,10% 100%,0% 90%,0% 10%); }
-  .logo-mark span { font-family:var(--mono); font-size:10px; color:var(--blue-bright); }
+  .logo-mark { width:32px; height:32px; border-radius:10px; background:rgba(124,124,255,0.15); display:flex; align-items:center; justify-content:center; }
+  .logo-mark span { font-size:12px; font-weight:700; color:var(--blue-bright); }
   .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
   .topbar-right { display:flex; align-items:center; gap:16px; font-family:var(--mono); font-size:10px; color:var(--text-dim); }
   .status-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--green); margin-right:5px; animation:pulse 2s infinite; }
@@ -169,13 +162,12 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
 
   .grid-cards { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px; margin-bottom:16px; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); position:relative; margin-bottom:16px; }
-  .panel::after { content:''; position:absolute; bottom:0; right:0; width:12px; height:12px; border-bottom:1px solid rgba(124,124,255,0.3); border-right:1px solid rgba(124,124,255,0.3); }
-  .panel-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(124,124,255,0.15); flex-wrap:wrap; gap:8px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); position:relative; margin-bottom:16px; border-radius:20px; }
+.panel-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(124,124,255,0.15); flex-wrap:wrap; gap:8px; }
   .panel-title { font-family:var(--mono); font-size:13px; color:var(--blue-bright); display:flex; align-items:center; gap:8px; }
   .panel-body { padding:16px 18px; }
 
-  .btn { font-family:var(--mono); font-size:12px; padding:9px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; }
+  .btn { font-family:var(--mono); font-size:12px; padding:9px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; border-radius:12px; }
   .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
   .btn-primary:hover { background:rgba(148,148,255,0.1); border-color:var(--blue-bright); }
   .btn-danger { color:var(--red); border-color:rgba(248,113,113,0.3); }
@@ -207,9 +199,8 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
 
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
-  .modal { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:480px; margin:20px; position:relative; max-height:90vh; overflow-y:auto; }
-  .modal::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue-accent),var(--blue-bright),var(--blue-accent),transparent); }
-  .modal-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(124,124,255,0.15); position:sticky; top:0; background:var(--navy2); z-index:2; }
+  .modal { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:480px; margin:20px; position:relative; max-height:90vh; overflow-y:auto; border-radius:20px; }
+.modal-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(124,124,255,0.15); position:sticky; top:0; background:var(--navy2); z-index:2; }
   .modal-title { font-family:var(--mono); font-size:13px; color:var(--blue-bright); }
   .modal-close { background:none; border:none; color:var(--text-dim); font-size:18px; cursor:pointer; transition:color 0.2s; }
   .modal-close:hover { color:var(--red); }
@@ -220,11 +211,10 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
   .field-input, .field-select, .field-textarea {
     width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono); font-size:14px; padding:10px 12px; outline:none;
-    transition:border-color 0.2s;
-  }
+    transition:border-color 0.2s; border-radius:12px; }
   .field-input:focus, .field-select:focus, .field-textarea:focus { border-color:var(--blue-bright); }
   .field-select option { background:var(--navy2); }
-  .field-textarea { resize:vertical; min-height:70px; }
+  .field-textarea { resize:vertical; min-height:70px; border-radius:12px; }
 
   .toast { position:fixed; bottom:24px; right:24px; background:var(--navy2); border:1px solid rgba(124,124,255,0.3); border-left:3px solid var(--green); padding:12px 20px; font-family:var(--mono); font-size:13px; z-index:300; opacity:0; transform:translateY(10px); transition:all 0.3s; pointer-events:none; }
   .toast.show { opacity:1; transform:translateY(0); }
@@ -258,8 +248,8 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
     .logo-mark { width:26px; height:26px; }
     .kanban { grid-template-columns:1fr; }
     .page-header { flex-direction:column; align-items:stretch; }
-    .page-actions .btn { flex:1; text-align:center; }
-    .modal { margin:12px; max-height:85vh; }
+    .page-actions .btn { flex:1; text-align:center; border-radius:12px; }
+    .modal { margin:12px; max-height:85vh; border-radius:20px; }
   }
 </style>
 </head>

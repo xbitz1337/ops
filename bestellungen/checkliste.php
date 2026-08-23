@@ -73,8 +73,7 @@ $kanal_labels = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Sho
   .field-input {
     width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono); font-size:14px; padding:12px; outline:none;
-    margin-bottom:10px;
-  }
+    margin-bottom:10px; border-radius:12px; }
   .field-input:focus { border-color:var(--blue-bright); }
   .scan-status { font-family:var(--mono); font-size:10px; color:var(--text-dim); text-align:center; margin-bottom:10px; }
   .scan-status.gefunden { color:var(--green); }

@@ -25,11 +25,11 @@ require_modul_zugriff('export');
   .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
   .main { max-width:520px; margin:0 auto; padding:28px 20px 60px; }
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:24px; }
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:14px; }
   .panel-desc { font-size:13px; color:var(--text-dim); margin-bottom:16px; line-height:1.5; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
+  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .btn-download { display:block; width:100%; text-align:center; background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); padding:12px; font-family:var(--mono); font-size:12px; text-decoration:none; cursor:pointer; }
   .btn-download:hover { background:rgba(148,148,255,0.1); }

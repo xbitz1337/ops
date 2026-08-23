@@ -32,10 +32,10 @@ $laufzeit_optionen = clean_laufzeit_optionen();
   @media(max-width:900px) { .main { grid-template-columns:1fr; } }
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:20px; grid-column:1/-1; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
 
@@ -47,7 +47,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
   .art-range { font-family:var(--mono); font-size:9px; color:var(--text-dim); }
   .art-details { display:none; margin-top:12px; padding-top:12px; border-top:1px dashed rgba(124,124,255,0.2); }
   .art-details.sichtbar { display:block; }
-  .art-details .field-input { margin-bottom:10px; padding:7px 10px; font-size:12px; }
+  .art-details .field-input { margin-bottom:10px; padding:7px 10px; font-size:12px; border-radius:12px; }
 
   .freq-presets { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
   .freq-btn { font-family:var(--mono); font-size:9px; padding:6px 10px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); cursor:pointer; white-space:nowrap; }

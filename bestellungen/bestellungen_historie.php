@@ -80,17 +80,17 @@ function baue_url($status, $kanal, $suche, $seite) {
   .filter-block { margin-bottom:20px; }
   .filter-row { display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap; align-items:center; }
   .filter-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); width:70px; }
-  .filter-chip { font-family:var(--mono); font-size:10px; padding:7px 12px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; }
+  .filter-chip { font-family:var(--mono); font-size:10px; padding:7px 12px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; border-radius:10px; }
   .filter-chip.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
   .filter-chip:hover { border-color:var(--blue-bright); }
   .suche-form { display:flex; gap:8px; flex:1; min-width:200px; margin-top:8px; }
-  .suche-input { flex:1; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:12px; padding:8px 12px; outline:none; }
+  .suche-input { flex:1; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:12px; padding:8px 12px; outline:none; border-radius:10px; }
 
-  table { width:100%; border-collapse:collapse; background:rgba(29,32,48,0.6); border:1px solid rgba(124,124,255,0.2); }
+  table { width:100%; border-collapse:collapse; background:rgba(29,32,48,0.6); border:1px solid rgba(124,124,255,0.2); border-radius:16px; overflow:hidden; }
   th { background:rgba(20,22,31,0.8); text-align:left; padding:10px 12px; font-family:var(--mono); font-size:9px; color:var(--text-dim); border-bottom:1px solid rgba(124,124,255,0.2); }
   td { padding:10px 12px; font-size:12px; border-bottom:1px solid rgba(124,124,255,0.1); }
   tr:last-child td { border-bottom:none; }
-  .status-badge { font-family:var(--mono); font-size:9px; padding:2px 8px; border:1px solid; }
+  .status-badge { font-family:var(--mono); font-size:9px; padding:2px 8px; border:1px solid; border-radius:8px; }
   .status-badge.neu { color:var(--orange); border-color:rgba(251,191,36,0.3); }
   .status-badge.zu_verpacken { color:var(--blue-bright); border-color:rgba(148,148,255,0.3); }
   .status-badge.versand_vorbereitet { color:var(--purple); border-color:rgba(184,166,255,0.3); }
@@ -100,14 +100,14 @@ function baue_url($status, $kanal, $suche, $seite) {
   .empty { text-align:center; padding:40px; font-family:var(--mono); font-size:11px; color:var(--text-dim); }
 
   .pagination { display:flex; justify-content:center; gap:6px; margin-top:20px; flex-wrap:wrap; }
-  .page-link { font-family:var(--mono); font-size:11px; padding:8px 12px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; }
+  .page-link { font-family:var(--mono); font-size:11px; padding:8px 12px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; border-radius:10px; }
   .page-link.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
   .page-link:hover { border-color:var(--blue-bright); }
 
   @media(max-width:700px) {
     table, thead, tbody, th, td, tr { display:block; }
     thead { display:none; }
-    tr { background:rgba(29,32,48,0.8); margin-bottom:8px; padding:10px 12px; border:1px solid rgba(124,124,255,0.2); }
+    tr { background:rgba(29,32,48,0.8); margin-bottom:8px; padding:10px 12px; border:1px solid rgba(124,124,255,0.2); border-radius:14px; }
     td { border:none; padding:3px 0; }
     td:before { content: attr(data-label); font-family:var(--mono); font-size:8px; color:var(--text-dim); display:block; }
   }

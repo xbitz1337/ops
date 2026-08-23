@@ -73,11 +73,11 @@ $laufzeit_optionen = clean_laufzeit_optionen();
   .main { max-width:1200px; margin:0 auto; padding:24px 20px 60px; display:grid; grid-template-columns:1fr 360px; gap:20px; }
   @media(max-width:950px) { .main { grid-template-columns:1fr; } }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input, .field-select, .field-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:10px 12px; outline:none; margin-bottom:14px; }
-  .field-textarea { min-height:60px; resize:vertical; }
+  .field-input, .field-select, .field-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
+  .field-textarea { min-height:60px; resize:vertical; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
 
@@ -97,7 +97,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
   .art-name { font-weight:700; flex:1; }
   .art-details { display:none; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(124,124,255,0.2); }
   .art-details.sichtbar { display:block; }
-  .art-details .field-input { margin-bottom:8px; padding:6px 8px; font-size:11px; }
+  .art-details .field-input { margin-bottom:8px; padding:6px 8px; font-size:11px; border-radius:12px; }
 
   .freq-presets { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:8px; }
   .freq-btn { font-family:var(--mono); font-size:8px; padding:5px 8px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); cursor:pointer; white-space:nowrap; }

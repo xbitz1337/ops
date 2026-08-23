@@ -112,10 +112,10 @@ $prozent = $gesamt > 0 ? round($erledigt_anzahl / $gesamt * 100) : 0;
   .fortschritt-bar { height:8px; background:rgba(124,124,255,0.15); overflow:hidden; }
   .fortschritt-fill { height:100%; background:var(--green); transition:width 0.3s; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:18px; margin-bottom:18px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:18px; margin-bottom:18px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:14px; }
-  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:11px 12px; outline:none; margin-bottom:10px; }
-  .btn { font-family:var(--mono); font-size:11px; padding:11px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; text-align:center; }
+  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:11px 12px; outline:none; margin-bottom:10px; border-radius:12px; }
+  .btn { font-family:var(--mono); font-size:11px; padding:11px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; text-align:center; border-radius:12px; }
   .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); width:100%; }
 
   .stopp-karte { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px; margin-bottom:10px; display:flex; gap:12px; }

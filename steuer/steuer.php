@@ -85,7 +85,7 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
 
   .kpi-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
   @media(max-width:500px) { .kpi-row { grid-template-columns:1fr; } }
-  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:18px; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:18px; border-radius:18px; }
   .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:8px; }
   .kpi-value { font-size:26px; font-weight:700; color:#F5F6FA; }
   .kpi-value.green { color:var(--green); }
@@ -97,10 +97,10 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
   .fortschritt-bar { height:100%; border-radius:7px; background:linear-gradient(90deg, var(--blue-accent), var(--green)); }
   .fortschritt-text { font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
+  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .btn-add { width:100%; background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); padding:12px; font-family:var(--mono); font-size:12px; cursor:pointer; }
   .btn-add:hover { background:rgba(148,148,255,0.1); }

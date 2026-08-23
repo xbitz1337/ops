@@ -395,7 +395,7 @@ foreach ($alle_produkte_rows as $row) {
   .niedrig-banner .engpass-zeile strong { color:var(--orange); }
 
   .page-actions { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
-  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; text-decoration:none; display:inline-block; }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; text-decoration:none; display:inline-block; border-radius:12px; }
   .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
   .btn-primary:hover { background:rgba(148,148,255,0.1); }
 

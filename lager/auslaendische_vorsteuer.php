@@ -143,15 +143,15 @@ $status_labels = ['offen' => '⏳ Offen', 'beantragt' => '📤 Beantragt', 'erha
   .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:20px; }
 
   .kpi-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
-  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px; border-radius:18px; }
   .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; }
   .kpi-value { font-size:22px; font-weight:700; }
 
   .toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
-  .filter-tabs { display:flex; gap:6px; flex-wrap:wrap; }
-  .filter-tab { font-family:var(--mono); font-size:10px; padding:7px 12px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); text-decoration:none; }
+  .filter-tabs { display:flex; gap:6px; flex-wrap:wrap; border-radius:16px; }
+  .filter-tab { font-family:var(--mono); font-size:10px; padding:7px 12px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); text-decoration:none; border-radius:12px; }
   .filter-tab.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
-  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; border-radius:12px; }
   .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
 
   .eintrag-karte { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:16px; margin-bottom:10px; }

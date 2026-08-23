@@ -14,26 +14,32 @@ $user = currentUser();
 <title>Dokumente — NA Ops Hub</title>
 <style>
   :root {
-    --ink: #1D1D1F;
-    --ink-dim: #86868B;
-    --ink-mid: #4B4B4D;
-    --line: #E5E5E7;
-    --bg: #F5F5F7;
-    --panel: #FFFFFF;
-    --accent: #0071E3;
-    --accent-hover: #0077ED;
-    --font: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --ink: #E4E6F0;
+    --ink-dim: #8B8FA8;
+    --ink-mid: #ABAFC4;
+    --line: #2E3248;
+    --bg: #14161F;
+    --panel: #1D2030;
+    --panel2: #262A3D;
+    --accent: #7C7CFF;
+    --accent-hover: #9494FF;
+    --font: 'Inter', -apple-system, sans-serif;
+    /* Brief-/Signatur-Vorschau bleibt bewusst wie echtes weißes Papier —
+       unabhängig vom dunklen App-Theme, siehe .preview-* / .signatur-* unten. */
+    --paper-ink: #1D1D1F;
+    --paper-ink-dim: #86868B;
+    --paper-ink-mid: #4B4B4D;
+    --paper-line: #E5E5E7;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:var(--font); background:var(--bg); color:var(--ink); min-height:100vh; }
 
   .topbar {
     height:56px; display:flex; align-items:center; justify-content:space-between;
-    padding:0 28px; background:rgba(255,255,255,0.9); backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
+    padding:0 28px; background:var(--panel); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
   }
   .topbar-left { display:flex; align-items:center; gap:14px; }
-  .topbar-title { font-size:15px; font-weight:600; letter-spacing:-0.2px; }
+  .topbar-title { font-size:15px; font-weight:600; }
   .back-link { font-size:13px; color:var(--accent); text-decoration:none; }
   .back-link:hover { text-decoration:underline; }
 
@@ -43,14 +49,14 @@ $user = currentUser();
   .form-side { padding:36px 40px; border-right:1px solid var(--line); }
   .preview-side { padding:36px 40px; background:#FAFAFA; }
 
-  h1 { font-size:24px; font-weight:700; letter-spacing:-0.3px; margin-bottom:6px; }
+  h1 { font-size:24px; font-weight:700; margin-bottom:6px; }
   .subtitle { font-size:13px; color:var(--ink-dim); margin-bottom:28px; }
 
   .field-group { margin-bottom:20px; }
   label { display:block; font-size:12px; font-weight:600; color:var(--ink-mid); margin-bottom:6px; }
   select, input[type=text], input[type=date], textarea {
-    width:100%; border:1px solid var(--line); border-radius:8px; padding:10px 12px;
-    font-family:var(--font); font-size:13.5px; color:var(--ink); background:#fff;
+    width:100%; border:1px solid var(--line); border-radius:12px; padding:10px 12px;
+    font-family:var(--font); font-size:13.5px; color:var(--ink); background:var(--panel2);
     outline:none; transition:border-color 0.15s;
   }
   select:focus, input:focus, textarea:focus { border-color:var(--accent); }
@@ -60,34 +66,34 @@ $user = currentUser();
   .hint { font-size:11px; color:var(--ink-dim); margin-top:5px; }
 
   .btn-generate {
-    width:100%; background:var(--accent); color:#fff; border:none; border-radius:10px;
+    width:100%; background:var(--accent); color:#fff; border:none; border-radius:12px;
     padding:14px; font-size:14.5px; font-weight:600; cursor:pointer; margin-top:8px;
-    transition:background 0.15s;
+    transition:opacity 0.15s;
   }
-  .btn-generate:hover { background:var(--accent-hover); }
+  .btn-generate:hover { opacity:0.9; }
 
   .btn-delete {
-    width:100%; background:#fff; color:#D70015; border:1px solid #FFCDD2; border-radius:10px;
+    width:100%; background:var(--panel2); color:var(--red, #F87171); border:1px solid rgba(248,113,113,0.35); border-radius:12px;
     padding:12px; font-size:13.5px; font-weight:600; cursor:pointer; margin-top:10px;
     transition:background 0.15s;
   }
-  .btn-delete:hover { background:#FFF5F5; }
+  .btn-delete:hover { background:rgba(248,113,113,0.1); }
 
   .verfasser-row { display:flex; gap:8px; }
   .verfasser-btn {
-    flex:1; padding:10px; border:1px solid var(--line); border-radius:8px;
-    background:#fff; font-family:var(--font); font-size:13px; font-weight:500;
+    flex:1; padding:10px; border:1px solid var(--line); border-radius:10px;
+    background:var(--panel2); font-family:var(--font); font-size:13px; font-weight:500;
     color:var(--ink-mid); cursor:pointer; transition:all 0.15s;
   }
   .verfasser-btn:hover { border-color:var(--accent); }
   .verfasser-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
 
   .signatur-pad-wrap {
-    border:1px solid var(--line); border-radius:8px; background:#fff; overflow:hidden;
+    border:1px solid var(--paper-line); border-radius:10px; background:#fff; overflow:hidden;
   }
   #signatur-canvas { width:100%; height:150px; display:block; touch-action:none; cursor:crosshair; }
-  .signatur-actions { display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-top:1px solid var(--line); background:#FAFAFA; }
-  .signatur-status { font-size:11px; color:var(--ink-dim); }
+  .signatur-actions { display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-top:1px solid var(--paper-line); background:#FAFAFA; }
+  .signatur-status { font-size:11px; color:var(--paper-ink-dim); }
   .signatur-status.signiert { color:#1a7f37; font-weight:600; }
   .btn-clear-signatur { background:none; border:none; color:var(--accent); font-size:12px; cursor:pointer; font-weight:500; }
   .btn-clear-signatur:hover { text-decoration:underline; }
@@ -105,21 +111,22 @@ $user = currentUser();
     .preview-logo-zeile .fallback { font-size:20px; }
   }
 
+  /* Brief-Vorschau: bewusst helles "Papier", siehe --paper-* oben */
   .preview-page {
-    background:#fff; border:1px solid var(--line); border-radius:12px;
+    background:#fff; border:1px solid var(--paper-line); border-radius:12px;
     box-shadow:0 2px 20px rgba(0,0,0,0.06); padding:50px 44px;
-    font-size:11.5px; line-height:1.6; min-height:600px;
+    font-size:11.5px; line-height:1.6; min-height:600px; color:var(--paper-ink);
   }
-  .preview-logo-zeile { display:flex; align-items:center; border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:6px; }
-  .preview-logo-zeile .fallback { font-size:30px; font-weight:600; letter-spacing:-0.4px; }
+  .preview-logo-zeile { display:flex; align-items:center; border-bottom:1px solid var(--paper-line); padding-bottom:14px; margin-bottom:6px; }
+  .preview-logo-zeile .fallback { font-size:30px; font-weight:600; }
   .preview-logo-zeile img { height:95px; }
-  .preview-absender { font-size:8px; color:var(--ink-dim); margin-bottom:44px; }
+  .preview-absender { font-size:8px; color:var(--paper-ink-dim); margin-bottom:44px; }
   .preview-empfaenger { margin-bottom:36px; white-space:pre-wrap; font-size:11px; }
-  .preview-datum { text-align:right; font-size:10.5px; color:var(--ink-mid); margin-bottom:30px; }
+  .preview-datum { text-align:right; font-size:10.5px; color:var(--paper-ink-mid); margin-bottom:30px; }
   .preview-betreff { font-size:13px; font-weight:600; margin-bottom:18px; }
   .preview-text { white-space:pre-wrap; font-size:11.5px; }
   .preview-unterschrift { margin-top:60px; }
-  .preview-unterschrift-linie { width:200px; border-top:1px solid var(--ink); margin-top:50px; padding-top:6px; font-size:10px; color:var(--ink-mid); }
+  .preview-unterschrift-linie { width:200px; border-top:1px solid var(--paper-ink); margin-top:50px; padding-top:6px; font-size:10px; color:var(--paper-ink-mid); }
   .preview-label { font-size:10px; color:var(--ink-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
 </style>
 </head>
@@ -155,7 +162,7 @@ $user = currentUser();
       </div>
 
       <!-- DARLEHEN-ASSISTENT: nur sichtbar, wenn Vorlage "Darlehensvertrag" gewählt ist -->
-      <div id="darlehen-assistent" style="display:none; background:#F0F7FF; border:1px solid #CCE4FF; border-radius:10px; padding:16px; margin-bottom:20px;">
+      <div id="darlehen-assistent" style="display:none; background:rgba(124,124,255,0.1); border:1px solid rgba(124,124,255,0.3); border-radius:12px; padding:16px; margin-bottom:20px;">
         <div style="font-size:12px; font-weight:700; color:var(--accent); margin-bottom:12px;">📋 Darlehen-Angaben — füllt automatisch den Vertragstext</div>
 
         <div class="row-2">
@@ -351,7 +358,7 @@ $user = currentUser();
           Es wird automatisch die hinterlegte Unterschrift von <strong id="gespeichert-wer">Artis</strong> verwendet, passend zur Auswahl "Wer schreibt diesen Brief?" oben.
         </div>
 
-        <div class="hint" style="margin-top:6px; color:#B45309;">
+        <div class="hint" style="margin-top:6px; color:#FBBF24;">
           ⚠️ Hinweis: Eine eingefügte Unterschrift ersetzt keine eigenhändige/qualifizierte elektronische Signatur. Für formbedürftige Dokumente (§126 BGB) rechtlich nicht ausreichend — für formlose Geschäftsbriefe unproblematisch. Beim Darlehensvertrag unterschreibt die Gegenseite weiterhin von Hand auf der freien Zeile im Text.
         </div>
       </div>

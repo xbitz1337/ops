@@ -70,7 +70,7 @@ foreach ($antworten as $a) { $gruppiert[$a['kategorie']][] = $a; }
 
   .toolbar { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
   .suche-input { flex:1; min-width:200px; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:12px; padding:10px 12px; outline:none; }
-  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; }
+  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; border-radius:12px; }
   .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
   .btn-primary:hover { background:rgba(148,148,255,0.1); }
 
@@ -81,17 +81,17 @@ foreach ($antworten as $a) { $gruppiert[$a['kategorie']][] = $a; }
   .antwort-titel { font-weight:700; font-size:14px; margin-bottom:6px; }
   .antwort-text { font-size:13px; color:var(--text); line-height:1.5; margin-bottom:10px; white-space:pre-wrap; }
   .antwort-aktionen { display:flex; gap:8px; }
-  .mini-btn { font-family:var(--mono); font-size:9px; padding:6px 10px; border:1px solid rgba(124,124,255,0.3); background:none; color:var(--text); cursor:pointer; }
+  .mini-btn { font-family:var(--mono); font-size:9px; padding:6px 10px; border:1px solid rgba(124,124,255,0.3); background:none; color:var(--text); cursor:pointer; border-radius:10px; }
   .mini-btn.kopiert { color:var(--green); border-color:var(--green); }
   .mini-btn.loeschen { color:var(--red); border-color:rgba(248,113,113,0.3); }
 
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
-  .modal { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:440px; margin:20px; padding:20px; }
+  .modal { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:440px; margin:20px; padding:20px; border-radius:20px; }
   .modal-titel { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input, .field-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
-  .field-textarea { min-height:100px; resize:vertical; }
+  .field-input, .field-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
+  .field-textarea { min-height:100px; resize:vertical; border-radius:12px; }
   .modal-aktionen { display:flex; gap:10px; justify-content:flex-end; }
 
   .empty { text-align:center; font-family:var(--mono); font-size:11px; color:var(--text-dim); padding:30px; }

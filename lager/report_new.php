@@ -2,6 +2,7 @@
 date_default_timezone_set('Europe/Berlin');
 require_once __DIR__ . '/../config.php';
 requireLogin();
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 $pdo = db();
 $kategorien = $pdo->query('SELECT * FROM lager_kategorien ORDER BY sortierung ASC')->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -22,16 +23,14 @@ $kategorien = $pdo->query('SELECT * FROM lager_kategorien ORDER BY sortierung AS
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .back-link { color:var(--blue-bright); text-decoration:none; }
   .back-link:hover { text-decoration:underline; }
-  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:640px; margin:0 auto; padding:28px 20px 60px; }
   .page-title { font-size:22px; font-weight:700; color:#F5F6FA; }
   .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px; margin-bottom:24px; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
   .preset-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px; }
   .preset-btn {
@@ -45,8 +44,7 @@ $kategorien = $pdo->query('SELECT * FROM lager_kategorien ORDER BY sortierung AS
   .field-input, .field-select {
     width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none;
-    margin-bottom:14px;
-  }
+    margin-bottom:14px; border-radius:12px; }
   .field-input:focus { border-color:var(--blue-bright); }
   .custom-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
@@ -61,15 +59,12 @@ $kategorien = $pdo->query('SELECT * FROM lager_kategorien ORDER BY sortierung AS
 </head>
 <body>
 
-<div class="topbar">
-  <a href="../dashboard.php#lager" class="back-link">← Lager</a>
-  <div class="topbar-title">Report erstellen</div>
-  <a href="history.php" class="back-link">Historie →</a>
-</div>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
+<div class="page-content-wrapper">
 
 <div class="main">
   <div class="page-title">Lagerreport</div>
-  <div class="page-sub">Zeitraum wählen — vordefiniert oder eigen</div>
+  <div class="page-sub">Zeitraum wählen — vordefiniert oder eigen · <a href="history.php" class="back-link">Historie ansehen →</a></div>
 
   <div class="panel">
     <div class="panel-title">Zeitraum</div>
@@ -107,6 +102,7 @@ $kategorien = $pdo->query('SELECT * FROM lager_kategorien ORDER BY sortierung AS
 
   <button class="btn-generate" onclick="reportErstellen()">↓ Report erstellen &amp; herunterladen</button>
   <div class="zusammenfassung" id="zusammenfassung"></div>
+</div>
 </div>
 
 <script>

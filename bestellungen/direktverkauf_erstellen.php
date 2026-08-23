@@ -2,6 +2,7 @@
 date_default_timezone_set('Europe/Berlin');
 require_once __DIR__ . '/../config.php';
 requireLogin();
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 $pdo = db();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -64,17 +65,13 @@ foreach ($produkte_roh as $p) {
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
-  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
-
   .main { max-width:520px; margin:0 auto; padding:28px 20px 60px; }
   .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
   .page-sub { font-family:var(--mono); font-size:10px; color:var(--green); margin-bottom:24px; }
 
-  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
   .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
   .field-input:focus, .field-select:focus { border-color:var(--blue-bright); }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
@@ -98,7 +95,7 @@ foreach ($produkte_roh as $p) {
 
   .barcode-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:500; align-items:center; justify-content:center; }
   .barcode-overlay.open { display:flex; }
-  .barcode-box { background:#000; width:100%; max-width:480px; margin:20px; }
+  .barcode-box { background:#000; width:100%; max-width:480px; margin:20px; border-radius:16px; }
   .barcode-kopf { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--navy2); }
   .barcode-close { background:none; border:none; color:var(--text-dim); font-size:16px; cursor:pointer; }
   .barcode-viewport { width:100%; height:320px; position:relative; overflow:hidden; }
@@ -120,11 +117,8 @@ foreach ($produkte_roh as $p) {
   </div>
 </div>
 
-<div class="topbar">
-  <a href="bestellungen.php" class="back-link">← Bestellungen</a>
-  <div class="topbar-title">Direktverkauf</div>
-  <div style="width:80px;"></div>
-</div>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
+<div class="page-content-wrapper">
 
 <div class="main">
   <div class="page-title">Direktverkauf erfassen</div>
@@ -208,6 +202,7 @@ foreach ($produkte_roh as $p) {
       <button type="submit" class="btn-submit">✓ Direktverkauf erfassen</button>
     </form>
   </div>
+</div>
 </div>
 
 <script>

@@ -45,54 +45,15 @@ $error = '';
     position: relative;
   }
 
-  body::before {
-    content:'';
-    position:fixed; inset:0;
-    background-image:
-      linear-gradient(rgba(124,124,255,0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(124,124,255,0.07) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events:none;
-  }
-
   body::after {
     content:'';
     position:fixed;
     top:50%; left:50%;
     transform:translate(-50%,-50%);
     width:700px; height:700px;
-    background:radial-gradient(circle, rgba(124,124,255,0.12) 0%, transparent 70%);
+    background:radial-gradient(circle, rgba(124,124,255,0.10) 0%, transparent 70%);
     pointer-events:none;
   }
-
-  .scanlines {
-    position:fixed; inset:0;
-    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
-    pointer-events:none; z-index:10;
-  }
-
-  .corner { position:fixed; width:60px; height:60px; opacity:0.4; }
-  .corner-tl { top:20px; left:20px; border-top:1px solid var(--blue-accent); border-left:1px solid var(--blue-accent); }
-  .corner-tr { top:20px; right:20px; border-top:1px solid var(--blue-accent); border-right:1px solid var(--blue-accent); }
-  .corner-bl { bottom:20px; left:20px; border-bottom:1px solid var(--blue-accent); border-left:1px solid var(--blue-accent); }
-  .corner-br { bottom:20px; right:20px; border-bottom:1px solid var(--blue-accent); border-right:1px solid var(--blue-accent); }
-
-  .status-bar {
-    position:fixed; top:0; left:0; right:0; height:32px;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:0 24px;
-    font-family:var(--mono); font-size:10px; color:var(--text-dim);
-    border-bottom:1px solid rgba(124,124,255,0.15);
-    background:rgba(20,22,31,0.8);
-    z-index:5;
-  }
-
-  .status-dot {
-    display:inline-block; width:6px; height:6px;
-    border-radius:50%; background:var(--green);
-    margin-right:6px; animation:pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
   .container {
     position:relative; z-index:2;
@@ -106,32 +67,27 @@ $error = '';
 
   .logo-icon {
     display:inline-flex; align-items:center; justify-content:center;
-    width:42px; height:42px;
-    border:1px solid var(--blue-accent);
-    clip-path:polygon(10% 0%,90% 0%,100% 10%,100% 90%,90% 100%,10% 100%,0% 90%,0% 10%);
-    background:var(--blue-mid);
+    width:44px; height:44px;
+    border-radius:14px;
+    background:rgba(124,124,255,0.15);
     margin-bottom:12px;
   }
-  .logo-icon span { font-family:var(--mono); font-size:13px; color:var(--blue-bright); font-weight:bold; }
+  .logo-icon span { font-size:14px; color:var(--blue-bright); font-weight:700; }
 
   .logo-title { font-size:22px; font-weight:700; color:#F5F6FA; }
-  .logo-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px; }
+  .logo-sub { font-size:13px; color:var(--text-dim); margin-top:4px; }
 
   .divider { display:flex; align-items:center; gap:10px; margin-bottom:28px; }
   .divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--blue-accent),transparent); }
-  .divider-text { font-family:var(--mono); font-size:9px; color:var(--text-dim); }
+  .divider-text { font-size:12px; color:var(--text-dim); }
 
   .card {
     background:rgba(29,32,48,0.85);
     border:1px solid rgba(124,124,255,0.3);
+    border-radius:20px;
     padding:32px;
     position:relative;
     backdrop-filter:blur(10px);
-  }
-  .card::before {
-    content:'';
-    position:absolute; top:0; left:0; right:0; height:2px;
-    background:linear-gradient(90deg,transparent,var(--blue-accent),var(--blue-bright),var(--blue-accent),transparent);
   }
 
   .field { margin-bottom:20px; }
@@ -146,8 +102,7 @@ $error = '';
     border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono);
     font-size:14px; padding:12px 14px;
-    outline:none; transition:border-color 0.2s, box-shadow 0.2s;
-    }
+    outline:none; transition:border-color 0.2s, box-shadow 0.2s; border-radius:12px; }
   .field-input:focus {
     border-color:var(--blue-bright);
     box-shadow:0 0 0 1px rgba(148,148,255,0.2), inset 0 0 20px rgba(148,148,255,0.03);
@@ -158,8 +113,9 @@ $error = '';
     width:100%; padding:14px;
     background:var(--blue-mid);
     border:1px solid var(--blue-accent);
+    border-radius:14px;
     color:#F5F6FA; font-family:var(--sans);
-    font-size:13px; font-weight:600;
+    font-size:14px; font-weight:600;
     cursor:pointer; transition:all 0.2s;
     position:relative; overflow:hidden;
     margin-top:8px;
@@ -175,36 +131,24 @@ $error = '';
   .login-btn:active { transform:scale(0.99); }
 
   .error-msg {
-    font-family:var(--mono); font-size:10px;
+    font-size:13px;
     color:var(--red); margin-top:12px; text-align:center;
   }
 
   .bottom-info {
     margin-top:24px;
     display:flex; justify-content:space-between;
-    font-family:var(--mono); font-size:9px;
+    font-size:11px;
     color:var(--text-dim); }
 
   .version {
     position:fixed; bottom:20px; left:24px;
-    font-family:var(--mono); font-size:9px;
+    font-size:11px;
     color:var(--text-dim); z-index:5;
   }
 </style>
 </head>
 <body>
-
-<div class="scanlines"></div>
-<div class="corner corner-tl"></div>
-<div class="corner corner-tr"></div>
-<div class="corner corner-bl"></div>
-<div class="corner corner-br"></div>
-
-<div class="status-bar">
-  <span><span class="status-dot"></span>SYSTEM ONLINE</span>
-  <span id="clock"></span>
-  <span>OPS.NACOMMERCESOLUTIONS.COM</span>
-</div>
 
 <div class="container">
   <div class="logo-area">
@@ -215,7 +159,7 @@ $error = '';
 
   <div class="divider">
     <div class="divider-line"></div>
-    <div class="divider-text">SECURE ACCESS</div>
+    <div class="divider-text">Sicherer Zugang</div>
     <div class="divider-line"></div>
   </div>
 
@@ -249,29 +193,28 @@ $error = '';
   </div>
 
   <div class="bottom-info">
-    <span>AUTHORIZED PERSONNEL ONLY</span>
+    <span>Nur für autorisierte Mitarbeiter</span>
     <span id="date-display"></span>
   </div>
 </div>
 
-<div class="version">v1.0.0 — BETA</div>
+<div class="version">v1.0.0</div>
 
 <script>
-  // Clock
+  // Datum unten rechts
   function updateClock() {
     const now = new Date();
-    document.getElementById('clock').textContent = now.toTimeString().slice(0,8);
     document.getElementById('date-display').textContent =
       now.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
   }
-  updateClock(); setInterval(updateClock, 1000);
+  updateClock(); setInterval(updateClock, 60000);
 
   // AJAX Login (kein Page-Reload)
   document.getElementById('login-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('login-btn');
     const err = document.getElementById('error-msg');
-    btn.textContent = 'WIRD GEPRÜFT...';
+    btn.textContent = 'Wird geprüft…';
     btn.disabled = true;
 
     const fd = new FormData(this);
@@ -287,7 +230,7 @@ $error = '';
       btn.textContent = 'Zugang anfordern';
       btn.disabled = false;
     } else {
-      btn.textContent = 'WILLKOMMEN, ' + data.name.toUpperCase();
+      btn.textContent = 'Willkommen, ' + data.name;
       btn.style.borderColor = '#4ADE80';
       btn.style.color = '#4ADE80';
       setTimeout(() => window.location.href = 'dashboard.php', 800);
