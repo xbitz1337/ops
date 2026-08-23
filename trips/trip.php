@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
-require_once __DIR__ . '/berechtigungen/berechtigungen_helper.php';
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 $user = currentUser();
 $pdo = db();
 
@@ -59,7 +59,7 @@ $status_labels = ['geplant' => '📅 Geplant', 'laufend' => '🚗 Läuft gerade'
 <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body>
-<?php require_once __DIR__ . '/_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
 <div class="page-content-wrapper">
 
 <div class="main schmal">

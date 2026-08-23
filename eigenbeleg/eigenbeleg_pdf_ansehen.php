@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
-require_once __DIR__ . '/berechtigungen/berechtigungen_helper.php';
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 require_modul_zugriff('dokumente');
 $pdo = db();
 

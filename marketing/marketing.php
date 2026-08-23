@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
 $user = currentUser();
 
@@ -288,12 +288,12 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
 <!-- SIDEBAR -->
 <div class="sidebar">
   <div class="nav-section">Navigation</div>
-  <div class="nav-item" onclick="window.location.href='dashboard.php'"><span class="nav-icon">▦</span> Dashboard</div>
-  <div class="nav-item" onclick="window.location.href='dashboard.php#lager'"><span class="nav-icon">◫</span> Lager</div>
-  <div class="nav-item" onclick="window.location.href='dashboard.php#todos'"><span class="nav-icon">◈</span> Aufgaben</div>
+  <div class="nav-item" onclick="window.location.href='../dashboard.php'"><span class="nav-icon">▦</span> Dashboard</div>
+  <div class="nav-item" onclick="window.location.href='../dashboard.php#lager'"><span class="nav-icon">◫</span> Lager</div>
+  <div class="nav-item" onclick="window.location.href='../dashboard.php#todos'"><span class="nav-icon">◈</span> Aufgaben</div>
   <div class="nav-item active"><span class="nav-icon">📈</span> Marketing <?php if ($content_offen > 0): ?><span class="nav-badge"><?= $content_offen ?></span><?php endif; ?></div>
   <div class="nav-spacer"></div>
-  <div class="nav-item" onclick="window.location.href='documents.php'"><span class="nav-icon">📄</span> Dokumente</div>
+  <div class="nav-item" onclick="window.location.href='../documents/documents.php'"><span class="nav-icon">📄</span> Dokumente</div>
   <div class="nav-section">System</div>
   <div class="nav-item" style="color:var(--text-dim);font-size:9px;">v1.0.0 — MARKETING-MODUL</div>
 </div>
@@ -301,17 +301,17 @@ $content_offen = count(array_filter($content, fn($c) => $c['status'] !== 'Veröf
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-nav">
   <div class="mobile-nav-inner">
-    <button class="mobile-nav-item" onclick="window.location.href='dashboard.php'">
+    <button class="mobile-nav-item" onclick="window.location.href='../dashboard.php'">
       <span class="mn-icon">▦</span><span>Dashboard</span>
     </button>
-    <button class="mobile-nav-item" onclick="window.location.href='dashboard.php#lager'">
+    <button class="mobile-nav-item" onclick="window.location.href='../dashboard.php#lager'">
       <span class="mn-icon">◫</span><span>Lager</span>
     </button>
     <button class="mobile-nav-item active">
       <span class="mn-icon">📈</span><span>Marketing</span>
       <?php if ($content_offen > 0): ?><span class="mn-badge"><?= $content_offen ?></span><?php endif; ?>
     </button>
-    <button class="mobile-nav-item" onclick="window.location.href='documents.php'">
+    <button class="mobile-nav-item" onclick="window.location.href='../documents/documents.php'">
       <span class="mn-icon">📄</span><span>Dokumente</span>
     </button>
   </div>

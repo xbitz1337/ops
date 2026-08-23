@@ -117,14 +117,14 @@ $sb_todo_offen = (int)$sb_pdo->query("SELECT COUNT(*) FROM aufgaben WHERE status
   <a href="/clean/pipeline.php" class="nav-item"><span class="nav-icon">🧹</span> NA Clean Service</a>
   <?php endif; ?>
   <div class="nav-spacer"></div>
-  <a href="/marketing.php" class="nav-item"><span class="nav-icon">📈</span> Marketing</a>
-  <a href="/trip.php" class="nav-item"><span class="nav-icon">🚗</span> Sammel-Trips</a>
-  <a href="/auslagen.php" class="nav-item"><span class="nav-icon">💸</span> Auslagen</a>
+  <a href="/marketing/marketing.php" class="nav-item"><span class="nav-icon">📈</span> Marketing</a>
+  <a href="/trips/trip.php" class="nav-item"><span class="nav-icon">🚗</span> Sammel-Trips</a>
+  <a href="/auslagen/auslagen.php" class="nav-item"><span class="nav-icon">💸</span> Auslagen</a>
   <?php if (hat_modul_zugriff('dokumente')): ?>
-  <a href="/documents.php" class="nav-item"><span class="nav-icon">📄</span> Dokumente</a>
+  <a href="/documents/documents.php" class="nav-item"><span class="nav-icon">📄</span> Dokumente</a>
   <?php endif; ?>
   <?php if (hat_modul_zugriff('kalkulator')): ?>
-  <a href="/rechner.php" class="nav-item"><span class="nav-icon">🧮</span> Kalkulator</a>
+  <a href="/kalkulator/rechner.php" class="nav-item"><span class="nav-icon">🧮</span> Kalkulator</a>
   <?php endif; ?>
   <?php if (hat_modul_zugriff('umsatz')): ?>
   <a href="/umsatz/dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Umsatz</a>

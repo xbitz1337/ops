@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
-require_once 'config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
 $pdo = db();
 

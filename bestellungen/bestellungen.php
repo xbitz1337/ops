@@ -10,7 +10,7 @@ $kanal_filter = $_GET['kanal'] ?? '';
 $kanal_labels = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Shop', 'direktverkauf' => 'Direktverkauf'];
 
 require_once __DIR__ . '/../lager/fifo_helper.php';
-require_once __DIR__ . '/../verpackung_helper.php';
+require_once __DIR__ . '/../lager/verpackung_helper.php';
 
 // ── API HANDLER ──────────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['api'])) {

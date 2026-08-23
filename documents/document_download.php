@@ -3,7 +3,7 @@
  * NA Ops Hub — Download eines archivierten Dokuments aus der Historie
  */
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 $pdo = db();
 
 $id = (int)($_GET['id'] ?? 0);

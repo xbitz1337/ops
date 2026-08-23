@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
-require_once __DIR__ . '/berechtigungen/berechtigungen_helper.php';
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 require_modul_zugriff('dokumente', 'bearbeiten');
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $belegnummer = "EB-{$jahr}-" . str_pad($anzahl + 1, 3, '0', STR_PAD_LEFT);
 
     $na_logo_base64 = '';
-    $logo_dir = __DIR__ . '/assets/';
+    $logo_dir = __DIR__ . '/../assets/';
     $lade_asset_base64 = function (string $basisname) use ($logo_dir): string {
         if (!is_dir($logo_dir)) return '';
         foreach (scandir($logo_dir) as $datei) {
@@ -258,7 +258,7 @@ $historie = $pdo->query("SELECT * FROM eigenbelege ORDER BY erstellt_am DESC LIM
 </style>
 </head>
 <body>
-<?php require_once __DIR__ . '/_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
 <div class="page-content-wrapper">
 
 <div class="main">

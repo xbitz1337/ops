@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
-require_once __DIR__ . '/berechtigungen/berechtigungen_helper.php';
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 require_modul_zugriff('dokumente');
 $pdo = db();
 $kann_bearbeiten = hat_modul_zugriff('dokumente', 'bearbeiten');
@@ -60,7 +60,7 @@ $gesamt_summe = array_sum(array_column($belege, 'gesamtbetrag'));
 </style>
 </head>
 <body>
-<?php require_once __DIR__ . '/_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
 <div class="page-content-wrapper">
 
 <div class="main">

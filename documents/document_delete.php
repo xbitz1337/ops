@@ -4,7 +4,7 @@ date_default_timezone_set('Europe/Berlin');
  * NA Ops Hub — Dokument löschen (DB-Eintrag + Datei auf der Platte)
  */
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
 header('Content-Type: application/json');
 

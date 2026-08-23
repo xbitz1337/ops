@@ -4,7 +4,7 @@ date_default_timezone_set('Europe/Berlin');
  * NA Ops Hub — Dokument-Felder als JSON, für "Bearbeiten/Duplizieren" im Generator
  */
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
 header('Content-Type: application/json');
 

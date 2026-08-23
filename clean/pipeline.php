@@ -191,7 +191,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
       <a href="vor_ort_formular.php" class="btn btn-primary">+ NEUER LEAD / GESPRÄCH</a>
       <button class="btn" style="color:var(--orange);border-color:rgba(230,126,34,0.4);" onclick="testauftragAnlegen()">🧪 TESTAUFTRAG ANLEGEN</button>
     <?php endif; ?>
-    <a href="rechner.php" class="btn btn-secondary">📊 KALKULATOR</a>
+    <a href="/kalkulator/rechner.php" class="btn btn-secondary">📊 KALKULATOR</a>
     <a href="subunternehmer.php" class="btn btn-secondary">👷 SUBUNTERNEHMER</a>
     <a href="einsaetze.php" class="btn btn-secondary">📅 EINSÄTZE</a>
     <a href="rechnungen.php" class="btn btn-secondary">🧾 RECHNUNGEN</a>
