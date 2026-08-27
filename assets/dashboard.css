@@ -391,58 +391,85 @@
   .sticky-note-farbwahl.blau { background: #b8e2ff; }
   .sticky-note-farbwahl.gruen { background: #c3f7c3; }
 
-  /* ── ÜBERSICHT: neue Karten (Verkäufe, Umsatz, Sendungen) ─────────────────── */
-  .uebersicht-grid { display:grid; grid-template-columns:1fr 1.4fr 1fr; gap:16px; margin-bottom:16px; }
-  @media(max-width:1100px) { .uebersicht-grid { grid-template-columns:1fr; } }
-  .uebersicht-col { display:flex; flex-direction:column; gap:16px; }
+  /* ── ÜBERSICHT-GRID (eigener "ov-" Namensraum, absichtlich komplett
+     losgelöst von .panel/.stat-value/table/th/td usw., damit hier nichts
+     mit dem Rest der Seite kollidiert oder sich gegenseitig überschreibt) ── */
+  .ov-grid { display:grid; grid-template-columns:1fr 1.4fr 1fr; gap:20px; margin-bottom:24px; }
+  @media(max-width:1100px) { .ov-grid { grid-template-columns:1fr; } }
+  .ov-col { display:flex; flex-direction:column; gap:20px; }
 
-  .virt-card {
+  .ov-card {
+    background:var(--navy2); border:1px solid var(--line); border-radius:22px; padding:22px;
+    position:relative; overflow:hidden;
+  }
+  .ov-label { font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.5px; font-weight:600; }
+  .ov-sub { font-size:12px; color:var(--text-dim); margin-top:2px; }
+
+  .ov-virt-card {
     background:linear-gradient(145deg, var(--blue-mid) 0%, var(--navy) 100%);
-    border:1px solid var(--line); border-radius:18px; padding:20px; position:relative; overflow:hidden;
+    border-radius:18px; padding:22px; margin-top:14px; position:relative; overflow:hidden;
   }
-  .virt-card::after { content:''; position:absolute; top:-40px; right:-40px; width:140px; height:140px; border-radius:50%; background:radial-gradient(circle, rgba(124,124,255,0.22), transparent 70%); }
-  .virt-card .chip { width:32px; height:22px; border-radius:5px; background:linear-gradient(145deg,#e6c667,#b8963f); margin-bottom:16px; position:relative; }
-  .virt-card .vc-label { font-size:10px; color:var(--text-dim); letter-spacing:0.5px; font-weight:600; position:relative; }
-  .virt-card .vc-amount { font-size:25px; font-weight:800; margin:6px 0 18px; position:relative; }
-  .virt-card .vc-foot { display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--text-dim); position:relative; }
+  .ov-virt-card::after { content:''; position:absolute; top:-40px; right:-40px; width:140px; height:140px; border-radius:50%; background:radial-gradient(circle, rgba(124,124,255,0.25), transparent 70%); }
+  .ov-chip { width:34px; height:24px; border-radius:5px; background:linear-gradient(145deg,#e6c667,#b8963f); margin-bottom:18px; position:relative; }
+  .ov-virt-label { font-size:10px; color:var(--text-dim); letter-spacing:0.5px; text-transform:uppercase; font-weight:600; position:relative; }
+  .ov-virt-amount { font-size:26px; font-weight:800; margin:6px 0 22px; letter-spacing:-0.5px; position:relative; }
+  .ov-virt-foot { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--text-dim); position:relative; }
 
-  .badge-trend { font-size:11px; padding:4px 10px; border-radius:20px; font-weight:700; }
-  .badge-trend.up { background:var(--green-soft, rgba(74,222,128,0.15)); color:var(--green); }
-  .badge-trend.down { background:rgba(248,113,113,0.15); color:var(--red); }
-  .badge-trend.neutral { background:var(--blue-mid); color:var(--text-dim); }
-  .stat-row-flex { display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px; }
+  .ov-stat-row { display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px; }
+  .ov-stat-value { font-size:24px; font-weight:800; color:var(--text-bright, #F5F6FA); }
+  .ov-badge { font-size:11px; padding:4px 10px; border-radius:20px; font-weight:700; }
+  .ov-badge.up { background:rgba(74,222,128,0.15); color:var(--green); }
+  .ov-badge.down { background:rgba(248,113,113,0.15); color:var(--red); }
+  .ov-badge.neutral { background:var(--blue-mid); color:var(--text-dim); }
 
-  .bars { display:flex; align-items:flex-end; gap:10px; height:150px; padding:0 2px; margin-top:16px; }
-  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; height:100%; justify-content:flex-end; position:relative; }
-  .bar { width:100%; border-radius:8px 8px 3px 3px; background:linear-gradient(180deg, rgba(148,148,255,0.35), rgba(148,148,255,0.1)); min-height:4px; }
-  .bar-col.peak .bar { background:linear-gradient(180deg, var(--blue-bright), var(--blue-accent)); }
-  .bar-col.peak .bump {
-    position:absolute; top:-28px; background:var(--blue-bright); color:#14161F;
-    font-size:9.5px; font-weight:700; padding:3px 8px; border-radius:9px; white-space:nowrap;
+  .ov-chart-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+  .ov-bars { display:flex; align-items:flex-end; gap:14px; height:180px; padding:0 4px; }
+  .ov-bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; height:100%; justify-content:flex-end; position:relative; }
+  .ov-bar { width:100%; border-radius:10px 10px 4px 4px; background:linear-gradient(180deg, rgba(148,148,255,0.35), rgba(148,148,255,0.12)); min-height:4px; }
+  .ov-bar-col.peak .ov-bar { background:linear-gradient(180deg, var(--blue-bright), var(--blue-accent)); }
+  .ov-bar-col.peak .ov-bump {
+    position:absolute; top:-30px; background:var(--blue-bright); color:#14161F;
+    font-size:10px; font-weight:700; padding:4px 9px; border-radius:10px; white-space:nowrap;
   }
-  .bar-label { font-size:9.5px; color:var(--text-dim); font-weight:500; }
+  .ov-bar-label { font-size:10px; color:var(--text-dim); font-weight:500; }
 
-  .spark-svg { width:100%; height:60px; margin:8px 0 12px; }
+  .ov-table { width:100%; border-collapse:collapse; margin-top:12px; }
+  .ov-table th { text-align:left; font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.5px; padding-bottom:12px; border-bottom:1px solid var(--line); font-weight:600; }
+  .ov-table td { padding:13px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  .ov-table tr:last-child td { border-bottom:none; }
+  .ov-produkt-zelle { display:flex; align-items:center; gap:10px; }
+  .ov-produkt-icon { width:32px; height:32px; border-radius:10px; background:var(--blue-mid); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .ov-betrag-zelle { font-weight:700; text-align:right; }
+  .ov-empty { text-align:center; color:var(--text-dim); font-size:13px; padding:20px 0; }
 
-  .avatar-row { display:flex; margin-top:12px; }
-  .avatar { width:34px; height:34px; border-radius:50%; border:2.5px solid var(--navy2); margin-left:-9px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; }
-  .avatar:first-child { margin-left:0; }
-  .avatar.a1 { background:linear-gradient(145deg,var(--blue-bright),var(--blue-accent)); }
-  .avatar.a2 { background:linear-gradient(145deg,var(--orange),#c0630f); }
+  .ov-spark-svg { width:100%; height:70px; margin:10px 0 4px; display:block; }
+
+  .ov-avatar-row { display:flex; margin-top:14px; }
+  .ov-avatar { width:38px; height:38px; border-radius:50%; border:2.5px solid var(--navy2); margin-left:-10px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#fff; }
+  .ov-avatar:first-child { margin-left:0; }
+  .ov-avatar.a1 { background:linear-gradient(145deg,var(--blue-bright),var(--blue-accent)); }
+  .ov-avatar.a2 { background:linear-gradient(145deg,var(--orange),#c0630f); }
 
   /* Sendungen (manuelle Frachtverfolgung) */
-  .sendung-item { padding:10px 0; border-bottom:1px solid var(--line); }
-  .sendung-item:last-child { border-bottom:none; }
-  .sendung-kopf { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
-  .sendung-inhalt { font-size:13px; font-weight:600; }
-  .sendung-meta { font-size:11px; color:var(--text-dim); margin-top:3px; }
-  .sendung-status-select { margin-top:6px; font-size:10.5px; padding:3px 6px; border-radius:8px; background:var(--blue-mid); border:1px solid var(--line); color:var(--text); font-family:var(--sans); }
-  .sendung-loeschen { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:13px; padding:2px 4px; flex-shrink:0; }
-  .sendung-loeschen:hover { color:var(--red); }
+  .ov-sendung-item { padding:12px 0; border-bottom:1px solid var(--line); }
+  .ov-sendung-item:last-child { border-bottom:none; }
+  .ov-sendung-kopf { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .ov-sendung-inhalt { font-size:13.5px; font-weight:600; }
+  .ov-sendung-meta { font-size:11.5px; color:var(--text-dim); margin-top:3px; }
+  .ov-sendung-status { margin-top:8px; font-size:11px; padding:4px 8px; border-radius:8px; background:var(--blue-mid); border:1px solid var(--line); color:var(--text); font-family:var(--sans); }
+  .ov-sendung-loeschen { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:14px; padding:2px 4px; flex-shrink:0; }
+  .ov-sendung-loeschen:hover { color:var(--red); }
 
+  .ov-mehr-btn {
+    width:100%; margin-top:10px; background:var(--blue-mid); border:1px solid var(--line); border-radius:10px;
+    color:var(--text-dim); font-family:var(--sans); font-size:12px; font-weight:600; padding:9px; cursor:pointer;
+  }
+  .ov-mehr-btn:hover { color:var(--text); }
+
+  /* Lager-Vorschau (im normalen .panel, außerhalb vom ov-Grid) */
+  .lager-item.versteckt { display:none; }
   .mehr-anzeigen-btn {
     width:100%; margin-top:8px; background:var(--blue-mid); border:1px solid var(--line); border-radius:10px;
     color:var(--text-dim); font-family:var(--sans); font-size:12px; font-weight:600; padding:8px; cursor:pointer;
   }
   .mehr-anzeigen-btn:hover { color:var(--text); }
-  .lager-item.versteckt { display:none; }

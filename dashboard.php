@@ -759,6 +759,146 @@ $sendung_status_labels = ['unterwegs' => '🚚 Unterwegs', 'zugestellt' => '✓ 
       </div>
     </div>
 
+    <div class="ov-grid">
+      <!-- Spalte 1: Lagerwert + Umsatz diese Woche -->
+      <div class="ov-col">
+        <div class="ov-card">
+          <div class="ov-label">Lagerwert (EK)</div>
+          <div class="ov-sub">Aktueller Bestandswert, FIFO-bewertet</div>
+          <div class="ov-virt-card">
+            <div class="ov-chip"></div>
+            <div class="ov-virt-label">NA Commerce · Lager</div>
+            <div class="ov-virt-amount">€<?= number_format($lager_ek_gesamt, 2, ',', '.') ?></div>
+            <div class="ov-virt-foot">
+              <span><?= $lager_count ?> Produkte aktiv</span>
+              <span>Stand <?= date('d.m.Y') ?></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ov-card">
+          <div class="ov-label">Umsatz diese Woche</div>
+          <div class="ov-stat-row">
+            <div class="ov-stat-value">€<?= number_format($umsatz_woche, 2, ',', '.') ?></div>
+            <?php if ($woche_veraenderung === null): ?>
+              <span class="ov-badge neutral">Keine Vorwoche</span>
+            <?php elseif ($woche_veraenderung >= 0): ?>
+              <span class="ov-badge up">▲ <?= $woche_veraenderung ?>%</span>
+            <?php else: ?>
+              <span class="ov-badge down">▼ <?= abs($woche_veraenderung) ?>%</span>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spalte 2: Verkäufe-Chart + letzte Verkäufe -->
+      <div class="ov-col">
+        <div class="ov-card">
+          <div class="ov-chart-head">
+            <div>
+              <div class="ov-label">Verkäufe</div>
+              <div class="ov-sub">Letzte 6 Monate</div>
+            </div>
+          </div>
+          <div class="ov-bars">
+            <?php foreach ($monats_umsaetze as $i => $m):
+                $hoehe = max(6, round(($m['umsatz'] / $max_monatsumsatz) * 100));
+                $ist_peak = $i === $peak_index && $m['umsatz'] > 0;
+            ?>
+            <div class="ov-bar-col <?= $ist_peak ? 'peak' : '' ?>">
+              <?php if ($ist_peak): ?><div class="ov-bump">€<?= number_format($m['umsatz'], 0, ',', '.') ?></div><?php endif; ?>
+              <div class="ov-bar" style="height:<?= $hoehe ?>%;"></div>
+              <div class="ov-bar-label"><?= $m['label'] ?></div>
+            </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+
+        <div class="ov-card">
+          <div class="ov-label">Letzte Verkäufe</div>
+          <?php if (empty($letzte_verkaeufe)): ?>
+            <div class="ov-empty">Noch keine Verkäufe erfasst</div>
+          <?php else: ?>
+          <table class="ov-table">
+            <thead><tr><th>Produkt</th><th>Kanal</th><th style="text-align:right;">Betrag</th></tr></thead>
+            <tbody>
+              <?php foreach ($letzte_verkaeufe as $v): ?>
+              <tr>
+                <td><div class="ov-produkt-zelle"><div class="ov-produkt-icon">📦</div><?= htmlspecialchars($v['produkt_name']) ?></div></td>
+                <td style="color:var(--text-dim);"><?= $kanal_labels_kurz[$v['verkaufskanal']] ?? htmlspecialchars($v['verkaufskanal'] ?? '—') ?></td>
+                <td class="ov-betrag-zelle">€<?= number_format($v['menge'] * $v['verkaufspreis_brutto'], 2, ',', '.') ?></td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <!-- Spalte 3: Sparkline + Sendungen + Auslagen/Team -->
+      <div class="ov-col">
+        <div class="ov-card">
+          <div class="ov-label">Umsatz-Verlauf</div>
+          <div class="ov-sub">Letzte 14 Tage, kumuliert</div>
+          <div class="ov-stat-value" style="font-size:22px; margin-top:8px;">€<?= number_format(end($sparkline_werte), 2, ',', '.') ?></div>
+          <svg class="ov-spark-svg" viewBox="0 0 240 70" preserveAspectRatio="none">
+            <?php
+            $punkte = [];
+            $n = count($sparkline_werte);
+            foreach ($sparkline_werte as $i => $wert) {
+                $x = $n > 1 ? ($i / ($n - 1)) * 240 : 0;
+                $y = $spark_max > $spark_min ? 65 - (($wert - $spark_min) / ($spark_max - $spark_min)) * 55 : 35;
+                $punkte[] = round($x, 1) . ',' . round($y, 1);
+            }
+            ?>
+            <polyline points="<?= implode(' ', $punkte) ?>" fill="none" stroke="#9494FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="ov-card">
+          <div class="ov-chart-head">
+            <div class="ov-label">Sendungen</div>
+            <button class="panel-action" onclick="openModal('modal-sendung-add')" style="font-size:11px;">+ ERFASSEN</button>
+          </div>
+          <?php if (empty($sendungen)): ?>
+            <div class="ov-empty">Keine aktiven Sendungen</div>
+          <?php else: ?>
+            <?php foreach ($sendungen as $s): ?>
+            <div class="ov-sendung-item" id="sendung-<?= $s['id'] ?>">
+              <div class="ov-sendung-kopf">
+                <div>
+                  <div class="ov-sendung-inhalt"><?= htmlspecialchars($s['inhalt']) ?></div>
+                  <div class="ov-sendung-meta">
+                    <?= htmlspecialchars($s['spediteur']) ?><?= $s['tracking_nummer'] ? ' · ' . htmlspecialchars($s['tracking_nummer']) : '' ?>
+                    <?= $s['ziel'] ? ' → ' . htmlspecialchars($s['ziel']) : '' ?>
+                  </div>
+                </div>
+                <button class="ov-sendung-loeschen" onclick="sendungLoeschen(<?= $s['id'] ?>)">✕</button>
+              </div>
+              <select class="ov-sendung-status" onchange="sendungStatusAendern(<?= $s['id'] ?>, this.value)">
+                <?php foreach ($sendung_status_labels as $key => $label): ?>
+                  <option value="<?= $key ?>" <?= $s['status'] === $key ? 'selected' : '' ?>><?= $label ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+
+        <div class="ov-card">
+          <div class="ov-label">Offene Auslagen</div>
+          <div class="ov-stat-value" style="margin-top:8px; font-size:22px; color:<?= $offene_auslagen_summe > 0 ? 'var(--orange)' : 'var(--green)' ?>;">
+            €<?= number_format($offene_auslagen_summe, 2, ',', '.') ?>
+          </div>
+          <div class="ov-label" style="margin-top:20px;">Team</div>
+          <div class="ov-avatar-row">
+            <div class="ov-avatar a1">A</div>
+            <div class="ov-avatar a2">N</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- STICKY NOTES -->
     <?php $alle_notizen = db()->query("SELECT * FROM dashboard_notizen ORDER BY erstellt_am DESC")->fetchAll(); ?>
     <div class="sticky-notes-bereich">
@@ -821,186 +961,6 @@ $sendung_status_labels = ['unterwegs' => '🚚 Unterwegs', 'zugestellt' => '✓ 
             <?php endif; ?>
           </div>
         <?php endif; ?>
-      </div>
-    </div>
-
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">Lager · Produkte</div>
-        <div class="stat-value"><?= $lager_count ?></div>
-        <div class="stat-detail">Aktive Artikel</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Lager · EK-Wert</div>
-        <div class="stat-value green">€<?= number_format($lager_ek_gesamt, 0, ',', '.') ?></div>
-        <div class="stat-detail">Aktueller Bestandswert</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Aufgaben · Offen</div>
-        <div class="stat-value <?= $todo_offen > 0 ? 'orange' : '' ?>"><?= $todo_offen ?></div>
-        <div class="stat-detail">Offene Aufgaben</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Lagerreport</div>
-        <div class="stat-value" style="font-size:14px;"><a href="lager/history.php" style="color:var(--blue-bright);text-decoration:none;">HISTORIE →</a></div>
-        <div class="stat-detail">Alle bisherigen Reports</div>
-      </div>
-    </div>
-
-    <div class="uebersicht-grid">
-      <!-- Spalte 1: Lagerwert + Umsatz diese Woche -->
-      <div class="uebersicht-col">
-        <div class="panel">
-          <div class="panel-body">
-            <div class="virt-card">
-              <div class="chip"></div>
-              <div class="vc-label">NA COMMERCE · LAGER</div>
-              <div class="vc-amount">€<?= number_format($lager_ek_gesamt, 2, ',', '.') ?></div>
-              <div class="vc-foot">
-                <span><?= $lager_count ?> Produkte aktiv</span>
-                <span>Stand <?= date('d.m.Y') ?></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-body">
-            <div class="panel-title" style="margin-bottom:2px;">Umsatz diese Woche</div>
-            <div class="stat-row-flex">
-              <div class="stat-value" style="font-size:22px;">€<?= number_format($umsatz_woche, 2, ',', '.') ?></div>
-              <?php if ($woche_veraenderung === null): ?>
-                <span class="badge-trend neutral">Keine Vorwoche</span>
-              <?php elseif ($woche_veraenderung >= 0): ?>
-                <span class="badge-trend up">▲ <?= $woche_veraenderung ?>%</span>
-              <?php else: ?>
-                <span class="badge-trend down">▼ <?= abs($woche_veraenderung) ?>%</span>
-              <?php endif; ?>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Spalte 2: Verkäufe-Chart + letzte Verkäufe -->
-      <div class="uebersicht-col">
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Verkäufe</div>
-            <div class="panel-sub" style="font-size:11px;color:var(--text-dim);">Letzte 6 Monate</div>
-          </div>
-          <div class="panel-body">
-            <div class="bars">
-              <?php foreach ($monats_umsaetze as $i => $m):
-                  $hoehe = max(6, round(($m['umsatz'] / $max_monatsumsatz) * 100));
-                  $ist_peak = $i === $peak_index && $m['umsatz'] > 0;
-              ?>
-              <div class="bar-col <?= $ist_peak ? 'peak' : '' ?>">
-                <?php if ($ist_peak): ?><div class="bump">€<?= number_format($m['umsatz'], 0, ',', '.') ?></div><?php endif; ?>
-                <div class="bar" style="height:<?= $hoehe ?>%;"></div>
-                <div class="bar-label"><?= $m['label'] ?></div>
-              </div>
-              <?php endforeach; ?>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Letzte Verkäufe</div>
-          </div>
-          <div class="panel-body">
-            <?php if (empty($letzte_verkaeufe)): ?>
-              <div class="empty">Noch keine Verkäufe erfasst</div>
-            <?php else: ?>
-            <table style="width:100%; border-collapse:collapse;">
-              <thead><tr>
-                <th style="text-align:left; font-size:10px; color:var(--text-dim); padding-bottom:10px; border-bottom:1px solid var(--line);">Produkt</th>
-                <th style="text-align:left; font-size:10px; color:var(--text-dim); padding-bottom:10px; border-bottom:1px solid var(--line);">Kanal</th>
-                <th style="text-align:right; font-size:10px; color:var(--text-dim); padding-bottom:10px; border-bottom:1px solid var(--line);">Betrag</th>
-              </tr></thead>
-              <tbody>
-                <?php foreach ($letzte_verkaeufe as $v): ?>
-                <tr>
-                  <td style="padding:10px 0; border-bottom:1px solid var(--line); font-size:12.5px;"><?= htmlspecialchars($v['produkt_name']) ?></td>
-                  <td style="padding:10px 0; border-bottom:1px solid var(--line); font-size:12px; color:var(--text-dim);"><?= $kanal_labels_kurz[$v['verkaufskanal']] ?? htmlspecialchars($v['verkaufskanal'] ?? '—') ?></td>
-                  <td style="padding:10px 0; border-bottom:1px solid var(--line); font-size:12.5px; font-weight:700; text-align:right;">€<?= number_format($v['menge'] * $v['verkaufspreis_brutto'], 2, ',', '.') ?></td>
-                </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-            <?php endif; ?>
-          </div>
-        </div>
-      </div>
-
-      <!-- Spalte 3: Sparkline + Sendungen + Auslagen/Team -->
-      <div class="uebersicht-col">
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Umsatz-Verlauf</div>
-            <a href="umsatz/dashboard.php" class="panel-action">DETAILS →</a>
-          </div>
-          <div class="panel-body">
-            <div class="stat-value" style="font-size:20px;">€<?= number_format(end($sparkline_werte), 2, ',', '.') ?></div>
-            <svg class="spark-svg" viewBox="0 0 240 60" preserveAspectRatio="none">
-              <?php
-              $punkte = [];
-              $n = count($sparkline_werte);
-              foreach ($sparkline_werte as $i => $wert) {
-                  $x = $n > 1 ? ($i / ($n - 1)) * 240 : 0;
-                  $y = $spark_max > $spark_min ? 55 - (($wert - $spark_min) / ($spark_max - $spark_min)) * 45 : 30;
-                  $punkte[] = round($x, 1) . ',' . round($y, 1);
-              }
-              ?>
-              <polyline points="<?= implode(' ', $punkte) ?>" fill="none" stroke="#9494FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Sendungen</div>
-            <button class="panel-action" onclick="openModal('modal-sendung-add')">+ ERFASSEN</button>
-          </div>
-          <div class="panel-body">
-            <?php if (empty($sendungen)): ?>
-              <div class="empty">Keine aktiven Sendungen</div>
-            <?php else: ?>
-              <?php foreach ($sendungen as $s): ?>
-              <div class="sendung-item" id="sendung-<?= $s['id'] ?>">
-                <div class="sendung-kopf">
-                  <div>
-                    <div class="sendung-inhalt"><?= htmlspecialchars($s['inhalt']) ?></div>
-                    <div class="sendung-meta">
-                      <?= htmlspecialchars($s['spediteur']) ?><?= $s['tracking_nummer'] ? ' · ' . htmlspecialchars($s['tracking_nummer']) : '' ?>
-                      <?= $s['ziel'] ? ' → ' . htmlspecialchars($s['ziel']) : '' ?>
-                    </div>
-                  </div>
-                  <button class="sendung-loeschen" onclick="sendungLoeschen(<?= $s['id'] ?>)">✕</button>
-                </div>
-                <select class="sendung-status-select" onchange="sendungStatusAendern(<?= $s['id'] ?>, this.value)">
-                  <?php foreach ($sendung_status_labels as $key => $label): ?>
-                    <option value="<?= $key ?>" <?= $s['status'] === $key ? 'selected' : '' ?>><?= $label ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <?php endforeach; ?>
-            <?php endif; ?>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div class="card-label" style="font-size:11px;color:var(--text-dim);text-transform:uppercase;font-weight:600;">Offene Auslagen</div>
-            <div class="stat-value" style="margin-top:6px; font-size:20px; color:<?= $offene_auslagen_summe > 0 ? 'var(--orange)' : 'var(--green)' ?>;">
-              €<?= number_format($offene_auslagen_summe, 2, ',', '.') ?>
-            </div>
-            <div class="card-label" style="font-size:11px;color:var(--text-dim);text-transform:uppercase;font-weight:600;margin-top:18px;">Team</div>
-            <div class="avatar-row">
-              <div class="avatar a1">A</div>
-              <div class="avatar a2">N</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
