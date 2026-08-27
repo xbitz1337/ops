@@ -376,6 +376,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['api'])) {
         exit;
     }
 
+    // ── SENDUNGEN (manuelle Frachtverfolgung) ──
+    if ($action === 'sendung_add') {
+        $spediteur = trim($_POST['spediteur'] ?? '');
+        $tracking_nummer = trim($_POST['tracking_nummer'] ?? '');
+        $inhalt = trim($_POST['inhalt'] ?? '');
+        $ziel = trim($_POST['ziel'] ?? '');
+        $typ = ($_POST['typ'] ?? 'intern') === 'kunde' ? 'kunde' : 'intern';
+        if (!$spediteur || !$inhalt) { echo json_encode(['error' => 'Spediteur oder Inhalt fehlt']); exit; }
+        try {
+            db()->prepare("
+                INSERT INTO sendungen (typ, spediteur, tracking_nummer, inhalt, ziel, status, erstellt_von)
+                VALUES (?, ?, ?, ?, ?, 'unterwegs', ?)
+            ")->execute([$typ, $spediteur, $tracking_nummer ?: null, $inhalt, $ziel ?: null, $erfasst_von]);
+            echo json_encode(['success' => true, 'id' => db()->lastInsertId()]);
+        } catch (\Throwable $e) {
+            echo json_encode(['error' => 'Tabelle "sendungen" fehlt noch — siehe sendungen/schema.sql']);
+        }
+        exit;
+    }
+
+    if ($action === 'sendung_status_aendern') {
+        $id = (int)($_POST['id'] ?? 0);
+        $status = $_POST['status'] ?? 'unterwegs';
+        if (!in_array($status, ['unterwegs', 'zugestellt', 'verzoegert', 'zoll'])) { echo json_encode(['error' => 'Ungültiger Status']); exit; }
+        db()->prepare('UPDATE sendungen SET status = ? WHERE id = ?')->execute([$status, $id]);
+        echo json_encode(['success' => true]);
+        exit;
+    }
+
+    if ($action === 'sendung_loeschen') {
+        $id = (int)($_POST['id'] ?? 0);
+        db()->prepare('DELETE FROM sendungen WHERE id = ?')->execute([$id]);
+        echo json_encode(['success' => true]);
+        exit;
+    }
+
     echo json_encode(['error' => 'Unbekannte Aktion']);
     exit;
 }
@@ -494,6 +530,79 @@ foreach ($todos as &$t) {
     }
 }
 unset($t);
+
+// ── ÜBERSICHT-KARTEN: Umsatz diese Woche vs. Vorwoche ───────────────────────
+$umsatz_woche = (float) db()->query("
+    SELECT COALESCE(SUM(menge * verkaufspreis_brutto), 0) FROM lager_bewegungen
+    WHERE typ = 'abgang_verkauf' AND bewegt_am >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+")->fetchColumn();
+$umsatz_vorwoche = (float) db()->query("
+    SELECT COALESCE(SUM(menge * verkaufspreis_brutto), 0) FROM lager_bewegungen
+    WHERE typ = 'abgang_verkauf' AND bewegt_am >= DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND bewegt_am < DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+")->fetchColumn();
+$woche_veraenderung = $umsatz_vorwoche > 0 ? round((($umsatz_woche - $umsatz_vorwoche) / $umsatz_vorwoche) * 100, 1) : null;
+
+// ── Verkäufe je Monat (6 Monate) fürs Balkendiagramm ─────────────────────────
+$monatsnamen_kurz = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+$monats_umsaetze = [];
+for ($i = 5; $i >= 0; $i--) {
+    $monat_start = date('Y-m-01', strtotime("-$i months"));
+    $monat_ende = date('Y-m-t', strtotime("-$i months"));
+    $stmt = db()->prepare("
+        SELECT COALESCE(SUM(menge * verkaufspreis_brutto), 0) FROM lager_bewegungen
+        WHERE typ = 'abgang_verkauf' AND bewegt_am BETWEEN ? AND ?
+    ");
+    $stmt->execute([$monat_start, $monat_ende]);
+    $monats_umsaetze[] = [
+        'label' => $monatsnamen_kurz[(int)date('n', strtotime($monat_start)) - 1],
+        'umsatz' => (float) $stmt->fetchColumn(),
+    ];
+}
+$max_monatsumsatz = max(array_column($monats_umsaetze, 'umsatz')) ?: 1;
+$peak_index = array_search($max_monatsumsatz, array_column($monats_umsaetze, 'umsatz'));
+
+// ── Letzte 5 Verkäufe ─────────────────────────────────────────────────────
+$letzte_verkaeufe = db()->query("
+    SELECT b.*, p.name AS produkt_name
+    FROM lager_bewegungen b
+    JOIN lager_produkte p ON p.id = b.produkt_id
+    WHERE b.typ = 'abgang_verkauf'
+    ORDER BY b.bewegt_am DESC, b.erstellt_am DESC
+    LIMIT 5
+")->fetchAll();
+$kanal_labels_kurz = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Shop', 'direktverkauf' => 'Direktverkauf', 'sonstiges' => 'Sonstiges'];
+
+// ── Umsatz-Sparkline (14 Tage, kumuliert) ────────────────────────────────────
+$sparkline_werte = [];
+$laufsumme = 0;
+for ($i = 13; $i >= 0; $i--) {
+    $tag = date('Y-m-d', strtotime("-$i days"));
+    $stmt = db()->prepare("SELECT COALESCE(SUM(menge * verkaufspreis_brutto), 0) FROM lager_bewegungen WHERE typ = 'abgang_verkauf' AND bewegt_am = ?");
+    $stmt->execute([$tag]);
+    $laufsumme += (float) $stmt->fetchColumn();
+    $sparkline_werte[] = $laufsumme;
+}
+$spark_min = min($sparkline_werte);
+$spark_max = max($sparkline_werte) ?: 1;
+
+// ── Offene Auslagen (Artis/Nour) ──────────────────────────────────────────
+$offene_auslagen_summe = 0;
+try {
+    $offene_auslagen_summe = (float) db()->query("SELECT COALESCE(SUM(betrag),0) FROM auslagen WHERE status = 'offen'")->fetchColumn();
+} catch (\Throwable $e) { /* Tabelle evtl. noch nicht angelegt */ }
+
+// ── Sendungen (manuelle Frachtverfolgung) — Tabelle muss einmalig angelegt
+// werden (siehe sendungen/schema.sql), daher defensiv per try/catch ──────────
+$sendungen = [];
+try {
+    $sendungen = db()->query("
+        SELECT * FROM sendungen
+        WHERE status != 'zugestellt'
+        ORDER BY erstellt_am DESC
+        LIMIT 5
+    ")->fetchAll();
+} catch (\Throwable $e) { /* Tabelle noch nicht angelegt */ }
+$sendung_status_labels = ['unterwegs' => '🚚 Unterwegs', 'zugestellt' => '✓ Zugestellt', 'verzoegert' => '⚠️ Verzögert', 'zoll' => '🛃 Beim Zoll'];
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -738,6 +847,163 @@ unset($t);
       </div>
     </div>
 
+    <div class="uebersicht-grid">
+      <!-- Spalte 1: Lagerwert + Umsatz diese Woche -->
+      <div class="uebersicht-col">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="virt-card">
+              <div class="chip"></div>
+              <div class="vc-label">NA COMMERCE · LAGER</div>
+              <div class="vc-amount">€<?= number_format($lager_ek_gesamt, 2, ',', '.') ?></div>
+              <div class="vc-foot">
+                <span><?= $lager_count ?> Produkte aktiv</span>
+                <span>Stand <?= date('d.m.Y') ?></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-body">
+            <div class="panel-title" style="margin-bottom:2px;">Umsatz diese Woche</div>
+            <div class="stat-row-flex">
+              <div class="stat-value" style="font-size:22px;">€<?= number_format($umsatz_woche, 2, ',', '.') ?></div>
+              <?php if ($woche_veraenderung === null): ?>
+                <span class="badge-trend neutral">Keine Vorwoche</span>
+              <?php elseif ($woche_veraenderung >= 0): ?>
+                <span class="badge-trend up">▲ <?= $woche_veraenderung ?>%</span>
+              <?php else: ?>
+                <span class="badge-trend down">▼ <?= abs($woche_veraenderung) ?>%</span>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spalte 2: Verkäufe-Chart + letzte Verkäufe -->
+      <div class="uebersicht-col">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Verkäufe</div>
+            <div class="panel-sub" style="font-size:11px;color:var(--text-dim);">Letzte 6 Monate</div>
+          </div>
+          <div class="panel-body">
+            <div class="bars">
+              <?php foreach ($monats_umsaetze as $i => $m):
+                  $hoehe = max(6, round(($m['umsatz'] / $max_monatsumsatz) * 100));
+                  $ist_peak = $i === $peak_index && $m['umsatz'] > 0;
+              ?>
+              <div class="bar-col <?= $ist_peak ? 'peak' : '' ?>">
+                <?php if ($ist_peak): ?><div class="bump">€<?= number_format($m['umsatz'], 0, ',', '.') ?></div><?php endif; ?>
+                <div class="bar" style="height:<?= $hoehe ?>%;"></div>
+                <div class="bar-label"><?= $m['label'] ?></div>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Letzte Verkäufe</div>
+          </div>
+          <div class="panel-body">
+            <?php if (empty($letzte_verkaeufe)): ?>
+              <div class="empty">Noch keine Verkäufe erfasst</div>
+            <?php else: ?>
+            <table style="width:100%; border-collapse:collapse;">
+              <thead><tr>
+                <th style="text-align:left; font-size:10px; color:var(--text-dim); padding-bottom:10px; border-bottom:1px solid var(--line);">Produkt</th>
+                <th style="text-align:left; font-size:10px; color:var(--text-dim); padding-bottom:10px; border-bottom:1px solid var(--line);">Kanal</th>
+                <th style="text-align:right; font-size:10px; color:var(--text-dim); padding-bottom:10px; border-bottom:1px solid var(--line);">Betrag</th>
+              </tr></thead>
+              <tbody>
+                <?php foreach ($letzte_verkaeufe as $v): ?>
+                <tr>
+                  <td style="padding:10px 0; border-bottom:1px solid var(--line); font-size:12.5px;"><?= htmlspecialchars($v['produkt_name']) ?></td>
+                  <td style="padding:10px 0; border-bottom:1px solid var(--line); font-size:12px; color:var(--text-dim);"><?= $kanal_labels_kurz[$v['verkaufskanal']] ?? htmlspecialchars($v['verkaufskanal'] ?? '—') ?></td>
+                  <td style="padding:10px 0; border-bottom:1px solid var(--line); font-size:12.5px; font-weight:700; text-align:right;">€<?= number_format($v['menge'] * $v['verkaufspreis_brutto'], 2, ',', '.') ?></td>
+                </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spalte 3: Sparkline + Sendungen + Auslagen/Team -->
+      <div class="uebersicht-col">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Umsatz-Verlauf</div>
+            <a href="umsatz/dashboard.php" class="panel-action">DETAILS →</a>
+          </div>
+          <div class="panel-body">
+            <div class="stat-value" style="font-size:20px;">€<?= number_format(end($sparkline_werte), 2, ',', '.') ?></div>
+            <svg class="spark-svg" viewBox="0 0 240 60" preserveAspectRatio="none">
+              <?php
+              $punkte = [];
+              $n = count($sparkline_werte);
+              foreach ($sparkline_werte as $i => $wert) {
+                  $x = $n > 1 ? ($i / ($n - 1)) * 240 : 0;
+                  $y = $spark_max > $spark_min ? 55 - (($wert - $spark_min) / ($spark_max - $spark_min)) * 45 : 30;
+                  $punkte[] = round($x, 1) . ',' . round($y, 1);
+              }
+              ?>
+              <polyline points="<?= implode(' ', $punkte) ?>" fill="none" stroke="#9494FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Sendungen</div>
+            <button class="panel-action" onclick="openModal('modal-sendung-add')">+ ERFASSEN</button>
+          </div>
+          <div class="panel-body">
+            <?php if (empty($sendungen)): ?>
+              <div class="empty">Keine aktiven Sendungen</div>
+            <?php else: ?>
+              <?php foreach ($sendungen as $s): ?>
+              <div class="sendung-item" id="sendung-<?= $s['id'] ?>">
+                <div class="sendung-kopf">
+                  <div>
+                    <div class="sendung-inhalt"><?= htmlspecialchars($s['inhalt']) ?></div>
+                    <div class="sendung-meta">
+                      <?= htmlspecialchars($s['spediteur']) ?><?= $s['tracking_nummer'] ? ' · ' . htmlspecialchars($s['tracking_nummer']) : '' ?>
+                      <?= $s['ziel'] ? ' → ' . htmlspecialchars($s['ziel']) : '' ?>
+                    </div>
+                  </div>
+                  <button class="sendung-loeschen" onclick="sendungLoeschen(<?= $s['id'] ?>)">✕</button>
+                </div>
+                <select class="sendung-status-select" onchange="sendungStatusAendern(<?= $s['id'] ?>, this.value)">
+                  <?php foreach ($sendung_status_labels as $key => $label): ?>
+                    <option value="<?= $key ?>" <?= $s['status'] === $key ? 'selected' : '' ?>><?= $label ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-body">
+            <div class="card-label" style="font-size:11px;color:var(--text-dim);text-transform:uppercase;font-weight:600;">Offene Auslagen</div>
+            <div class="stat-value" style="margin-top:6px; font-size:20px; color:<?= $offene_auslagen_summe > 0 ? 'var(--orange)' : 'var(--green)' ?>;">
+              €<?= number_format($offene_auslagen_summe, 2, ',', '.') ?>
+            </div>
+            <div class="card-label" style="font-size:11px;color:var(--text-dim);text-transform:uppercase;font-weight:600;margin-top:18px;">Team</div>
+            <div class="avatar-row">
+              <div class="avatar a1">A</div>
+              <div class="avatar a2">N</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid-2">
       <!-- Recent Todos -->
       <div class="panel">
@@ -777,14 +1043,14 @@ unset($t);
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">Lager</div>
-          <button class="panel-action" onclick="showPage('lager',null)">ALLE →</button>
+          <button class="panel-action" onclick="showPage('lager',null)">GESAMTE VERWALTUNG →</button>
         </div>
         <div class="panel-body">
           <?php if(empty($produkte)): ?>
             <div class="empty">Kein Bestand</div>
           <?php else: ?>
-            <?php foreach(array_slice($produkte,0,4) as $p): ?>
-            <div class="lager-item">
+            <?php foreach($produkte as $i => $p): ?>
+            <div class="lager-item <?= $i >= 5 ? 'versteckt' : '' ?>" data-lager-vorschau-index="<?= $i ?>">
               <div class="lager-img">
                 <?php if($p['foto_url']): ?><img src="<?= htmlspecialchars($p['foto_url']) ?>" alt=""><?php else: ?>📦<?php endif; ?>
               </div>
@@ -794,6 +1060,9 @@ unset($t);
               </div>
             </div>
             <?php endforeach; ?>
+            <?php if (count($produkte) > 5): ?>
+              <button class="mehr-anzeigen-btn" id="lager-vorschau-mehr-btn" onclick="lagerVorschauMehrAnzeigen()">Mehr anzeigen (<?= count($produkte) - 5 ?>)</button>
+            <?php endif; ?>
           <?php endif; ?>
         </div>
       </div>
@@ -1278,6 +1547,32 @@ unset($t);
     <div class="modal-footer">
       <button class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="closeModal('modal-todo-add')">ABBRECHEN</button>
       <button class="btn btn-primary" onclick="addTodo()">SPEICHERN</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sendung Add -->
+<div class="modal-overlay" id="modal-sendung-add">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Sendung erfassen</div>
+      <button class="modal-close" onclick="closeModal('modal-sendung-add')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div><div class="field-label">Art</div>
+        <select class="field-select" id="sd-typ">
+          <option value="intern">Interne Logistik (Warenumzug, Nachschub, FBA …)</option>
+          <option value="kunde">Kundenbestellung</option>
+        </select>
+      </div>
+      <div><div class="field-label">Spediteur</div><input class="field-input" id="sd-spediteur" type="text" placeholder="z.B. DSV, DHL, UPS"></div>
+      <div><div class="field-label">Tracking-Nummer (optional)</div><input class="field-input" id="sd-tracking" type="text" placeholder="z.B. 1234567890"></div>
+      <div><div class="field-label">Inhalt / Ware</div><input class="field-input" id="sd-inhalt" type="text" placeholder="z.B. 1 Palette Wärmflaschen"></div>
+      <div><div class="field-label">Ziel / Empfänger (optional)</div><input class="field-input" id="sd-ziel" type="text" placeholder="z.B. Amazon FBA Lager, Kunde XY"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);" onclick="closeModal('modal-sendung-add')">ABBRECHEN</button>
+      <button class="btn btn-primary" onclick="sendungErstellen()">SPEICHERN</button>
     </div>
   </div>
 </div>

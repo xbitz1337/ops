@@ -390,3 +390,59 @@
   .sticky-note-farbwahl.rosa { background: #ffc9de; }
   .sticky-note-farbwahl.blau { background: #b8e2ff; }
   .sticky-note-farbwahl.gruen { background: #c3f7c3; }
+
+  /* ── ÜBERSICHT: neue Karten (Verkäufe, Umsatz, Sendungen) ─────────────────── */
+  .uebersicht-grid { display:grid; grid-template-columns:1fr 1.4fr 1fr; gap:16px; margin-bottom:16px; }
+  @media(max-width:1100px) { .uebersicht-grid { grid-template-columns:1fr; } }
+  .uebersicht-col { display:flex; flex-direction:column; gap:16px; }
+
+  .virt-card {
+    background:linear-gradient(145deg, var(--blue-mid) 0%, var(--navy) 100%);
+    border:1px solid var(--line); border-radius:18px; padding:20px; position:relative; overflow:hidden;
+  }
+  .virt-card::after { content:''; position:absolute; top:-40px; right:-40px; width:140px; height:140px; border-radius:50%; background:radial-gradient(circle, rgba(124,124,255,0.22), transparent 70%); }
+  .virt-card .chip { width:32px; height:22px; border-radius:5px; background:linear-gradient(145deg,#e6c667,#b8963f); margin-bottom:16px; position:relative; }
+  .virt-card .vc-label { font-size:10px; color:var(--text-dim); letter-spacing:0.5px; font-weight:600; position:relative; }
+  .virt-card .vc-amount { font-size:25px; font-weight:800; margin:6px 0 18px; position:relative; }
+  .virt-card .vc-foot { display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--text-dim); position:relative; }
+
+  .badge-trend { font-size:11px; padding:4px 10px; border-radius:20px; font-weight:700; }
+  .badge-trend.up { background:var(--green-soft, rgba(74,222,128,0.15)); color:var(--green); }
+  .badge-trend.down { background:rgba(248,113,113,0.15); color:var(--red); }
+  .badge-trend.neutral { background:var(--blue-mid); color:var(--text-dim); }
+  .stat-row-flex { display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px; }
+
+  .bars { display:flex; align-items:flex-end; gap:10px; height:150px; padding:0 2px; margin-top:16px; }
+  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; height:100%; justify-content:flex-end; position:relative; }
+  .bar { width:100%; border-radius:8px 8px 3px 3px; background:linear-gradient(180deg, rgba(148,148,255,0.35), rgba(148,148,255,0.1)); min-height:4px; }
+  .bar-col.peak .bar { background:linear-gradient(180deg, var(--blue-bright), var(--blue-accent)); }
+  .bar-col.peak .bump {
+    position:absolute; top:-28px; background:var(--blue-bright); color:#14161F;
+    font-size:9.5px; font-weight:700; padding:3px 8px; border-radius:9px; white-space:nowrap;
+  }
+  .bar-label { font-size:9.5px; color:var(--text-dim); font-weight:500; }
+
+  .spark-svg { width:100%; height:60px; margin:8px 0 12px; }
+
+  .avatar-row { display:flex; margin-top:12px; }
+  .avatar { width:34px; height:34px; border-radius:50%; border:2.5px solid var(--navy2); margin-left:-9px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; }
+  .avatar:first-child { margin-left:0; }
+  .avatar.a1 { background:linear-gradient(145deg,var(--blue-bright),var(--blue-accent)); }
+  .avatar.a2 { background:linear-gradient(145deg,var(--orange),#c0630f); }
+
+  /* Sendungen (manuelle Frachtverfolgung) */
+  .sendung-item { padding:10px 0; border-bottom:1px solid var(--line); }
+  .sendung-item:last-child { border-bottom:none; }
+  .sendung-kopf { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .sendung-inhalt { font-size:13px; font-weight:600; }
+  .sendung-meta { font-size:11px; color:var(--text-dim); margin-top:3px; }
+  .sendung-status-select { margin-top:6px; font-size:10.5px; padding:3px 6px; border-radius:8px; background:var(--blue-mid); border:1px solid var(--line); color:var(--text); font-family:var(--sans); }
+  .sendung-loeschen { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:13px; padding:2px 4px; flex-shrink:0; }
+  .sendung-loeschen:hover { color:var(--red); }
+
+  .mehr-anzeigen-btn {
+    width:100%; margin-top:8px; background:var(--blue-mid); border:1px solid var(--line); border-radius:10px;
+    color:var(--text-dim); font-family:var(--sans); font-size:12px; font-weight:600; padding:8px; cursor:pointer;
+  }
+  .mehr-anzeigen-btn:hover { color:var(--text); }
+  .lager-item.versteckt { display:none; }

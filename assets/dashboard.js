@@ -553,3 +553,42 @@ async function deleteTodo(id) {
   showToast('Aufgabe gelöscht');
   setTimeout(() => reloadOnCurrentPage(), 800);
 }
+
+// ── LAGER-VORSCHAU (Dashboard-Startseite) ───────────────────────────────────
+function lagerVorschauMehrAnzeigen() {
+  document.querySelectorAll('.lager-item.versteckt').forEach(el => el.classList.remove('versteckt'));
+  document.getElementById('lager-vorschau-mehr-btn')?.remove();
+}
+
+// ── SENDUNGEN (manuelle Frachtverfolgung) ───────────────────────────────────
+async function sendungErstellen() {
+  const spediteur = document.getElementById('sd-spediteur').value.trim();
+  const inhalt = document.getElementById('sd-inhalt').value.trim();
+  if (!spediteur || !inhalt) { showToast('Spediteur oder Inhalt fehlt', true); return; }
+
+  const res = await api({
+    action: 'sendung_add',
+    typ: document.getElementById('sd-typ').value,
+    spediteur,
+    tracking_nummer: document.getElementById('sd-tracking').value.trim(),
+    inhalt,
+    ziel: document.getElementById('sd-ziel').value.trim(),
+  });
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Sendung erfasst');
+  closeModal('modal-sendung-add');
+  setTimeout(() => reloadOnCurrentPage(), 800);
+}
+
+async function sendungStatusAendern(id, status) {
+  const res = await api({ action: 'sendung_status_aendern', id, status });
+  if (res.error) { showToast(res.error, true); return; }
+  showToast('Status aktualisiert');
+}
+
+async function sendungLoeschen(id) {
+  if (!confirm('Sendung wirklich löschen?')) return;
+  await api({ action: 'sendung_loeschen', id });
+  document.getElementById('sendung-' + id)?.remove();
+  showToast('Sendung gelöscht');
+}
