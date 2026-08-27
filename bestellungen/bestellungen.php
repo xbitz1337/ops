@@ -10,7 +10,7 @@ $kanal_filter = $_GET['kanal'] ?? '';
 $kanal_labels = ['ebay' => 'eBay', 'amazon' => 'Amazon', 'tiktok' => 'TikTok Shop', 'direktverkauf' => 'Direktverkauf'];
 
 require_once __DIR__ . '/../lager/fifo_helper.php';
-require_once __DIR__ . '/../verpackung_helper.php';
+require_once __DIR__ . '/../lager/verpackung_helper.php';
 
 // ── API HANDLER ──────────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['api'])) {
@@ -360,80 +360,80 @@ foreach ($alle_produkte_rows as $row) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bestellungen — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-mid: #1e3a5f;
-    --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a;
-    --green: #2ecc71; --orange: #e67e22; --red: #e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-mid: #262A3D;
+    --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8;
+    --green: #4ADE80; --orange: #FBBF24; --red: #F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
   .back-link:hover { text-decoration:underline; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:1400px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:2px; margin-top:4px; margin-bottom:6px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px; margin-bottom:6px; }
   .test-hinweis { font-family:var(--mono); font-size:10px; color:var(--orange); margin-bottom:20px; }
 
   .kanal-tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
-  .kanal-tab { font-family:var(--mono); font-size:11px; letter-spacing:1px; padding:8px 16px; border:1px solid rgba(45,106,173,0.3); color:var(--text-dim); text-decoration:none; text-transform:uppercase; }
-  .kanal-tab.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .kanal-tab { font-family:var(--mono); font-size:11px; padding:8px 16px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; }
+  .kanal-tab.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
   .kanal-tab:hover { border-color:var(--blue-bright); }
 
-  .engpass-banner { background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.4); padding:14px 16px; margin-bottom:20px; }
-  .engpass-titel { font-family:var(--mono); font-size:11px; letter-spacing:1px; color:var(--red); margin-bottom:8px; font-weight:700; }
+  .engpass-banner { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.4); padding:14px 16px; margin-bottom:20px; }
+  .engpass-titel { font-family:var(--mono); font-size:11px; color:var(--red); margin-bottom:8px; font-weight:700; }
   .engpass-zeile { font-family:var(--mono); font-size:11px; color:var(--text); padding:2px 0; }
   .engpass-zeile strong { color:var(--red); }
-  .niedrig-banner { background:rgba(230,126,34,0.1); border-color:rgba(230,126,34,0.4); }
+  .niedrig-banner { background:rgba(251,191,36,0.1); border-color:rgba(251,191,36,0.4); }
   .niedrig-titel { color:var(--orange); }
   .niedrig-banner .engpass-zeile strong { color:var(--orange); }
 
   .page-actions { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; text-decoration:none; display:inline-block; }
-  .btn-primary { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
-  .btn-primary:hover { background:rgba(74,158,221,0.1); }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; text-decoration:none; display:inline-block; border-radius:12px; }
+  .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
+  .btn-primary:hover { background:rgba(148,148,255,0.1); }
 
   .kanban { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
   @media(max-width:1000px) { .kanban { grid-template-columns:1fr 1fr; } }
   @media(max-width:600px) { .kanban { grid-template-columns:1fr; } }
 
-  .spalte { background:rgba(21,34,54,0.6); border:1px solid rgba(45,106,173,0.2); min-height:200px; }
-  .spalte-header { padding:16px 18px; border-bottom:1px solid rgba(45,106,173,0.2); font-family:var(--mono); font-size:13px; letter-spacing:2px; text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; }
-  .spalte-header .count { background:rgba(74,158,221,0.15); color:var(--blue-bright); padding:2px 10px; border-radius:10px; font-size:12px; }
+  .spalte { background:rgba(29,32,48,0.6); border:1px solid rgba(124,124,255,0.2); min-height:200px; }
+  .spalte-header { padding:16px 18px; border-bottom:1px solid rgba(124,124,255,0.2); font-family:var(--mono); font-size:13px; display:flex; justify-content:space-between; align-items:center; }
+  .spalte-header .count { background:rgba(148,148,255,0.15); color:var(--blue-bright); padding:2px 10px; border-radius:10px; font-size:12px; }
   .spalte.neu .spalte-header { color:var(--orange); }
   .spalte.zu_verpacken .spalte-header { color:var(--blue-bright); }
-  .spalte.versand_vorbereitet .spalte-header { color:#a78bfa; }
+  .spalte.versand_vorbereitet .spalte-header { color:#B8A6FF; }
   .spalte.versendet .spalte-header { color:var(--green); }
   .spalte-body { padding:12px; display:flex; flex-direction:column; gap:10px; }
 
-  .karte { background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.2); padding:14px 16px; font-size:14px; }
+  .karte { background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.2); padding:14px 16px; font-size:14px; }
   .karte .kaeufer { font-weight:700; font-size:15px; margin-bottom:5px; display:flex; align-items:center; gap:8px; }
-  .kanal-badge { font-family:var(--mono); font-size:9px; padding:2px 7px; border-radius:8px; text-transform:uppercase; letter-spacing:0.5px; }
-  .kanal-badge.ebay { background:rgba(74,158,221,0.15); color:var(--blue-bright); }
-  .kanal-badge.amazon { background:rgba(230,126,34,0.15); color:var(--orange); }
-  .kanal-badge.tiktok { background:rgba(255,255,255,0.1); color:#e0e0e0; }
-  .kanal-badge.direktverkauf { background:rgba(46,204,113,0.15); color:var(--green); }
+  .kanal-badge { font-family:var(--mono); font-size:9px; padding:2px 7px; border-radius:8px; }
+  .kanal-badge.ebay { background:rgba(148,148,255,0.15); color:var(--blue-bright); }
+  .kanal-badge.amazon { background:rgba(251,191,36,0.15); color:var(--orange); }
+  .kanal-badge.tiktok { background:rgba(255,255,255,0.1); color:#C7CAD9; }
+  .kanal-badge.direktverkauf { background:rgba(74,222,128,0.15); color:var(--green); }
   .zahlung-badge { font-family:var(--mono); font-size:9px; padding:2px 7px; border-radius:8px; }
-  .zahlung-badge.bezahlt { background:rgba(46,204,113,0.15); color:var(--green); }
-  .zahlung-badge.ausstehend { background:rgba(230,126,34,0.15); color:var(--orange); }
+  .zahlung-badge.bezahlt { background:rgba(74,222,128,0.15); color:var(--green); }
+  .zahlung-badge.ausstehend { background:rgba(251,191,36,0.15); color:var(--orange); }
   .karte .artikel { font-family:var(--mono); font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5; }
   .karte .bestand-info { font-family:var(--mono); font-size:11px; padding:2px 0; }
   .karte .bestand-info.ok { color:var(--green); }
   .karte .bestand-info.knapp { color:var(--red); font-weight:700; }
-  .karte .test-tag { display:inline-block; background:rgba(230,126,34,0.15); color:var(--orange); font-size:9px; padding:2px 7px; border-radius:8px; }
+  .karte .test-tag { display:inline-block; background:rgba(251,191,36,0.15); color:var(--orange); font-size:9px; padding:2px 7px; border-radius:8px; }
   .karte-aktionen { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-  .karte-btn { font-family:var(--mono); font-size:11px; letter-spacing:1px; padding:8px 12px; border:1px solid rgba(45,106,173,0.3); background:none; color:var(--text); cursor:pointer; text-decoration:none; }
-  .karte-btn:hover { background:rgba(74,158,221,0.1); }
+  .karte-btn { font-family:var(--mono); font-size:11px; padding:8px 12px; border:1px solid rgba(124,124,255,0.3); background:none; color:var(--text); cursor:pointer; text-decoration:none; }
+  .karte-btn:hover { background:rgba(148,148,255,0.1); }
   .karte-btn.checkliste { color:var(--blue-bright); border-color:var(--blue-bright); }
-  .karte-btn.loeschen { color:var(--red); border-color:rgba(231,76,60,0.3); }
+  .karte-btn.loeschen { color:var(--red); border-color:rgba(248,113,113,0.3); }
   .empty-spalte { font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:24px 10px; }
-  .mehr-link { display:block; text-align:center; font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; padding:12px; margin-top:4px; border-top:1px dashed rgba(45,106,173,0.2); }
+  .mehr-link { display:block; text-align:center; font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; padding:12px; margin-top:4px; border-top:1px dashed rgba(124,124,255,0.2); }
   .mehr-link:hover { text-decoration:underline; }
   .sendungsnr { font-family:var(--mono); font-size:10px; color:var(--green); margin-top:6px; }
 
@@ -454,7 +454,7 @@ foreach ($alle_produkte_rows as $row) {
 
 <div class="main">
   <div class="page-title">Bestellungen</div>
-  <div class="page-sub">// WORKFLOW: NEU → ZU VERPACKEN → VERSAND VORBEREITET → VERSENDET</div>
+  <div class="page-sub">Workflow: neu → zu verpacken → Versand vorbereitet → versendet</div>
   <div class="test-hinweis">⚠️ Amazon/eBay/TikTok-APIs noch nicht angebunden — hier siehst du vorerst nur Test-Bestellungen.</div>
 
   <div class="kanal-tabs">
@@ -484,9 +484,9 @@ foreach ($alle_produkte_rows as $row) {
 
   <div class="page-actions">
     <a href="fake_bestellung.php" class="btn btn-primary">+ TEST-BESTELLUNG ERSTELLEN</a>
-    <a href="direktverkauf_erstellen.php" class="btn" style="color:var(--green);border-color:rgba(46,204,113,0.4);">+ DIREKTVERKAUF ERFASSEN</a>
-    <a href="bestellungen_historie.php" class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);">📜 HISTORIE</a>
-    <a href="import_historie.php" class="btn" style="color:var(--orange);border-color:rgba(230,126,34,0.4);">📥 ALTE BESTELLUNGEN IMPORTIEREN</a>
+    <a href="direktverkauf_erstellen.php" class="btn" style="color:var(--green);border-color:rgba(74,222,128,0.4);">+ DIREKTVERKAUF ERFASSEN</a>
+    <a href="bestellungen_historie.php" class="btn" style="color:var(--text-dim);border-color:rgba(139,143,168,0.3);">📜 HISTORIE</a>
+    <a href="import_historie.php" class="btn" style="color:var(--orange);border-color:rgba(251,191,36,0.4);">📥 ALTE BESTELLUNGEN IMPORTIEREN</a>
   </div>
 
   <div class="kanban">
@@ -506,7 +506,7 @@ foreach ($alle_produkte_rows as $row) {
       </div>
       <div class="spalte-body" id="spalte-body-<?= $key ?>">
         <?php if (empty($spalten[$key])): ?>
-          <div class="empty-spalte">// LEER</div>
+          <div class="empty-spalte">Leer</div>
         <?php endif; ?>
         <?php foreach ($spalten[$key] as $b): ?>
         <div class="karte" id="karte-<?= $b['id'] ?>">
@@ -560,25 +560,25 @@ foreach ($alle_produkte_rows as $row) {
 </div>
 
 <!-- RETOURE-MODAL -->
-<div id="retoure-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center;">
-  <div style="background:var(--navy2); border:1px solid rgba(45,106,173,0.3); width:100%; max-width:420px; margin:20px; padding:20px;">
-    <div style="font-family:var(--mono); font-size:11px; letter-spacing:2px; color:var(--blue-bright); margin-bottom:16px;" id="retoure-titel">// RETOURE ERFASSEN</div>
+<div id="retoure-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center;">
+  <div style="background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:420px; margin:20px; padding:20px;">
+    <div style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px;" id="retoure-titel">Retoure erfassen</div>
     <input type="hidden" id="retoure-id">
 
-    <label style="font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Menge</label>
-    <input type="number" id="retoure-menge" min="1" value="1" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; margin-bottom:14px;">
+    <label style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:6px;">Menge</label>
+    <input type="number" id="retoure-menge" min="1" value="1" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; margin-bottom:14px;">
 
-    <label style="font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Grund</label>
-    <input type="text" id="retoure-grund" placeholder="z.B. Kunde nicht zufrieden" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; margin-bottom:14px;">
+    <label style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:6px;">Grund</label>
+    <input type="text" id="retoure-grund" placeholder="z.B. Kunde nicht zufrieden" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; margin-bottom:14px;">
 
-    <label style="font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px;">Zustand</label>
-    <select id="retoure-verkaufsfaehig" style="width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; margin-bottom:16px;">
+    <label style="font-family:var(--mono); font-size:9px; color:var(--text-dim); display:block; margin-bottom:6px;">Zustand</label>
+    <select id="retoure-verkaufsfaehig" style="width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; margin-bottom:16px;">
       <option value="1">Wieder verkaufsfähig — zurück in den Bestand</option>
       <option value="0">Beschädigt — nicht mehr verkaufsfähig</option>
     </select>
 
     <div style="display:flex; gap:10px; justify-content:flex-end;">
-      <button onclick="closeRetoureModal()" style="background:none; border:1px solid rgba(90,122,154,0.3); color:var(--text-dim); font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer;">ABBRECHEN</button>
+      <button onclick="closeRetoureModal()" style="background:none; border:1px solid rgba(139,143,168,0.3); color:var(--text-dim); font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer;">ABBRECHEN</button>
       <button onclick="retoureBestaetigen()" style="background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer;">BESTÄTIGEN</button>
     </div>
   </div>
@@ -651,7 +651,7 @@ function pruefeLeereSpalten() {
     if (!hatKarten && !hatLeerHinweis) {
       const div = document.createElement('div');
       div.className = 'empty-spalte';
-      div.textContent = '// LEER';
+      div.textContent = 'Leer';
       body.insertBefore(div, body.firstChild);
     }
   });
@@ -666,7 +666,7 @@ async function testBestellungLoeschen(id) {
 
 function openRetoureModal(id, artikelName, maxMenge) {
   document.getElementById('retoure-id').value = id;
-  document.getElementById('retoure-titel').textContent = '// RETOURE — ' + artikelName.toUpperCase();
+  document.getElementById('retoure-titel').textContent = 'Retoure — ' + artikelName;
   document.getElementById('retoure-menge').value = 1;
   document.getElementById('retoure-menge').max = maxMenge;
   document.getElementById('retoure-grund').value = '';

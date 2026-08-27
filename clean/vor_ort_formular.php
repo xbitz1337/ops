@@ -61,70 +61,70 @@ $laufzeit_optionen = clean_laufzeit_optionen();
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vor-Ort-Gespräch — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red: #e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red: #F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
   .main { max-width:1200px; margin:0 auto; padding:24px 20px 60px; display:grid; grid-template-columns:1fr 360px; gap:20px; }
   @media(max-width:950px) { .main { grid-template-columns:1fr; } }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; }
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input, .field-select, .field-textarea { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:10px 12px; outline:none; margin-bottom:14px; }
-  .field-textarea { min-height:60px; resize:vertical; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input, .field-select, .field-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:14px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
+  .field-textarea { min-height:60px; resize:vertical; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
 
   .bonitaet-row { display:flex; gap:8px; margin-bottom:12px; }
-  .bonitaet-btn { flex:1; padding:10px; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); font-family:var(--mono); font-size:16px; cursor:pointer; text-align:center; }
-  .bonitaet-btn.gruen.active { background:rgba(46,204,113,0.15); border-color:var(--green); }
-  .bonitaet-btn.gelb.active { background:rgba(230,126,34,0.15); border-color:var(--orange); }
-  .bonitaet-btn.rot.active { background:rgba(231,76,60,0.15); border-color:var(--red); }
+  .bonitaet-btn { flex:1; padding:10px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); font-family:var(--mono); font-size:16px; cursor:pointer; text-align:center; }
+  .bonitaet-btn.gruen.active { background:rgba(74,222,128,0.15); border-color:var(--green); }
+  .bonitaet-btn.gelb.active { background:rgba(251,191,36,0.15); border-color:var(--orange); }
+  .bonitaet-btn.rot.active { background:rgba(248,113,113,0.15); border-color:var(--red); }
   .check-links { display:flex; gap:14px; margin-bottom:12px; font-family:var(--mono); font-size:10px; }
   .check-links a { color:var(--blue-bright); text-decoration:none; }
   .check-links a:hover { text-decoration:underline; }
 
-  .art-zeile { border:1px solid rgba(45,106,173,0.2); padding:10px 12px; margin-bottom:8px; }
-  .art-zeile.aktiv { border-color:rgba(46,204,113,0.4); background:rgba(46,204,113,0.05); }
+  .art-zeile { border:1px solid rgba(124,124,255,0.2); padding:10px 12px; margin-bottom:8px; }
+  .art-zeile.aktiv { border-color:rgba(74,222,128,0.4); background:rgba(74,222,128,0.05); }
   .art-kopf { display:flex; align-items:center; gap:8px; cursor:pointer; font-size:12px; }
   .art-kopf input[type=checkbox] { width:16px; height:16px; accent-color:var(--green); }
   .art-name { font-weight:700; flex:1; }
-  .art-details { display:none; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(45,106,173,0.2); }
+  .art-details { display:none; margin-top:10px; padding-top:10px; border-top:1px dashed rgba(124,124,255,0.2); }
   .art-details.sichtbar { display:block; }
-  .art-details .field-input { margin-bottom:8px; padding:6px 8px; font-size:11px; }
+  .art-details .field-input { margin-bottom:8px; padding:6px 8px; font-size:11px; border-radius:12px; }
 
   .freq-presets { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:8px; }
-  .freq-btn { font-family:var(--mono); font-size:8px; padding:5px 8px; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); cursor:pointer; white-space:nowrap; }
-  .freq-btn.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .freq-btn { font-family:var(--mono); font-size:8px; padding:5px 8px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); cursor:pointer; white-space:nowrap; }
+  .freq-btn.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
   .freq-btn .rabatt-tag { color:var(--green); margin-left:3px; }
 
   .interesse-row { display:flex; gap:8px; margin-bottom:16px; }
-  .interesse-btn { flex:1; padding:10px; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); font-family:var(--mono); font-size:11px; cursor:pointer; }
-  .interesse-btn.heiss.active { background:rgba(231,76,60,0.15); border-color:var(--red); color:var(--red); }
-  .interesse-btn.warm.active { background:rgba(230,126,34,0.15); border-color:var(--orange); color:var(--orange); }
-  .interesse-btn.kalt.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .interesse-btn { flex:1; padding:10px; border:1px solid rgba(124,124,255,0.25); background:none; color:var(--text-dim); font-family:var(--mono); font-size:11px; cursor:pointer; }
+  .interesse-btn.heiss.active { background:rgba(248,113,113,0.15); border-color:var(--red); color:var(--red); }
+  .interesse-btn.warm.active { background:rgba(251,191,36,0.15); border-color:var(--orange); color:var(--orange); }
+  .interesse-btn.kalt.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
 
-  .btn-submit { width:100%; background:none; border:1px solid var(--green); color:var(--green); padding:15px; font-family:var(--mono); font-size:13px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
-  .btn-submit:hover { background:rgba(46,204,113,0.1); }
+  .btn-submit { width:100%; background:none; border:1px solid var(--green); color:var(--green); padding:15px; font-family:var(--mono); font-size:13px; cursor:pointer; }
+  .btn-submit:hover { background:rgba(74,222,128,0.1); }
 
-  .rechner-panel { position:sticky; top:64px; background:rgba(21,34,54,0.9); border:1px solid rgba(46,204,113,0.3); padding:18px; height:fit-content; }
-  .rechner-titel { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--green); margin-bottom:14px; }
-  .erg-zeile { display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; padding:5px 0; border-bottom:1px solid rgba(45,106,173,0.08); }
+  .rechner-panel { position:sticky; top:64px; background:rgba(29,32,48,0.9); border:1px solid rgba(74,222,128,0.3); padding:18px; height:fit-content; }
+  .rechner-titel { font-family:var(--mono); font-size:11px; color:var(--green); margin-bottom:14px; }
+  .erg-zeile { display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; padding:5px 0; border-bottom:1px solid rgba(124,124,255,0.08); }
   .erg-zeile .label { color:var(--text-dim); }
-  .erg-zeile.final { margin-top:6px; padding-top:10px; border-top:1px solid rgba(46,204,113,0.2); }
+  .erg-zeile.final { margin-top:6px; padding-top:10px; border-top:1px solid rgba(74,222,128,0.2); }
   .erg-zeile.final .wert { color:var(--green); font-size:16px; font-weight:700; }
-  .lohnt-badge { text-align:center; padding:9px; margin-top:12px; font-family:var(--mono); font-size:10px; letter-spacing:1px; }
-  .lohnt-badge.ja { background:rgba(46,204,113,0.15); color:var(--green); border:1px solid rgba(46,204,113,0.3); }
-  .lohnt-badge.nein { background:rgba(231,76,60,0.15); color:var(--red); border:1px solid rgba(231,76,60,0.3); }
+  .lohnt-badge { text-align:center; padding:9px; margin-top:12px; font-family:var(--mono); font-size:10px; }
+  .lohnt-badge.ja { background:rgba(74,222,128,0.15); color:var(--green); border:1px solid rgba(74,222,128,0.3); }
+  .lohnt-badge.nein { background:rgba(248,113,113,0.15); color:var(--red); border:1px solid rgba(248,113,113,0.3); }
 
-  .wettbewerb-box { background:rgba(230,126,34,0.1); border:1px solid rgba(230,126,34,0.3); padding:12px; margin-top:12px; }
-  .wettbewerb-box .titel { font-family:var(--mono); font-size:9px; color:var(--orange); text-transform:uppercase; margin-bottom:6px; }
+  .wettbewerb-box { background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); padding:12px; margin-top:12px; }
+  .wettbewerb-box .titel { font-family:var(--mono); font-size:9px; color:var(--orange); margin-bottom:6px; }
   .wettbewerb-box .preis { font-size:16px; font-weight:700; color:var(--orange); font-family:var(--mono); }
   .wettbewerb-box .hinweis { font-family:var(--mono); font-size:8px; color:var(--text-dim); margin-top:5px; line-height:1.4; }
   .wettbewerb-box .uebernehmen-btn { font-family:var(--mono); font-size:9px; color:var(--green); background:none; border:1px solid var(--green); padding:5px 10px; cursor:pointer; margin-top:8px; }
@@ -138,7 +138,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
   <div>
     <form method="POST" id="form">
       <div class="panel">
-        <div class="panel-title">// KONTAKTDATEN</div>
+        <div class="panel-title">Kontaktdaten</div>
         <label class="field-label">Firma</label>
         <input class="field-input" type="text" name="firma" id="firma" required>
         <div class="check-links">
@@ -166,7 +166,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
       </div>
 
       <div class="panel">
-        <div class="panel-title">// FLÄCHEN &amp; RAHMENDATEN</div>
+        <div class="panel-title">Flächen &amp; Rahmendaten</div>
         <div class="row-2">
           <div><label class="field-label">Fläche (m²)</label><input class="field-input" type="number" name="qm" id="qm" value="100"></div>
           <div><label class="field-label">Glasfläche (m²)</label><input class="field-input" type="number" name="glas_qm" id="glas_qm" value="20"></div>
@@ -195,7 +195,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
       </div>
 
       <div class="panel">
-        <div class="panel-title">// REINIGUNGSARTEN (mehrere möglich)</div>
+        <div class="panel-title">Reinigungsarten (mehrere möglich)</div>
         <?php foreach ($arten as $a): $mittelwert = ($a['preis_min'] + $a['preis_max']) / 2; ?>
         <div class="art-zeile" id="art-zeile-<?= $a['id'] ?>">
           <div class="art-kopf" onclick="artUmschalten(<?= $a['id'] ?>)">
@@ -226,7 +226,7 @@ $laufzeit_optionen = clean_laufzeit_optionen();
       </div>
 
       <div class="panel">
-        <div class="panel-title">// GESPRÄCHSNOTIZEN</div>
+        <div class="panel-title">Gesprächsnotizen</div>
         <label class="field-label">Interesse-Level</label>
         <div class="interesse-row">
           <button type="button" class="interesse-btn heiss" data-wert="heiss" onclick="interesseWaehlen('heiss')">🔴 Heiß</button>

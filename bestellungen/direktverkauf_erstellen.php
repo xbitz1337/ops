@@ -2,6 +2,7 @@
 date_default_timezone_set('Europe/Berlin');
 require_once __DIR__ . '/../config.php';
 requireLogin();
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 $pdo = db();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -55,26 +56,22 @@ foreach ($produkte_roh as $p) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Direktverkauf erfassen — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
-
   .main { max-width:520px; margin:0 auto; padding:28px 20px 60px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--green); letter-spacing:1px; margin-bottom:24px; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--green); margin-bottom:24px; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
   .field-input:focus, .field-select:focus { border-color:var(--blue-bright); }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
@@ -82,23 +79,23 @@ foreach ($produkte_roh as $p) {
   .checkbox-row input { width:16px; height:16px; accent-color:var(--blue-bright); }
   .checkbox-row label { font-family:var(--mono); font-size:11px; cursor:pointer; }
 
-  .reverse-charge-block { display:none; background:rgba(230,126,34,0.08); border:1px solid rgba(230,126,34,0.3); padding:14px 16px; margin-bottom:16px; }
+  .reverse-charge-block { display:none; background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.3); padding:14px 16px; margin-bottom:16px; }
   .reverse-charge-block.sichtbar { display:block; }
   .reverse-charge-hinweis { font-family:var(--mono); font-size:9px; color:var(--orange); margin-bottom:12px; line-height:1.5; }
 
-  .btn-submit { width:100%; background:none; border:1px solid var(--green); color:var(--green); padding:14px; font-family:var(--mono); font-size:13px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; margin-top:6px; }
-  .btn-submit:hover { background:rgba(46,204,113,0.1); }
+  .btn-submit { width:100%; background:none; border:1px solid var(--green); color:var(--green); padding:14px; font-family:var(--mono); font-size:13px; cursor:pointer; margin-top:6px; }
+  .btn-submit:hover { background:rgba(74,222,128,0.1); }
 
-  .gewinn-box { background:rgba(15,25,35,0.6); border:1px solid rgba(46,204,113,0.3); padding:16px; margin-bottom:16px; display:none; }
+  .gewinn-box { background:rgba(20,22,31,0.6); border:1px solid rgba(74,222,128,0.3); padding:16px; margin-bottom:16px; display:none; }
   .gewinn-box.sichtbar { display:block; }
   .gewinn-zeile { display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; padding:4px 0; }
   .gewinn-zeile .label { color:var(--text-dim); }
-  .gewinn-zeile.final { border-top:1px solid rgba(46,204,113,0.2); margin-top:6px; padding-top:8px; }
+  .gewinn-zeile.final { border-top:1px solid rgba(74,222,128,0.2); margin-top:6px; padding-top:8px; }
   .gewinn-zeile.final .wert { color:var(--green); font-size:15px; font-weight:700; }
 
   .barcode-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:500; align-items:center; justify-content:center; }
   .barcode-overlay.open { display:flex; }
-  .barcode-box { background:#000; width:100%; max-width:480px; margin:20px; }
+  .barcode-box { background:#000; width:100%; max-width:480px; margin:20px; border-radius:16px; }
   .barcode-kopf { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--navy2); }
   .barcode-close { background:none; border:none; color:var(--text-dim); font-size:16px; cursor:pointer; }
   .barcode-viewport { width:100%; height:320px; position:relative; overflow:hidden; }
@@ -112,7 +109,7 @@ foreach ($produkte_roh as $p) {
 <div class="barcode-overlay" id="barcode-scan-overlay">
   <div class="barcode-box">
     <div class="barcode-kopf">
-      <span style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); letter-spacing:1px;">// BARCODE SCANNEN</span>
+      <span style="font-family:var(--mono); font-size:11px; color:var(--blue-bright); ">Barcode scannen</span>
       <button class="barcode-close" onclick="barcodeScanAbbrechen()">✕</button>
     </div>
     <div id="barcode-scan-viewport" class="barcode-viewport"></div>
@@ -120,15 +117,12 @@ foreach ($produkte_roh as $p) {
   </div>
 </div>
 
-<div class="topbar">
-  <a href="bestellungen.php" class="back-link">← Bestellungen</a>
-  <div class="topbar-title">Direktverkauf</div>
-  <div style="width:80px;"></div>
-</div>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
+<div class="page-content-wrapper">
 
 <div class="main">
   <div class="page-title">Direktverkauf erfassen</div>
-  <div class="page-sub">// ECHTER VERKAUF — KEIN TEST</div>
+  <div class="page-sub">Echter Verkauf — kein Test</div>
 
   <div class="panel">
     <form method="POST" id="dv-form">
@@ -208,6 +202,7 @@ foreach ($produkte_roh as $p) {
       <button type="submit" class="btn-submit">✓ Direktverkauf erfassen</button>
     </form>
   </div>
+</div>
 </div>
 
 <script>

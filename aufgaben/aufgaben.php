@@ -161,73 +161,8 @@ $wochentag_labels = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aufgaben — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0f1923; --navy2: #152236; --blue-mid: #1e3a5f;
-    --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a;
-    --green: #2ecc71; --orange: #e67e22; --red: #e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
-
-  .main { max-width:1200px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:20px; }
-
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid; transition:all 0.2s; background:none; }
-  .btn-primary { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
-  .btn-primary:hover { background:rgba(74,158,221,0.1); }
-
-  .kanban { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px; }
-  @media(max-width:900px) { .kanban { grid-template-columns:1fr; } }
-
-  .spalte { background:rgba(21,34,54,0.6); border:1px solid rgba(45,106,173,0.2); min-height:200px; }
-  .spalte-header { padding:14px 16px; border-bottom:1px solid rgba(45,106,173,0.2); font-family:var(--mono); font-size:12px; letter-spacing:2px; text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; }
-  .spalte.offen .spalte-header { color:var(--orange); }
-  .spalte.in_bearbeitung .spalte-header { color:var(--blue-bright); }
-  .spalte.erledigt .spalte-header { color:var(--green); }
-  .spalte-count { background:rgba(74,158,221,0.15); color:var(--blue-bright); padding:2px 9px; border-radius:10px; font-size:11px; }
-  .spalte-body { padding:12px; display:flex; flex-direction:column; gap:10px; }
-
-  .karte { background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.2); padding:14px 16px; position:relative; }
-  .karte-prio { position:absolute; top:0; left:0; width:3px; height:100%; }
-  .karte-prio.hoch { background:var(--red); }
-  .karte-prio.mittel { background:var(--orange); }
-  .karte-prio.niedrig { background:var(--green); }
-  .karte-titel { font-weight:700; font-size:14px; margin-bottom:6px; padding-left:8px; }
-  .karte-beschreibung { font-size:12px; color:var(--text-dim); margin-bottom:8px; padding-left:8px; }
-  .karte-meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; padding-left:8px; margin-bottom:10px; font-family:var(--mono); font-size:9px; }
-  .meta-badge { padding:2px 8px; border-radius:8px; background:rgba(45,106,173,0.15); color:var(--blue-bright); }
-  .meta-badge.deadline-warn { background:rgba(231,76,60,0.15); color:var(--red); }
-  .meta-badge.wiederholung { background:rgba(46,204,113,0.15); color:var(--green); }
-  .meta-badge.quelle { background:rgba(230,126,34,0.15); color:var(--orange); }
-  .karte-aktionen { display:flex; gap:6px; flex-wrap:wrap; padding-left:8px; }
-  .mini-btn { font-family:var(--mono); font-size:9px; letter-spacing:1px; padding:6px 10px; border:1px solid rgba(45,106,173,0.3); background:none; color:var(--text); cursor:pointer; }
-  .mini-btn:hover { background:rgba(74,158,221,0.1); }
-  .mini-btn.loeschen { color:var(--red); border-color:rgba(231,76,60,0.3); }
-  .empty-spalte { font-family:var(--mono); font-size:10px; color:var(--text-dim); text-align:center; padding:20px 10px; }
-
-  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center; }
-  .modal-overlay.open { display:flex; }
-  .modal { background:var(--navy2); border:1px solid rgba(45,106,173,0.3); width:100%; max-width:480px; margin:20px; max-height:90vh; overflow-y:auto; padding:20px; }
-  .modal-titel { font-family:var(--mono); font-size:11px; letter-spacing:2px; color:var(--blue-bright); margin-bottom:16px; }
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input, .field-select, .field-textarea { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
-  .field-textarea { min-height:70px; resize:vertical; }
-  .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .wiederholung-detail { display:none; border-left:2px solid rgba(45,106,173,0.2); padding-left:12px; margin-bottom:14px; }
-  .wiederholung-detail.aktiv { display:block; }
-  .wochentag-row { display:flex; gap:4px; margin-bottom:14px; }
-  .wochentag-btn { flex:1; padding:8px 0; border:1px solid rgba(45,106,173,0.25); background:none; color:var(--text-dim); font-family:var(--mono); font-size:10px; cursor:pointer; }
-  .wochentag-btn.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
-  .modal-aktionen { display:flex; gap:10px; justify-content:flex-end; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body>
 <?php require_once __DIR__ . '/../_sidebar.php'; ?>
@@ -235,9 +170,9 @@ $wochentag_labels = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
 <div class="main">
   <div class="page-title">Aufgaben</div>
-  <div class="page-sub">// KANBAN · WIEDERKEHREND · TÄGLICHE TELEGRAM-ERINNERUNG UM 6 UHR</div>
+  <div class="page-sub">Kanban · wiederkehrend · tägliche Telegram-Erinnerung um 6 Uhr</div>
 
-  <button class="btn btn-primary" onclick="openModal()">+ AUFGABE ERSTELLEN</button>
+  <button class="btn-primary auto" onclick="openModal()">+ Aufgabe erstellen</button>
 
   <div class="kanban">
     <?php
@@ -251,10 +186,10 @@ $wochentag_labels = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
       </div>
       <div class="spalte-body">
         <?php if (empty($spalten[$key])): ?>
-          <div class="empty-spalte">// LEER</div>
+          <div class="empty-spalte">Leer</div>
         <?php endif; ?>
         <?php foreach ($spalten[$key] as $a): ?>
-        <div class="karte" id="aufgabe-<?= $a['id'] ?>">
+        <div class="aufgaben-karte" id="aufgabe-<?= $a['id'] ?>">
           <div class="karte-prio <?= $a['prioritaet'] ?>"></div>
           <div class="karte-titel"><?= htmlspecialchars($a['titel']) ?></div>
           <?php if ($a['beschreibung']): ?><div class="karte-beschreibung"><?= htmlspecialchars($a['beschreibung']) ?></div><?php endif; ?>
@@ -276,9 +211,9 @@ $wochentag_labels = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
             <?php if ($key === 'offen'): ?>
               <button class="mini-btn" onclick="statusAendern(<?= $a['id'] ?>, 'in_bearbeitung')">→ In Bearbeitung</button>
             <?php elseif ($key === 'in_bearbeitung'): ?>
-              <button class="mini-btn" onclick="statusAendern(<?= $a['id'] ?>, 'erledigt')">✓ Erledigt</button>
+              <button class="mini-btn gruen" onclick="statusAendern(<?= $a['id'] ?>, 'erledigt')">✓ Erledigt</button>
             <?php endif; ?>
-            <button class="mini-btn loeschen" onclick="aufgabeLoeschen(<?= $a['id'] ?>)">✕</button>
+            <button class="mini-btn rot" onclick="aufgabeLoeschen(<?= $a['id'] ?>)">✕</button>
           </div>
         </div>
         <?php endforeach; ?>
@@ -291,26 +226,26 @@ $wochentag_labels = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 <!-- MODAL: Neue Aufgabe -->
 <div class="modal-overlay" id="modal-aufgabe">
   <div class="modal">
-    <div class="modal-titel">// AUFGABE ERSTELLEN</div>
+    <div class="modal-titel">Aufgabe erstellen</div>
 
-    <label class="field-label">Titel</label>
-    <input class="field-input" type="text" id="a-titel">
+    <label>Titel</label>
+    <input type="text" id="a-titel">
 
-    <label class="field-label">Beschreibung (optional)</label>
-    <textarea class="field-textarea" id="a-beschreibung"></textarea>
+    <label>Beschreibung (optional)</label>
+    <textarea id="a-beschreibung"></textarea>
 
     <div class="row-2">
       <div>
-        <label class="field-label">Priorität</label>
-        <select class="field-select" id="a-prioritaet">
+        <label>Priorität</label>
+        <select id="a-prioritaet">
           <option value="hoch">🔴 Hoch</option>
           <option value="mittel" selected>🟠 Mittel</option>
           <option value="niedrig">🟢 Niedrig</option>
         </select>
       </div>
       <div>
-        <label class="field-label">Zuweisen an</label>
-        <select class="field-select" id="a-assignee">
+        <label>Zuweisen an</label>
+        <select id="a-assignee">
           <option value="artis">Artis</option>
           <option value="nour">Nour</option>
           <option value="beide" selected>Beide</option>
@@ -318,11 +253,11 @@ $wochentag_labels = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
       </div>
     </div>
 
-    <label class="field-label">Fällig am</label>
-    <input class="field-input" type="date" id="a-deadline">
+    <label>Fällig am</label>
+    <input type="date" id="a-deadline">
 
-    <label class="field-label">Wiederholung</label>
-    <select class="field-select" id="a-wiederholung" onchange="wiederholungGeaendert()">
+    <label>Wiederholung</label>
+    <select id="a-wiederholung" onchange="wiederholungGeaendert()">
       <option value="keine">Keine (einmalig)</option>
       <option value="taeglich">Täglich</option>
       <option value="woechentlich">Wöchentlich</option>
@@ -331,18 +266,18 @@ $wochentag_labels = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
     </select>
 
     <div class="wiederholung-detail" id="detail-monatlich">
-      <label class="field-label">Tag im Monat (1-31, bei kürzeren Monaten automatisch letzter Tag)</label>
-      <input class="field-input" type="number" id="a-monatstag" min="1" max="31" value="1">
+      <label>Tag im Monat (1-31, bei kürzeren Monaten automatisch letzter Tag)</label>
+      <input type="number" id="a-monatstag" min="1" max="31" value="1">
     </div>
 
     <div class="wiederholung-detail" id="detail-jaehrlich">
-      <label class="field-label">Datum (Monat-Tag)</label>
-      <input class="field-input" type="text" id="a-jahrestag" placeholder="MM-TT, z.B. 12-30">
+      <label>Datum (Monat-Tag)</label>
+      <input type="text" id="a-jahrestag" placeholder="MM-TT, z.B. 12-30">
     </div>
 
     <div class="modal-aktionen">
-      <button class="btn" style="color:var(--text-dim);border-color:rgba(90,122,154,0.3);" onclick="closeModal()">Abbrechen</button>
-      <button class="btn btn-primary" onclick="aufgabeErstellen()">Speichern</button>
+      <button class="btn-secondary" onclick="closeModal()">Abbrechen</button>
+      <button class="btn-primary auto" onclick="aufgabeErstellen()">Speichern</button>
     </div>
   </div>
 </div>

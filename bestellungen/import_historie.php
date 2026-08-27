@@ -215,44 +215,44 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Historie importieren — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:1000px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:24px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:24px; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:22px; margin-bottom:20px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:22px; margin-bottom:20px; border-radius:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
   .hinweis-liste { font-size:13px; line-height:1.8; color:var(--text-dim); margin-bottom:18px; }
   .hinweis-liste strong { color:var(--text); }
 
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; }
-  .btn { font-family:var(--mono); font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:11px 20px; cursor:pointer; border:1px solid; background:none; }
-  .btn-primary { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
-  .btn-primary:hover { background:rgba(74,158,221,0.1); }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:10px 12px; outline:none; margin-bottom:14px; border-radius:12px; }
+  .btn { font-family:var(--mono); font-size:11px; padding:11px 20px; cursor:pointer; border:1px solid; background:none; border-radius:12px; }
+  .btn-primary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
+  .btn-primary:hover { background:rgba(148,148,255,0.1); }
 
   .mapping-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
 
   table { width:100%; border-collapse:collapse; font-size:12px; }
-  th { background:rgba(15,25,35,0.8); text-align:left; padding:8px 10px; font-family:var(--mono); font-size:9px; color:var(--text-dim); text-transform:uppercase; }
-  td { padding:8px 10px; border-bottom:1px solid rgba(45,106,173,0.1); }
-  select.mini-select { background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-size:11px; padding:5px 8px; }
+  th { background:rgba(20,22,31,0.8); text-align:left; padding:8px 10px; font-family:var(--mono); font-size:9px; color:var(--text-dim); }
+  td { padding:8px 10px; border-bottom:1px solid rgba(124,124,255,0.1); }
+  select.mini-select { background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-size:11px; padding:5px 8px; }
   .matched { color:var(--green); font-family:var(--mono); font-size:9px; }
   .unmatched { color:var(--orange); font-family:var(--mono); font-size:9px; }
 
-  .ergebnis-box { background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.4); padding:18px; font-size:13px; color:var(--green); }
+  .ergebnis-box { background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.4); padding:18px; font-size:13px; color:var(--green); }
 </style>
 </head>
 <body>
@@ -264,7 +264,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
 
 <div class="main">
   <div class="page-title">Alte eBay-Bestellungen importieren</div>
-  <div class="page-sub">// CSV-EXPORT AUS EUREM EBAY SELLER HUB</div>
+  <div class="page-sub">CSV-Export aus eurem eBay Seller Hub</div>
 
   <?php if (!empty($ergebnis_text)): ?>
     <div class="ergebnis-box">✓ Import abgeschlossen: <?= htmlspecialchars($ergebnis_text) ?></div>
@@ -273,7 +273,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
   <?php elseif (!empty($vorschau_zeilen)): ?>
     <!-- SCHRITT 3: VORSCHAU + PRODUKT-ZUORDNUNG -->
     <div class="panel">
-      <div class="panel-title">// VORSCHAU — <?= count($vorschau_zeilen) ?> Zeilen gefunden</div>
+      <div class="panel-title">Vorschau — <?= count($vorschau_zeilen) ?> Zeilen gefunden</div>
       <div class="hinweis-liste">Grün = automatisch per hinterlegter eBay-Artikel-ID/SKU erkannt. Orange = bitte manuell zuordnen (oder "Kein Produkt" lassen — zählt dann nur in der Historie, nicht in Umsatz/Lager).</div>
       <form method="POST" action="import_historie.php">
         <input type="hidden" name="schritt" value="3">
@@ -311,7 +311,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
   <?php elseif (isset($_SESSION['import_csv_header'])): ?>
     <!-- SCHRITT 2: SPALTEN ZUORDNEN -->
     <div class="panel">
-      <div class="panel-title">// SPALTEN ZUORDNEN</div>
+      <div class="panel-title">Spalten zuordnen</div>
       <div class="hinweis-liste">Die Felder sind schon automatisch anhand eurer Spaltennamen vorausgefüllt — bitte trotzdem kurz prüfen, ob's stimmt, dann ggf. korrigieren.</div>
       <form method="POST" action="import_historie.php">
         <input type="hidden" name="schritt" value="2">
@@ -345,7 +345,7 @@ if (isset($_SESSION['import_mapping'], $_SESSION['import_csv_zeilen']) && empty(
   <?php else: ?>
     <!-- SCHRITT 1: UPLOAD -->
     <div class="panel">
-      <div class="panel-title">// SO EXPORTIERST DU DIE DATEI BEI EBAY</div>
+      <div class="panel-title">So exportierst du die Datei bei eBay</div>
       <div class="hinweis-liste">
         1. eBay Seller Hub öffnen → <strong>„Bestellungen" / „Orders"</strong><br>
         2. Zeitraum wählen (z. B. „Letztes Jahr" oder benutzerdefiniert)<br>

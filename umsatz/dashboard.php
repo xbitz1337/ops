@@ -84,7 +84,7 @@ $schnitt_pro_monat = $gesamt_umsatz / $anzahl_monate;
 $max_umsatz = max(array_column($monatsdaten, 'umsatz_netto') ?: [0]);
 
 $kanal_labels = ['amazon' => 'Amazon', 'ebay' => 'eBay', 'tiktok' => 'TikTok Shop', 'direktverkauf' => 'Direktverkauf', 'sonstiges' => 'Sonstiges'];
-$kanal_farben = ['amazon' => '#e67e22', 'ebay' => '#4a9edd', 'tiktok' => '#c8c8c8', 'direktverkauf' => '#2ecc71', 'sonstiges' => '#5a7a9a'];
+$kanal_farben = ['amazon' => '#FBBF24', 'ebay' => '#9494FF', 'tiktok' => '#9CA0B8', 'direktverkauf' => '#4ADE80', 'sonstiges' => '#8B8FA8'];
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -92,38 +92,37 @@ $kanal_farben = ['amazon' => '#e67e22', 'ebay' => '#4a9edd', 'tiktok' => '#c8c8c
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Umsatz — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-mid: #1e3a5f;
-    --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-mid: #262A3D;
+    --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:1200px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:24px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:2px; margin-top:4px; margin-bottom:20px; }
+  .page-title { font-size:24px; font-weight:700; color:#F5F6FA; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px; margin-bottom:20px; }
 
   .zeitraum-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
-  .zeitraum-tab { font-family:var(--mono); font-size:11px; letter-spacing:1px; padding:8px 16px; border:1px solid rgba(45,106,173,0.3); color:var(--text-dim); text-decoration:none; text-transform:uppercase; }
-  .zeitraum-tab.active { background:rgba(74,158,221,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
+  .zeitraum-tab { font-family:var(--mono); font-size:11px; padding:8px 16px; border:1px solid rgba(124,124,255,0.3); color:var(--text-dim); text-decoration:none; border-radius:12px; }
+  .zeitraum-tab.active { background:rgba(148,148,255,0.15); border-color:var(--blue-bright); color:var(--blue-bright); }
 
   .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
   @media(max-width:700px) { .kpi-row { grid-template-columns:1fr; } }
-  .kpi-card { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; position:relative; overflow:hidden; }
-  .kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue-accent),var(--blue-bright)); }
-  .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
-  .kpi-value { font-size:30px; font-weight:700; color:#e8f4ff; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; position:relative; overflow:hidden; border-radius:18px; }
+.kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:10px; }
+  .kpi-value { font-size:30px; font-weight:700; color:#F5F6FA; }
   .kpi-value.green { color:var(--green); }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:22px; margin-bottom:20px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:20px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:22px; margin-bottom:20px; border-radius:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:20px; }
 
   .balken-chart { display:flex; align-items:flex-end; gap:8px; height:200px; padding-top:20px; }
   .balken-wrap { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
@@ -135,13 +134,13 @@ $kanal_farben = ['amazon' => '#e67e22', 'ebay' => '#4a9edd', 'tiktok' => '#c8c8c
   .kanal-zeile { display:flex; align-items:center; gap:12px; }
   .kanal-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
   .kanal-name { font-family:var(--mono); font-size:12px; width:110px; flex-shrink:0; }
-  .kanal-bar-wrap { flex:1; height:8px; background:rgba(45,106,173,0.15); border-radius:4px; overflow:hidden; }
+  .kanal-bar-wrap { flex:1; height:8px; background:rgba(124,124,255,0.15); border-radius:4px; overflow:hidden; }
   .kanal-bar { height:100%; border-radius:4px; }
   .kanal-wert { font-family:var(--mono); font-size:11px; color:var(--text-dim); width:100px; text-align:right; flex-shrink:0; }
 
   .top-tabelle { width:100%; border-collapse:collapse; }
-  .top-tabelle th { text-align:left; padding:8px 10px; font-family:var(--mono); font-size:9px; color:var(--text-dim); text-transform:uppercase; border-bottom:1px solid rgba(45,106,173,0.2); }
-  .top-tabelle td { padding:10px; font-size:13px; border-bottom:1px solid rgba(45,106,173,0.1); }
+  .top-tabelle th { text-align:left; padding:8px 10px; font-family:var(--mono); font-size:9px; color:var(--text-dim); border-bottom:1px solid rgba(124,124,255,0.2); }
+  .top-tabelle td { padding:10px; font-size:13px; border-bottom:1px solid rgba(124,124,255,0.1); }
   .top-tabelle .text-right { text-align:right; font-family:var(--mono); }
   .empty { font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:30px; }
 </style>
@@ -152,7 +151,7 @@ $kanal_farben = ['amazon' => '#e67e22', 'ebay' => '#4a9edd', 'tiktok' => '#c8c8c
 
 <div class="main">
   <div class="page-title">Umsatz-Übersicht</div>
-  <div class="page-sub">// AUS TATSÄCHLICHEN LAGER-VERKÄUFEN — NETTO, OHNE 19% USt</div>
+  <div class="page-sub">Aus tatsächlichen Lager-Verkäufen — netto, ohne 19% USt</div>
 
   <div class="zeitraum-tabs">
     <a href="?zeitraum=3monate" class="zeitraum-tab <?= $zeitraum === '3monate' ? 'active' : '' ?>">3 Monate</a>
@@ -184,7 +183,7 @@ $kanal_farben = ['amazon' => '#e67e22', 'ebay' => '#4a9edd', 'tiktok' => '#c8c8c
   <div class="panel">
     <div class="panel-title">Umsatz je Monat</div>
     <?php if (empty($monatsdaten)): ?>
-      <div class="empty">// KEINE VERKÄUFE IM ZEITRAUM</div>
+      <div class="empty">Keine Verkäufe im Zeitraum</div>
     <?php else: ?>
     <div class="balken-chart">
       <?php foreach ($monatsdaten as $m):
@@ -204,12 +203,12 @@ $kanal_farben = ['amazon' => '#e67e22', 'ebay' => '#4a9edd', 'tiktok' => '#c8c8c
   <div class="panel">
     <div class="panel-title">Umsatz je Kanal</div>
     <?php if (empty($kanaldaten)): ?>
-      <div class="empty">// KEINE VERKÄUFE IM ZEITRAUM</div>
+      <div class="empty">Keine Verkäufe im Zeitraum</div>
     <?php else: ?>
     <div class="kanal-liste">
       <?php foreach ($kanaldaten as $k):
           $pct = $gesamt_umsatz > 0 ? ($k['umsatz_netto'] / $gesamt_umsatz) * 100 : 0;
-          $farbe = $kanal_farben[$k['verkaufskanal']] ?? '#5a7a9a';
+          $farbe = $kanal_farben[$k['verkaufskanal']] ?? '#8B8FA8';
       ?>
       <div class="kanal-zeile">
         <div class="kanal-dot" style="background:<?= $farbe ?>;"></div>
@@ -225,10 +224,10 @@ $kanal_farben = ['amazon' => '#e67e22', 'ebay' => '#4a9edd', 'tiktok' => '#c8c8c
   <div class="panel">
     <div class="panel-title">Produkte im Zeitraum — Umsatz &amp; Gewinn</div>
     <?php if (empty($nach_kategorie_verkauf)): ?>
-      <div class="empty">// KEINE VERKÄUFE IM ZEITRAUM</div>
+      <div class="empty">Keine Verkäufe im Zeitraum</div>
     <?php else: ?>
       <?php foreach ($nach_kategorie_verkauf as $kategorie => $items): ?>
-      <div style="font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin:16px 0 8px; padding-bottom:6px; border-bottom:1px dashed rgba(45,106,173,0.2);"><?= htmlspecialchars($kategorie) ?></div>
+      <div style="font-family:var(--mono); font-size:10px; color:var(--blue-bright); margin:16px 0 8px; padding-bottom:6px; border-bottom:1px dashed rgba(124,124,255,0.2);"><?= htmlspecialchars($kategorie) ?></div>
       <table class="top-tabelle">
         <thead>
           <tr><th>Produkt</th><th class="text-right">Stk</th><th class="text-right">Umsatz</th><th class="text-right">Wareneinsatz</th><th class="text-right">Rohertrag</th><th class="text-right">Reingewinn</th></tr>

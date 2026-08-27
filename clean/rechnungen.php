@@ -58,34 +58,34 @@ $rechnungen = $pdo->query("
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rechnungen — NA Clean Service</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
   .main { max-width:800px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:20px; }
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; }
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input, .field-select { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:20px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input, .field-select { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:10px 16px; cursor:pointer; border:1px solid; background:none; }
-  .btn-primary { color:var(--green); border-color:rgba(46,204,113,0.4); }
+  .btn { font-family:var(--mono); font-size:10px; padding:10px 16px; cursor:pointer; border:1px solid; background:none; border-radius:12px; }
+  .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
 
-  .rg-zeile { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(45,106,173,0.08); font-size:13px; }
+  .rg-zeile { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(124,124,255,0.08); font-size:13px; }
   .rg-nummer { font-family:var(--mono); font-size:11px; color:var(--blue-bright); }
   .rg-betrag { font-family:var(--mono); font-weight:700; }
   .bezahlt-badge { font-family:var(--mono); font-size:9px; padding:3px 8px; border-radius:8px; cursor:pointer; }
-  .bezahlt-badge.ja { background:rgba(46,204,113,0.15); color:var(--green); }
-  .bezahlt-badge.nein { background:rgba(230,126,34,0.15); color:var(--orange); }
+  .bezahlt-badge.ja { background:rgba(74,222,128,0.15); color:var(--green); }
+  .bezahlt-badge.nein { background:rgba(251,191,36,0.15); color:var(--orange); }
   .pdf-link { font-family:var(--mono); font-size:9px; color:var(--blue-bright); text-decoration:none; margin-left:10px; }
   .empty { text-align:center; font-family:var(--mono); font-size:11px; color:var(--text-dim); padding:20px; }
 </style>
@@ -99,7 +99,7 @@ $rechnungen = $pdo->query("
 
   <?php if ($kann_bearbeiten): ?>
   <div class="panel">
-    <div class="panel-title">// NEUE RECHNUNG</div>
+    <div class="panel-title">Neue Rechnung</div>
     <label class="field-label">Objekt</label>
     <select class="field-select" id="objekt_id">
       <option value="">— wählen —</option>
@@ -118,9 +118,9 @@ $rechnungen = $pdo->query("
   <?php endif; ?>
 
   <div class="panel">
-    <div class="panel-title">// RECHNUNGSHISTORIE</div>
+    <div class="panel-title">Rechnungshistorie</div>
     <?php if (empty($rechnungen)): ?>
-      <div class="empty">// NOCH KEINE RECHNUNGEN</div>
+      <div class="empty">Noch keine Rechnungen</div>
     <?php else: ?>
       <?php foreach ($rechnungen as $r): ?>
       <div class="rg-zeile" id="rg-<?= $r['id'] ?>">

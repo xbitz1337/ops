@@ -131,51 +131,51 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NA Clean Service — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red: #e74c3c; --purple:#a78bfa;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red: #F87171; --purple:#B8A6FF;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:1500px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; margin-bottom:16px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; margin-bottom:16px; }
 
   .page-actions { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; }
-  .btn-primary { color:var(--green); border-color:rgba(46,204,113,0.4); }
-  .btn-primary:hover { background:rgba(46,204,113,0.1); }
-  .btn-secondary { color:var(--blue-bright); border-color:rgba(74,158,221,0.4); }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; border-radius:12px; }
+  .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
+  .btn-primary:hover { background:rgba(74,222,128,0.1); }
+  .btn-secondary { color:var(--blue-bright); border-color:rgba(148,148,255,0.4); }
 
   .kanban { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
   @media(max-width:1300px) { .kanban { grid-template-columns:repeat(3,1fr); } }
   @media(max-width:700px) { .kanban { grid-template-columns:1fr; } }
 
-  .spalte { background:rgba(21,34,54,0.6); border:1px solid rgba(45,106,173,0.2); min-height:150px; }
-  .spalte-header { padding:12px 14px; border-bottom:1px solid rgba(45,106,173,0.2); font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; }
+  .spalte { background:rgba(29,32,48,0.6); border:1px solid rgba(124,124,255,0.2); min-height:150px; }
+  .spalte-header { padding:12px 14px; border-bottom:1px solid rgba(124,124,255,0.2); font-family:var(--mono); font-size:10px; display:flex; justify-content:space-between; align-items:center; }
   .spalte.interessent .spalte-header { color:var(--text-dim); }
   .spalte.angebot .spalte-header { color:var(--blue-bright); }
   .spalte.verhandlung .spalte-header { color:var(--orange); }
   .spalte.vertrag .spalte-header { color:var(--purple); }
   .spalte.aktiv .spalte-header { color:var(--green); }
   .spalte.gekuendigt .spalte-header { color:var(--red); }
-  .spalte-count { background:rgba(74,158,221,0.15); color:var(--blue-bright); padding:1px 7px; border-radius:8px; font-size:10px; }
+  .spalte-count { background:rgba(148,148,255,0.15); color:var(--blue-bright); padding:1px 7px; border-radius:8px; font-size:10px; }
   .spalte-body { padding:10px; display:flex; flex-direction:column; gap:8px; }
 
-  .karte { background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.2); padding:12px; font-size:12px; }
+  .karte { background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.2); padding:12px; font-size:12px; }
   .karte-firma { font-weight:700; font-size:13px; margin-bottom:4px; }
-  .test-tag { font-family:var(--mono); font-size:8px; color:var(--orange); background:rgba(230,126,34,0.15); padding:2px 6px; border-radius:6px; margin-left:6px; }
+  .test-tag { font-family:var(--mono); font-size:8px; color:var(--orange); background:rgba(251,191,36,0.15); padding:2px 6px; border-radius:6px; margin-left:6px; }
   .karte-meta { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:6px; line-height:1.6; }
   .karte-preis { font-family:var(--mono); font-size:12px; color:var(--green); font-weight:700; margin-bottom:8px; }
   .karte-aktionen { display:flex; gap:6px; flex-wrap:wrap; }
-  select.status-select { background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:9px; padding:4px 6px; }
-  .mini-btn { font-family:var(--mono); font-size:9px; padding:4px 8px; border:1px solid rgba(231,76,60,0.3); background:none; color:var(--red); cursor:pointer; }
+  select.status-select { background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:9px; padding:4px 6px; }
+  .mini-btn { font-family:var(--mono); font-size:9px; padding:4px 8px; border:1px solid rgba(248,113,113,0.3); background:none; color:var(--red); cursor:pointer; border-radius:10px; }
   .empty-spalte { font-family:var(--mono); font-size:9px; color:var(--text-dim); text-align:center; padding:16px 8px; }
 </style>
 </head>
@@ -189,9 +189,9 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
   <div class="page-actions">
     <?php if ($kann_bearbeiten): ?>
       <a href="vor_ort_formular.php" class="btn btn-primary">+ NEUER LEAD / GESPRÄCH</a>
-      <button class="btn" style="color:var(--orange);border-color:rgba(230,126,34,0.4);" onclick="testauftragAnlegen()">🧪 TESTAUFTRAG ANLEGEN</button>
+      <button class="btn" style="color:var(--orange);border-color:rgba(251,191,36,0.4);" onclick="testauftragAnlegen()">🧪 TESTAUFTRAG ANLEGEN</button>
     <?php endif; ?>
-    <a href="rechner.php" class="btn btn-secondary">📊 KALKULATOR</a>
+    <a href="/kalkulator/rechner.php" class="btn btn-secondary">📊 KALKULATOR</a>
     <a href="subunternehmer.php" class="btn btn-secondary">👷 SUBUNTERNEHMER</a>
     <a href="einsaetze.php" class="btn btn-secondary">📅 EINSÄTZE</a>
     <a href="rechnungen.php" class="btn btn-secondary">🧾 RECHNUNGEN</a>
@@ -206,7 +206,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
       </div>
       <div class="spalte-body">
         <?php if (empty($spalten[$key])): ?>
-          <div class="empty-spalte">// LEER</div>
+          <div class="empty-spalte">Leer</div>
         <?php endif; ?>
         <?php foreach ($spalten[$key] as $o): ?>
         <div class="karte" id="objekt-<?= $o['id'] ?>" onclick="detailsOeffnen(<?= $o['id'] ?>)" style="cursor:pointer;">
@@ -241,7 +241,7 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
 <div class="modal-overlay" id="modal-details" onclick="if(event.target===this) detailsSchliessen()">
   <div class="modal-box">
     <div class="modal-kopf">
-      <span id="dm-titel">// LEAD-DETAILS</span>
+      <span id="dm-titel">Lead-Details</span>
       <div style="display:flex; gap:10px; align-items:center;">
         <?php if ($kann_bearbeiten): ?>
         <button class="modal-close" id="dm-bearbeiten-btn" onclick="bearbeitenModusUmschalten()" style="font-size:11px; font-family:var(--mono); color:var(--blue-bright);">✎ Bearbeiten</button>
@@ -256,28 +256,28 @@ $frequenz_labels = ['taeglich' => 'Täglich', 'woechentlich' => 'Wöchentlich', 
 </div>
 
 <style>
-  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center; }
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
-  .modal-box { background:var(--navy2); border:1px solid rgba(45,106,173,0.3); width:100%; max-width:560px; margin:20px; max-height:88vh; overflow-y:auto; }
-  .modal-kopf { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(45,106,173,0.15); font-family:var(--mono); font-size:11px; letter-spacing:2px; color:var(--blue-bright); position:sticky; top:0; background:var(--navy2); }
+  .modal-box { background:var(--navy2); border:1px solid rgba(124,124,255,0.3); width:100%; max-width:560px; margin:20px; max-height:88vh; overflow-y:auto; border-radius:20px; }
+  .modal-kopf { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(124,124,255,0.15); font-family:var(--mono); font-size:11px; color:var(--blue-bright); position:sticky; top:0; background:var(--navy2); }
   .modal-close { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:16px; }
   .modal-inhalt { padding:20px; }
   .dm-lade { font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:30px; }
   .dm-gruppe { margin-bottom:18px; }
-  .dm-gruppe-titel { font-family:var(--mono); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); border-bottom:1px dashed rgba(45,106,173,0.2); padding-bottom:6px; margin-bottom:8px; }
+  .dm-gruppe-titel { font-family:var(--mono); font-size:9px; color:var(--blue-bright); border-bottom:1px dashed rgba(124,124,255,0.2); padding-bottom:6px; margin-bottom:8px; }
   .dm-zeile { display:flex; justify-content:space-between; gap:12px; padding:5px 0; font-size:13px; }
-  .dm-zeile .dm-label { color:var(--text-dim); font-family:var(--mono); font-size:9px; text-transform:uppercase; flex-shrink:0; padding-top:2px; }
+  .dm-zeile .dm-label { color:var(--text-dim); font-family:var(--mono); font-size:9px; flex-shrink:0; padding-top:2px; }
   .dm-zeile .dm-wert { text-align:right; }
-  .dm-notiz-box { background:rgba(15,25,35,0.6); border:1px solid rgba(45,106,173,0.2); padding:12px 14px; font-size:13px; line-height:1.6; white-space:pre-wrap; }
+  .dm-notiz-box { background:rgba(20,22,31,0.6); border:1px solid rgba(124,124,255,0.2); padding:12px 14px; font-size:13px; line-height:1.6; white-space:pre-wrap; }
   .dm-preis { font-family:var(--mono); font-size:20px; font-weight:700; color:var(--green); }
   .dm-badge { font-family:var(--mono); font-size:9px; padding:2px 8px; border-radius:8px; }
 
-  .dm-field-label { font-family:var(--mono); font-size:8px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; display:block; }
-  .dm-input, .dm-select, .dm-textarea { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:8px 10px; outline:none; margin-bottom:10px; }
-  .dm-textarea { min-height:70px; resize:vertical; }
+  .dm-field-label { font-family:var(--mono); font-size:8px; color:var(--text-dim); margin-bottom:4px; display:block; }
+  .dm-input, .dm-select, .dm-textarea { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--sans); font-size:13px; padding:8px 10px; outline:none; margin-bottom:10px; border-radius:10px; }
+  .dm-textarea { min-height:70px; resize:vertical; border-radius:10px; }
   .dm-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .dm-speichern-btn { width:100%; background:none; border:1px solid var(--green); color:var(--green); padding:12px; font-family:var(--mono); font-size:12px; letter-spacing:1px; text-transform:uppercase; cursor:pointer; margin-top:6px; }
-  .dm-speichern-btn:hover { background:rgba(46,204,113,0.1); }
+  .dm-speichern-btn { width:100%; background:none; border:1px solid var(--green); color:var(--green); padding:12px; font-family:var(--mono); font-size:12px; cursor:pointer; margin-top:6px; }
+  .dm-speichern-btn:hover { background:rgba(74,222,128,0.1); }
 </style>
 
 <script>
@@ -315,7 +315,7 @@ async function detailsOeffnen(id) {
   if (res.error) { document.getElementById('dm-inhalt').innerHTML = '<div class="dm-lade">Fehler beim Laden</div>'; return; }
 
   aktuelleDetailDaten = res;
-  document.getElementById('dm-titel').textContent = '// ' + res.firma.toUpperCase();
+  document.getElementById('dm-titel').textContent = res.firma;
   ansichtRendern();
 }
 
@@ -363,7 +363,7 @@ function ansichtRendern() {
       ${zeile('Vertragslaufzeit', res.vertragslaufzeit_monate + ' Monat(e)')}
       ${zeile('Aktueller Preis (bisher)', res.aktueller_preis ? eur(res.aktueller_preis) + '/Monat' : null)}
       ${arten_html}
-      <div class="dm-zeile" style="margin-top:10px; padding-top:10px; border-top:1px solid rgba(45,106,173,0.15);">
+      <div class="dm-zeile" style="margin-top:10px; padding-top:10px; border-top:1px solid rgba(124,124,255,0.15);">
         <span class="dm-label">Angebotspreis</span>
         <span class="dm-preis">${eur(res.angebotspreis)}/Monat</span>
       </div>

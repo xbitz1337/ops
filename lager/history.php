@@ -8,6 +8,8 @@ date_default_timezone_set('Europe/Berlin');
  */
 
 require_once __DIR__ . '/../config.php';
+requireLogin();
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 $pdo = db();
 
 $stmt = $pdo->query("
@@ -46,59 +48,62 @@ function render_report_row($r, $mit_delete) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lagerreport-Historie · NA Ops Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
 <style>
-    body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: #F5F5F7; margin: 0; padding: 32px; color: #1D1D1F; }
-    .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
-    h1 { font-size: 22px; margin-bottom: 4px; }
-    .sub { color: #86868B; font-size: 13px; }
-    .back-link { color:#0071E3; text-decoration:none; font-size:13px; font-weight:500; }
+    .container { max-width:1000px; margin:0 auto; padding:28px 20px 60px; }
+    .top-row { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+    .top-links { display:flex; gap:16px; align-items:center; }
+    .back-link { color:var(--accent); text-decoration:none; font-size:13px; font-weight:500; }
     .back-link:hover { text-decoration:underline; }
 
     section { margin-bottom: 36px; }
     .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:10px; }
-    .section-title { font-size:16px; font-weight:700; display:flex; align-items:center; gap:8px; }
-    .protected-badge { display:inline-flex; align-items:center; gap:4px; background:#E8F5E9; color:#2E7D32; font-size:11px; font-weight:600; padding:3px 10px; border-radius:10px; }
-    .section-sub { font-size:12px; color:#86868B; }
+    .section-title { font-size:16px; font-weight:700; display:flex; align-items:center; gap:8px; color:var(--text-bright); }
+    .protected-badge { display:inline-flex; align-items:center; gap:4px; background:var(--green-soft); color:var(--green); font-size:11px; font-weight:600; padding:3px 10px; border-radius:10px; }
+    .section-sub { font-size:12px; color:var(--text-dim); }
 
     .loeschmodus-btn {
-        background:#fff; border:1px solid #E5E5E7; color:#D70015; padding:9px 16px; border-radius:8px;
-        font-size:13px; font-weight:600; cursor:pointer;
+        background:var(--card2); border:1px solid var(--line); color:var(--red); padding:9px 16px; border-radius:10px;
+        font-size:13px; font-weight:600; cursor:pointer; font-family:var(--font);
     }
-    .loeschmodus-btn.aktiv { background:#D70015; color:#fff; border-color:#D70015; }
+    .loeschmodus-btn.aktiv { background:var(--red); color:#fff; border-color:var(--red); }
 
-    table { width: 100%; background: #fff; border-collapse: collapse; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    th { background: #FAFAFA; text-align: left; padding: 12px 16px; font-size: 11px; text-transform: uppercase; color: #86868B; border-bottom: 1px solid #EEE; }
-    td { padding: 12px 16px; border-bottom: 1px solid #F2F2F2; font-size: 13px; }
+    table { width: 100%; background: var(--card); border-collapse: collapse; border-radius: 16px; overflow: hidden; border:1px solid var(--line); }
+    th { background: var(--card2); text-align: left; padding: 12px 16px; font-size: 11px; color: var(--text-dim); border-bottom: 1px solid var(--line); }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 13px; }
     tr:last-child td { border-bottom: none; }
-    .kategorie-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; background: #FBF6EF; color: #A85C32; }
+    .kategorie-tag { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 11px; background: var(--orange-soft); color: var(--orange); }
     .ek-wert { font-weight: 600; }
-    .aktion { color: #0071E3; text-decoration: none; font-weight: 500; margin-right:14px; font-size:12.5px; }
+    .aktion { color: var(--accent); text-decoration: none; font-weight: 500; margin-right:14px; font-size:12.5px; }
     .aktion:hover { text-decoration: underline; }
-    .delete-btn { display:none; background:none; border:1px solid #FFCDD2; color:#D70015; padding:5px 10px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; }
+    .delete-btn { display:none; background:none; border:1px solid var(--red); color:var(--red); padding:5px 10px; border-radius:8px; font-size:11px; font-weight:600; cursor:pointer; }
     .delete-btn.sichtbar { display:inline-block; }
-    .empty-hint { text-align:center; color:#86868B; padding:32px; background:#fff; border-radius:10px; font-size:13px; }
+    .empty-hint { text-align:center; color:var(--text-dim); padding:32px; background:var(--card); border:1px solid var(--line); border-radius:16px; font-size:13px; }
 
-    .automatisch-panel { background:#fff; border-radius:10px; overflow:hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-left: 3px solid #2E7D32; }
+    .automatisch-panel { background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; border-left: 3px solid var(--green); }
 
     @media(max-width:600px) {
-      body { padding:16px; }
+      .container { padding:16px 14px 50px; }
       table, thead, tbody, th, td, tr { display:block; }
       thead { display:none; }
-      tr { background:#fff; margin-bottom:10px; border-radius:10px; padding:10px 14px; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+      tr { background:var(--card2); margin-bottom:10px; border-radius:14px; padding:10px 14px; }
       td { border:none; padding:4px 0; }
-      td:before { content: attr(data-label); display:block; font-size:9px; color:#86868B; text-transform:uppercase; }
+      td:before { content: attr(data-label); display:block; font-size:10px; color:var(--text-dim); }
     }
 </style>
 </head>
 <body>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
+<div class="page-content-wrapper">
 
-<div class="topbar">
+<div class="container">
+<div class="top-row">
   <div>
-    <h1>Lagerreport-Historie</h1>
-    <div class="sub">Automatische Reports sind geschützt · manuelle Reports könnt ihr bei Bedarf löschen</div>
+    <div class="page-title">Lagerreport-Historie</div>
+    <div class="page-sub">Automatische Reports sind geschützt · manuelle Reports könnt ihr bei Bedarf löschen</div>
   </div>
-  <div style="display:flex; gap:10px; align-items:center;">
-    <a href="../dashboard.php#lager" class="back-link">← Lager</a>
+  <div class="top-links">
     <a href="report_new.php" class="back-link">+ Neuer Report</a>
   </div>
 </div>
@@ -138,6 +143,8 @@ function render_report_row($r, $mit_delete) {
   </table>
   <?php endif; ?>
 </section>
+</div>
+</div>
 
 <script>
 let loeschmodusAktiv = false;

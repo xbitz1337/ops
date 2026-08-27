@@ -1,0 +1,250 @@
+/*
+ * NA Ops Hub — zentrales Theme "Dunkel & Weich" (Stil 2)
+ *
+ * Ersetzt das bisherige Navy/Scanline/Mono-Theme, das jede Seite einzeln
+ * in ihrem eigenen <style>-Block dupliziert hat. Neue Seiten binden nur
+ * noch diese eine Datei ein:
+ *
+ *   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ *   <link rel="stylesheet" href="/assets/theme.css">
+ *
+ * Seiten in Unterordnern (bestellungen/, lager/, ...) nutzen denselben
+ * absoluten Pfad "/assets/theme.css" — unabhängig von der Verzeichnistiefe.
+ *
+ * Migriert bisher (Pilot-Batch): _sidebar.php, auslagen.php, trip.php,
+ * aufgaben/aufgaben.php. Der Rest der App läuft weiter im alten Theme,
+ * bis er nachgezogen wird — beide Themes können parallel existieren,
+ * solange Klassennamen nicht kollidieren.
+ */
+
+:root {
+  --bg: #14161F;
+  --card: #1D2030;
+  --card2: #262A3D;
+  --card3: #2A2E42;
+  --line: #2E3248;
+  --text: #E4E6F0;
+  --text-bright: #F5F6FA;
+  --text-dim: #8B8FA8;
+
+  --accent: #7C7CFF;
+  --accent-soft: #7C7CFF22;
+
+  --green: #4ADE80;
+  --green-soft: #4ADE8022;
+  --orange: #FBBF24;
+  --orange-soft: #FBBF2422;
+  --red: #F87171;
+  --red-soft: #F8717122;
+  --info: #60A5FA;
+  --info-soft: #60A5FA22;
+
+  --font: 'Inter', -apple-system, sans-serif;
+}
+
+/* ── RESET & BASIS ─────────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.main { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
+.main.schmal { max-width: 640px; }
+
+h1, .page-title { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: var(--text-bright); }
+.subtitle, .page-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 26px; }
+
+/* ── TOPBAR & SIDEBAR ──────────────────────────────────────────────────── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 22px; background: var(--card);
+  border-bottom: 1px solid var(--line); z-index: 100;
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 10px; background: var(--accent-soft);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-mark span { font-size: 12px; font-weight: 700; color: var(--accent); }
+.topbar-title { font-size: 15px; font-weight: 600; color: var(--text-bright); }
+.topbar-right { display: flex; align-items: center; gap: 16px; font-size: 12px; color: var(--text-dim); }
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: sb-pulse 2s infinite; }
+@keyframes sb-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.user-badge { background: var(--card2); border: 1px solid var(--line); border-radius: 20px; padding: 5px 12px; color: var(--text); font-weight: 500; }
+.logout-btn { background: none; border: none; font-size: 12px; color: var(--text-dim); cursor: pointer; transition: color 0.15s; font-family: var(--font); }
+.logout-btn:hover { color: var(--red); }
+@media (max-width: 700px) {
+  .topbar-right .user-badge { display: none; }
+  .topbar-title { font-size: 13px; }
+}
+
+.sidebar {
+  position: fixed; top: 56px; left: 0; bottom: 0; width: 216px;
+  background: var(--card); border-right: 1px solid var(--line);
+  z-index: 50; padding: 20px 0; display: flex; flex-direction: column; gap: 2px;
+  overflow-y: auto;
+}
+.sidebar .nav-section { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; padding: 14px 20px 6px; font-weight: 600; text-transform: uppercase; }
+.sidebar .nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-size: 13.5px;
+  color: var(--text-dim); cursor: pointer; transition: all 0.15s; font-weight: 500;
+  border-left: 3px solid transparent; text-decoration: none;
+}
+.sidebar .nav-item:hover { color: var(--text); background: var(--card2); }
+.sidebar .nav-item.active { color: var(--accent); background: var(--accent-soft); border-left-color: var(--accent); }
+.sidebar .nav-icon { font-size: 14px; width: 18px; text-align: center; }
+.sidebar .nav-badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 10px; }
+.sidebar .nav-badge.urgent { background: var(--red); }
+.sidebar .nav-spacer { flex: 1; }
+
+.page-content-wrapper { margin-left: 216px; margin-top: 56px; }
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .page-content-wrapper { margin-left: 0; }
+}
+
+/* ── KPI-KARTEN ────────────────────────────────────────────────────────── */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 26px; }
+.kpi-card { background: var(--card); border-radius: 18px; padding: 18px; border: 1px solid var(--line); }
+.kpi-label { font-size: 11px; color: var(--text-dim); margin-bottom: 8px; font-weight: 500; }
+.kpi-value { font-size: 24px; font-weight: 700; color: var(--orange); }
+
+/* ── PANEL (Formulare, Boxen) ──────────────────────────────────────────── */
+.panel { background: var(--card); border-radius: 20px; padding: 22px; margin-bottom: 22px; border: 1px solid var(--line); }
+.panel-title { font-size: 15px; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+
+label, .field-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-dim); margin-bottom: 6px; }
+input, select, textarea, .field-input, .field-select, .field-textarea {
+  width: 100%; background: var(--card2); border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 14px; font-family: var(--font); font-size: 14px; color: var(--text);
+  outline: none; margin-bottom: 14px; transition: border-color 0.15s;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+textarea, .field-textarea { min-height: 80px; resize: vertical; }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fehler-text { font-size: 12px; color: var(--red); margin: -8px 0 12px; }
+
+/* ── BUTTONS ───────────────────────────────────────────────────────────── */
+.btn-primary {
+  width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 14px;
+  padding: 14px; font-size: 14.5px; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
+  font-family: var(--font); text-decoration: none; display: inline-block; text-align: center;
+}
+.btn-primary:hover { opacity: 0.9; }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-primary.auto { width: auto; }
+
+.btn-secondary {
+  background: var(--card2); color: var(--text); border: 1px solid var(--line); border-radius: 14px;
+  padding: 14px; font-size: 14.5px; font-weight: 600; cursor: pointer; font-family: var(--font);
+  text-decoration: none; display: inline-block; text-align: center;
+}
+.btn-secondary:hover { border-color: var(--text-dim); }
+
+.mini-btn { font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 11px; border: 1px solid var(--line); background: var(--card2); color: var(--text); cursor: pointer; font-family: var(--font); }
+.mini-btn.gruen { background: var(--green-soft); color: var(--green); border-color: transparent; }
+.mini-btn.rot { background: var(--red-soft); color: var(--red); border-color: transparent; }
+
+/* ── FILTER-TABS ───────────────────────────────────────────────────────── */
+.filter-tabs { display: flex; gap: 8px; margin-bottom: 18px; background: var(--card); border-radius: 16px; padding: 5px; border: 1px solid var(--line); }
+.filter-tab {
+  flex: 1; text-align: center; padding: 9px; border-radius: 12px; font-size: 13px; font-weight: 500;
+  color: var(--text-dim); cursor: pointer; background: none; border: none; transition: all 0.15s;
+  text-decoration: none; font-family: var(--font);
+}
+.filter-tab.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+/* ── KARTEN (Listen-Einträge) ──────────────────────────────────────────── */
+.karte { background: var(--card); border-radius: 18px; padding: 18px 20px; margin-bottom: 12px; border: 1px solid var(--line); }
+.karte.offen, .karte.laufend { border-color: #FBBF2444; }
+.kopf { display: flex; justify-content: space-between; align-items: flex-start; }
+.badge, .person-badge { font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 20px; background: var(--accent-soft); color: var(--accent); margin-right: 8px; }
+.datum-klein { font-size: 11px; color: var(--text-dim); }
+.betrag { font-size: 20px; font-weight: 700; color: var(--orange); }
+.betrag.erstattet, .betrag.abgeschlossen { color: var(--green); }
+.aktionen { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.empty { text-align: center; color: var(--text-dim); font-size: 13px; padding: 30px; }
+.neu-eingefuegt { animation: einblenden 0.4s ease; }
+@keyframes einblenden { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── TRIP-KARTEN (Sammel-Trips) ────────────────────────────────────────── */
+.trip-karte { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px 20px; margin-bottom: 10px; text-decoration: none; color: var(--text); transition: border-color 0.15s; }
+.trip-karte:hover { border-color: var(--accent); }
+.trip-name { font-size: 16px; font-weight: 700; color: var(--text-bright); }
+.trip-meta { font-size: 12px; color: var(--text-dim); margin-top: 6px; }
+.status-badge { font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 20px; }
+.status-badge.status-geplant { background: var(--info-soft); color: var(--info); }
+.status-badge.status-laufend { background: var(--orange-soft); color: var(--orange); }
+.status-badge.status-abgeschlossen { background: var(--green-soft); color: var(--green); }
+.fortschritt-bar { height: 6px; border-radius: 3px; background: var(--card2); margin-top: 12px; overflow: hidden; }
+.fortschritt-fill { height: 100%; background: var(--green); border-radius: 3px; }
+
+/* ── KANBAN (Aufgaben) ─────────────────────────────────────────────────── */
+.kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+@media (max-width: 900px) { .kanban { grid-template-columns: 1fr; } }
+.spalte { background: var(--card); border: 1px solid var(--line); border-radius: 18px; min-height: 200px; }
+.spalte-header { padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.spalte.offen .spalte-header { color: var(--orange); }
+.spalte.in_bearbeitung .spalte-header { color: var(--accent); }
+.spalte.erledigt .spalte-header { color: var(--green); }
+.spalte-count { background: var(--card2); color: var(--text-dim); padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.spalte-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.empty-spalte { font-size: 12px; color: var(--text-dim); text-align: center; padding: 20px 10px; }
+
+.aufgaben-karte { background: var(--card2); border-radius: 14px; padding: 14px 16px 14px 18px; position: relative; border: 1px solid var(--line); }
+.karte-prio { position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+.karte-prio.hoch { background: var(--red); }
+.karte-prio.mittel { background: var(--orange); }
+.karte-prio.niedrig { background: var(--green); }
+.karte-titel { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: var(--text-bright); }
+.karte-beschreibung { font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
+.karte-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+.meta-badge { padding: 3px 10px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 500; }
+.meta-badge.deadline-warn { background: var(--red-soft); color: var(--red); }
+.meta-badge.wiederholung { background: var(--green-soft); color: var(--green); }
+.meta-badge.quelle { background: var(--orange-soft); color: var(--orange); }
+.karte-aktionen { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ── MODAL ─────────────────────────────────────────────────────────────── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--card); border: 1px solid var(--line); border-radius: 20px; width: 100%; max-width: 480px; margin: 20px; max-height: 90vh; overflow-y: auto; padding: 24px; }
+.modal-titel { font-size: 16px; font-weight: 600; color: var(--text-bright); margin-bottom: 18px; }
+.modal-aktionen { display: flex; gap: 10px; justify-content: flex-end; margin-top: 4px; }
+.wiederholung-detail { display: none; border-left: 2px solid var(--line); padding-left: 14px; margin-bottom: 14px; }
+.wiederholung-detail.aktiv { display: block; }
+.wochentag-row { display: flex; gap: 4px; margin-bottom: 14px; }
+.wochentag-btn { flex: 1; padding: 8px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--card2); color: var(--text-dim); font-family: var(--font); font-size: 11px; cursor: pointer; }
+.wochentag-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+/* ── TABELLEN (für zukünftige Migration) ──────────────────────────────── */
+table.tabelle { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+table.tabelle th { text-align: left; font-size: 11px; font-weight: 600; color: var(--text-dim); padding: 12px 16px; border-bottom: 1px solid var(--line); }
+table.tabelle td { padding: 12px 16px; font-size: 13.5px; border-bottom: 1px solid var(--line); }
+table.tabelle tr:last-child td { border-bottom: none; }
+table.tabelle tr:hover td { background: var(--card2); }
+
+/* ── MOBILE-OPTIMIERUNGEN ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .main { padding: 20px 14px 50px; }
+  h1, .page-title { font-size: 21px; }
+  .subtitle, .page-sub { font-size: 12px; margin-bottom: 20px; }
+
+  .row-2 { grid-template-columns: 1fr; gap: 0; }
+
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+  .kpi-card { padding: 14px; border-radius: 14px; }
+  .kpi-value { font-size: 20px; }
+
+  .panel { padding: 18px; border-radius: 16px; margin-bottom: 18px; }
+  input, select, textarea { padding: 13px 14px; font-size: 16px; } /* 16px verhindert Auto-Zoom bei iPhone */
+  .btn-primary, .btn-secondary { padding: 16px; font-size: 15px; }
+
+  .filter-tabs { padding: 4px; }
+  .filter-tab { padding: 11px 6px; font-size: 12.5px; }
+
+  .karte, .trip-karte { padding: 15px 16px; border-radius: 14px; }
+  .kopf { flex-wrap: wrap; gap: 6px; }
+  .betrag { font-size: 18px; }
+
+  .aktionen { flex-wrap: wrap; }
+  .mini-btn { flex: 1 1 auto; min-width: 0; padding: 10px 12px; text-align: center; }
+}

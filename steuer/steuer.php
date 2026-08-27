@@ -66,46 +66,46 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Steuerrücklage — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red: #e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red: #F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:700px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:24px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:24px; }
 
   .kpi-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
   @media(max-width:500px) { .kpi-row { grid-template-columns:1fr; } }
-  .kpi-card { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:18px; }
-  .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
-  .kpi-value { font-size:26px; font-weight:700; color:#e8f4ff; }
+  .kpi-card { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:18px; border-radius:18px; }
+  .kpi-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:8px; }
+  .kpi-value { font-size:26px; font-weight:700; color:#F5F6FA; }
   .kpi-value.green { color:var(--green); }
   .kpi-value.orange { color:var(--orange); }
   .kpi-value.red { color:var(--red); }
 
-  .fortschritt-panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:20px; }
-  .fortschritt-bar-wrap { height:14px; background:rgba(45,106,173,0.15); border-radius:7px; overflow:hidden; margin:12px 0; }
+  .fortschritt-panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:20px; }
+  .fortschritt-bar-wrap { height:14px; background:rgba(124,124,255,0.15); border-radius:7px; overflow:hidden; margin:12px 0; }
   .fortschritt-bar { height:100%; border-radius:7px; background:linear-gradient(90deg, var(--blue-accent), var(--green)); }
   .fortschritt-text { font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; margin-bottom:16px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; }
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:block; }
-  .field-input { width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; margin-bottom:16px; border-radius:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
+  .field-input { width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25); color:var(--text); font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; margin-bottom:12px; border-radius:12px; }
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .btn-add { width:100%; background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); padding:12px; font-family:var(--mono); font-size:12px; letter-spacing:1px; text-transform:uppercase; cursor:pointer; }
-  .btn-add:hover { background:rgba(74,158,221,0.1); }
+  .btn-add { width:100%; background:none; border:1px solid var(--blue-bright); color:var(--blue-bright); padding:12px; font-family:var(--mono); font-size:12px; cursor:pointer; }
+  .btn-add:hover { background:rgba(148,148,255,0.1); }
 
-  .einzahlung-zeile { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(45,106,173,0.1); font-size:13px; }
+  .einzahlung-zeile { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(124,124,255,0.1); font-size:13px; }
   .einzahlung-zeile:last-child { border-bottom:none; }
   .einzahlung-betrag { font-family:var(--mono); color:var(--green); font-weight:600; }
   .loeschen-btn { background:none; border:none; color:var(--red); cursor:pointer; font-size:14px; }
@@ -119,7 +119,7 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
 
 <div class="main">
   <div class="page-title">Steuerrücklage <?= date('Y') ?></div>
-  <div class="page-sub">// GESCHÄTZT AUS TATSÄCHLICHEM ROHERTRAG (30% RICHTWERT)</div>
+  <div class="page-sub">Geschätzt aus tatsächlichem Rohertrag (30% Richtwert)</div>
 
   <div class="kpi-row">
     <div class="kpi-card">
@@ -141,14 +141,14 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
   </div>
 
   <div class="fortschritt-panel">
-    <div class="panel-title">// FORTSCHRITT</div>
+    <div class="panel-title">Fortschritt</div>
     <div class="fortschritt-bar-wrap"><div class="fortschritt-bar" style="width:<?= $fortschritt_pct ?>%;"></div></div>
     <div class="fortschritt-text"><?= round($fortschritt_pct) ?>% der geschätzt benötigten Rücklage zurückgelegt</div>
     <div class="hinweis">Basiert auf 30% des bisherigen Rohertrags — ein Richtwert (KSt 15% + Soli + GewSt), keine verbindliche Steuerberechnung. Für die genaue Höhe fragt euren Steuerberater.</div>
   </div>
 
   <div class="panel">
-    <div class="panel-title">// EINZAHLUNG ERFASSEN</div>
+    <div class="panel-title">Einzahlung erfassen</div>
     <div class="row-2">
       <div>
         <label class="field-label">Betrag (€)</label>
@@ -165,9 +165,9 @@ $fortschritt_pct = $geschaetzte_ruecklage > 0 ? min(100, ($tatsaechlich_zurueckg
   </div>
 
   <div class="panel">
-    <div class="panel-title">// EINZAHLUNGEN <?= date('Y') ?></div>
+    <div class="panel-title">Einzahlungen <?= date('Y') ?></div>
     <?php if (empty($einzahlungen)): ?>
-      <div class="empty">// NOCH KEINE EINZAHLUNGEN ERFASST</div>
+      <div class="empty">Noch keine Einzahlungen erfasst</div>
     <?php else: ?>
       <?php foreach ($einzahlungen as $e): ?>
       <div class="einzahlung-zeile" id="einzahlung-<?= $e['id'] ?>">

@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
-require_once 'config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
-require_once __DIR__ . '/berechtigungen/berechtigungen_helper.php';
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 require_modul_zugriff('kalkulator');
 ?>
 <!DOCTYPE html>
@@ -11,45 +11,36 @@ require_modul_zugriff('kalkulator');
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kalkulator — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-mid: #1e3a5f;
-    --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a;
-    --green: #2ecc71; --orange: #e67e22; --red: #e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-mid: #262A3D;
+    --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8;
+    --green: #4ADE80; --orange: #FBBF24; --red: #F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
-  body::before {
-    content:''; position:fixed; inset:0;
-    background-image: linear-gradient(rgba(45,106,173,0.05) 1px,transparent 1px), linear-gradient(90deg,rgba(45,106,173,0.05) 1px,transparent 1px);
-    background-size:40px 40px; pointer-events:none; z-index:0;
-  }
-
-  .topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(15,25,35,0.97); border-bottom:1px solid rgba(45,106,173,0.2); z-index:100; }
-  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; letter-spacing:1px; }
+.topbar { position:sticky; top:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:rgba(20,22,31,0.97); border-bottom:1px solid rgba(124,124,255,0.2); z-index:100; }
+  .back-link { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-decoration:none; }
   .back-link:hover { text-decoration:underline; }
-  .topbar-title { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
+  .topbar-title { font-size:14px; font-weight:700; color:#F5F6FA; }
 
   .main { max-width:1100px; margin:0 auto; padding:28px 20px 60px; position:relative; z-index:2; }
-  .page-title { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8f4ff; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:2px; margin-top:4px; margin-bottom:24px; }
+  .page-title { font-size:22px; font-weight:700; color:#F5F6FA; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px; margin-bottom:24px; }
 
   .layout { display:grid; grid-template-columns:380px 1fr; gap:20px; }
   @media(max-width:900px) { .layout { grid-template-columns:1fr; } }
 
-  .panel { background:rgba(21,34,54,0.8); border:1px solid rgba(45,106,173,0.2); padding:20px; }
-  .panel-title { font-family:var(--mono); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-  .panel-title::before { content:'//'; color:var(--blue-accent); }
-
-  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; display:block; }
+  .panel { background:rgba(29,32,48,0.8); border:1px solid rgba(124,124,255,0.2); padding:20px; border-radius:20px; }
+  .panel-title { font-family:var(--mono); font-size:11px; color:var(--blue-bright); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .field-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-bottom:6px; display:block; }
   .field-input, .field-select {
-    width:100%; background:rgba(15,25,35,0.8); border:1px solid rgba(45,106,173,0.25);
+    width:100%; background:rgba(20,22,31,0.8); border:1px solid rgba(124,124,255,0.25);
     color:var(--text); font-family:var(--mono); font-size:14px; padding:10px 12px; outline:none;
-    margin-bottom:16px;
-  }
+    margin-bottom:16px; border-radius:12px; }
   .field-input:focus { border-color:var(--blue-bright); }
 
   .checkbox-row { display:flex; align-items:center; gap:8px; margin-bottom:16px; cursor:pointer; }
@@ -58,37 +49,37 @@ require_modul_zugriff('kalkulator');
   .checkbox-hint { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:-12px; margin-bottom:16px; padding-left:24px; }
 
   .plattform-checks { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
-  .plattform-check { display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid rgba(45,106,173,0.2); cursor:pointer; }
-  .plattform-check:hover { border-color:rgba(45,106,173,0.4); }
+  .plattform-check { display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid rgba(124,124,255,0.2); cursor:pointer; }
+  .plattform-check:hover { border-color:rgba(124,124,255,0.4); }
   .plattform-check input { width:16px; height:16px; accent-color:var(--blue-bright); cursor:pointer; }
-  .plattform-check label { font-family:var(--mono); font-size:12px; letter-spacing:1px; cursor:pointer; flex:1; }
+  .plattform-check label { font-family:var(--mono); font-size:12px; cursor:pointer; flex:1; }
   .plattform-check .satz { font-family:var(--mono); font-size:9px; color:var(--text-dim); }
 
   .versand-row { display:flex; gap:8px; margin-bottom:16px; }
-  .versand-row .field-input { margin-bottom:0; flex:1; }
+  .versand-row .field-input { margin-bottom:0; flex:1; border-radius:12px; }
   .versand-row .mwst-toggle {
     display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:9px;
-    color:var(--text-dim); white-space:nowrap; padding:0 8px; border:1px solid rgba(45,106,173,0.25);
+    color:var(--text-dim); white-space:nowrap; padding:0 8px; border:1px solid rgba(124,124,255,0.25);
   }
   .versand-row .mwst-toggle input { accent-color:var(--blue-bright); }
 
   /* ERGEBNISSE */
   .ergebnis-grid { display:grid; grid-template-columns:1fr; gap:16px; }
   .ergebnis-grid.mehrere { grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); }
-  .plattform-ergebnis { background:rgba(15,25,35,0.6); border:1px solid rgba(45,106,173,0.25); padding:18px; }
-  .plattform-ergebnis-name { font-family:var(--mono); font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--blue-bright); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid rgba(45,106,173,0.2); }
+  .plattform-ergebnis { background:rgba(20,22,31,0.6); border:1px solid rgba(124,124,255,0.25); padding:18px; }
+  .plattform-ergebnis-name { font-family:var(--mono); font-size:13px; color:var(--blue-bright); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid rgba(124,124,255,0.2); }
   .ez { display:flex; justify-content:space-between; padding:5px 0; font-size:12px; }
   .ez .label { color:var(--text-dim); font-family:var(--mono); font-size:10px; }
   .ez .wert { font-family:var(--mono); font-weight:600; }
   .ez.negativ .wert { color:var(--red); }
-  .ez.rohertrag { border-top:1px solid rgba(45,106,173,0.15); margin-top:6px; padding-top:8px; }
+  .ez.rohertrag { border-top:1px solid rgba(124,124,255,0.15); margin-top:6px; padding-top:8px; }
   .ez.ruecklage .wert { color:var(--orange); }
-  .ez.gewinn { border-top:1px solid rgba(45,106,173,0.15); margin-top:8px; padding-top:10px; }
+  .ez.gewinn { border-top:1px solid rgba(124,124,255,0.15); margin-top:8px; padding-top:10px; }
   .ez.gewinn .wert { color:var(--green); font-size:18px; font-weight:700; }
-  .ez.gewinn .label { font-size:11px; letter-spacing:1px; }
+  .ez.gewinn .label { font-size:11px; }
   .fixkosten-hinweis { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:10px; }
 
-  .empty-state { font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:2px; text-align:center; padding:60px 20px; border:1px dashed rgba(45,106,173,0.25); }
+  .empty-state { font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:center; padding:60px 20px; border:1px dashed rgba(124,124,255,0.25); }
 
   @media(max-width:600px) {
     .plattform-checks { flex-direction:row; flex-wrap:wrap; }
@@ -98,12 +89,12 @@ require_modul_zugriff('kalkulator');
 </style>
 </head>
 <body>
-<?php require_once __DIR__ . '/_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
 <div class="page-content-wrapper">
 
 <div class="main">
   <div class="page-title">Gewinn-Kalkulator</div>
-  <div class="page-sub">// SCHNELLE WAS-WÄRE-WENN-KALKULATION — UNABHÄNGIG VOM LAGERBESTAND</div>
+  <div class="page-sub">Schnelle Was-wäre-wenn-Kalkulation — unabhängig vom Lagerbestand</div>
 
   <div class="layout">
     <!-- EINGABE -->
@@ -159,7 +150,7 @@ require_modul_zugriff('kalkulator');
     <div>
       <div class="panel-title" style="margin-bottom:16px;">Ergebnis</div>
       <div id="ergebnis-container">
-        <div class="empty-state">// VK- UND EK-PREIS EINTRAGEN FÜR KALKULATION</div>
+        <div class="empty-state">VK- und EK-Preis eintragen für Kalkulation</div>
       </div>
     </div>
   </div>
@@ -193,7 +184,7 @@ function berechnen() {
   const container = document.getElementById('ergebnis-container');
 
   if (!vk || vk <= 0 || !ekInput || ekInput <= 0) {
-    container.innerHTML = '<div class="empty-state">// VK- UND EK-PREIS EINTRAGEN FÜR KALKULATION</div>';
+    container.innerHTML = '<div class="empty-state">VK- und EK-Preis eintragen für Kalkulation</div>';
     return;
   }
 
@@ -207,7 +198,7 @@ function berechnen() {
   if (document.getElementById('pf-tiktok').checked) ausgewaehlt.push('tiktok');
 
   if (ausgewaehlt.length === 0) {
-    container.innerHTML = '<div class="empty-state">// MINDESTENS EINE PLATTFORM AUSWÄHLEN</div>';
+    container.innerHTML = '<div class="empty-state">Mindestens eine Plattform auswählen</div>';
     return;
   }
 

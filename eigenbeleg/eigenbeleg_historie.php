@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 requireLogin();
-require_once __DIR__ . '/berechtigungen/berechtigungen_helper.php';
+require_once __DIR__ . '/../berechtigungen/berechtigungen_helper.php';
 require_modul_zugriff('dokumente');
 $pdo = db();
 $kann_bearbeiten = hat_modul_zugriff('dokumente', 'bearbeiten');
@@ -16,56 +16,56 @@ $gesamt_summe = array_sum(array_column($belege, 'gesamtbetrag'));
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eigenbeleg-Historie — NA Ops Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0f1923; --navy2: #152236; --blue-accent: #2d6aad; --blue-bright: #4a9edd;
-    --text: #c8dff0; --text-dim: #5a7a9a; --green: #2ecc71; --orange: #e67e22; --red:#e74c3c;
-    --mono: 'Share Tech Mono', monospace; --sans: 'Exo 2', sans-serif;
+    --navy: #14161F; --navy2: #1D2030; --blue-accent: #7C7CFF; --blue-bright: #9494FF;
+    --text: #E4E6F0; --text-dim: #8B8FA8; --green: #4ADE80; --orange: #FBBF24; --red:#F87171;
+    --mono: 'Inter', -apple-system, sans-serif; --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--navy); color:var(--text); font-family:var(--sans); min-height:100vh; }
   .main { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
-  .page-title { font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e8f4ff; margin-bottom:6px; }
-  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:20px; }
+  .page-title { font-size:20px; font-weight:700; color:#F5F6FA; margin-bottom:6px; }
+  .page-sub { font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:20px; }
 
-  .summe-box { background:rgba(230,126,34,0.1); border:1px solid rgba(230,126,34,0.3); padding:16px 20px; margin-bottom:20px; font-family:var(--mono); }
-  .summe-box .label { font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; }
+  .summe-box { background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); padding:16px 20px; margin-bottom:20px; font-family:var(--mono); }
+  .summe-box .label { font-size:9px; color:var(--text-dim); }
   .summe-box .wert { font-size:22px; font-weight:700; color:var(--orange); }
 
   .toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-  .btn { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; }
-  .btn-primary { color:var(--green); border-color:rgba(46,204,113,0.4); }
-  .loeschmodus-btn { color:var(--red); border-color:rgba(231,76,60,0.3); }
+  .btn { font-family:var(--mono); font-size:10px; padding:9px 16px; cursor:pointer; border:1px solid; background:none; text-decoration:none; display:inline-block; border-radius:12px; }
+  .btn-primary { color:var(--green); border-color:rgba(74,222,128,0.4); }
+  .loeschmodus-btn { color:var(--red); border-color:rgba(248,113,113,0.3); }
   .loeschmodus-btn.aktiv { background:var(--red); color:#fff; }
 
-  table { width:100%; border-collapse:collapse; background:rgba(21,34,54,0.6); border:1px solid rgba(45,106,173,0.2); }
-  th { background:rgba(15,25,35,0.8); text-align:left; padding:10px 12px; font-family:var(--mono); font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--text-dim); border-bottom:1px solid rgba(45,106,173,0.2); }
-  td { padding:10px 12px; font-size:12px; border-bottom:1px solid rgba(45,106,173,0.1); }
+  table { width:100%; border-collapse:collapse; background:rgba(29,32,48,0.6); border:1px solid rgba(124,124,255,0.2); }
+  th { background:rgba(20,22,31,0.8); text-align:left; padding:10px 12px; font-family:var(--mono); font-size:9px; color:var(--text-dim); border-bottom:1px solid rgba(124,124,255,0.2); }
+  td { padding:10px 12px; font-size:12px; border-bottom:1px solid rgba(124,124,255,0.1); }
   tr:last-child td { border-bottom:none; }
   .betrag { font-family:var(--mono); color:var(--green); font-weight:700; }
   .aktion { color:var(--blue-bright); text-decoration:none; font-size:11px; margin-right:12px; }
   .aktion:hover { text-decoration:underline; }
-  .delete-btn { display:none; background:none; border:1px solid rgba(231,76,60,0.3); color:var(--red); font-family:var(--mono); font-size:9px; padding:4px 9px; cursor:pointer; }
+  .delete-btn { display:none; background:none; border:1px solid rgba(248,113,113,0.3); color:var(--red); font-family:var(--mono); font-size:9px; padding:4px 9px; cursor:pointer; }
   .delete-btn.sichtbar { display:inline-block; }
   .empty { text-align:center; font-family:var(--mono); font-size:11px; color:var(--text-dim); padding:30px; }
 
   @media(max-width:700px) {
     table, thead, tbody, th, td, tr { display:block; }
     thead { display:none; }
-    tr { background:rgba(21,34,54,0.8); margin-bottom:8px; padding:10px 12px; border:1px solid rgba(45,106,173,0.2); }
+    tr { background:rgba(29,32,48,0.8); margin-bottom:8px; padding:10px 12px; border:1px solid rgba(124,124,255,0.2); }
     td { border:none; padding:3px 0; }
-    td:before { content: attr(data-label); font-family:var(--mono); font-size:8px; color:var(--text-dim); text-transform:uppercase; display:block; }
+    td:before { content: attr(data-label); font-family:var(--mono); font-size:8px; color:var(--text-dim); display:block; }
   }
 </style>
 </head>
 <body>
-<?php require_once __DIR__ . '/_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../_sidebar.php'; ?>
 <div class="page-content-wrapper">
 
 <div class="main">
   <div class="page-title">Eigenbeleg-Historie</div>
-  <div class="page-sub">// FAHRTKOSTEN-BELEGE</div>
+  <div class="page-sub">Fahrtkosten-Belege</div>
 
   <div class="summe-box">
     <div class="label">Gesamtsumme aller Belege</div>
@@ -80,7 +80,7 @@ $gesamt_summe = array_sum(array_column($belege, 'gesamtbetrag'));
   </div>
 
   <?php if (empty($belege)): ?>
-    <div class="empty">// NOCH KEINE EIGENBELEGE ERSTELLT</div>
+    <div class="empty">Noch keine Eigenbelege erstellt</div>
   <?php else: ?>
   <table>
     <thead>
