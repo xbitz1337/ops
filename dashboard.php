@@ -617,7 +617,7 @@ $sendung_status_labels = ['unterwegs' => '🚚 Unterwegs', 'zugestellt' => '✓ 
 <meta name="apple-mobile-web-app-title" content="NA Ops">
 <meta name="theme-color" content="#14161F">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/dashboard.css?v=<?= @filemtime(__DIR__ . '/assets/dashboard.css') ?: time() ?>">
+<link rel="stylesheet" href="assets/dashboard2.css?v=<?= @filemtime(__DIR__ . '/assets/dashboard2.css') ?: time() ?>">
 <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2@1.8.2/dist/quagga.min.js"></script>
 </head>
 <body>
@@ -1540,6 +1540,6 @@ $sendung_status_labels = ['unterwegs' => '🚚 Unterwegs', 'zugestellt' => '✓ 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script src="assets/dashboard.js?v=<?= @filemtime(__DIR__ . '/assets/dashboard.js') ?: time() ?>"></script>
+<script src="assets/dashboard2.js?v=<?= @filemtime(__DIR__ . '/assets/dashboard2.js') ?: time() ?>"></script>
 </body>
 </html>
