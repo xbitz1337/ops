@@ -774,6 +774,19 @@ $sendung_status_labels = ['unterwegs' => '🚚 Unterwegs', 'zugestellt' => '✓ 
               <span>Stand <?= date('d.m.Y') ?></span>
             </div>
           </div>
+          <?php if (!empty($produkte)): ?>
+          <div class="ov-produkt-liste">
+            <?php foreach (array_slice($produkte, 0, 5) as $p): ?>
+            <div class="ov-produkt-liste-zeile">
+              <span class="ov-produkt-liste-name"><?= htmlspecialchars($p['name']) ?></span>
+              <span class="ov-produkt-liste-bestand <?= $p['bestand'] <= 5 ? 'low' : '' ?>"><?= $p['bestand'] ?> Stk</span>
+            </div>
+            <?php endforeach; ?>
+            <?php if ($lager_count > 5): ?>
+              <div class="ov-produkt-liste-mehr">+ <?= $lager_count - 5 ?> weitere — <a href="#" onclick="showPage('lager',null); return false;">alle ansehen →</a></div>
+            <?php endif; ?>
+          </div>
+          <?php endif; ?>
         </div>
 
         <div class="ov-card">
